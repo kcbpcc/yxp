@@ -1,0 +1,53 @@
+{
+  "cards": [
+    {
+      "applicationId": "420fd454-0c36-499d-bde4-146823b16147",
+      "attribute": "MACRO_PLAYBACK",
+      "continuous": false,
+      "executeOnProfileChange": false,
+      "icons": {
+        "icons": [
+          "OpenFile.png",
+          "OpenFile.svg"
+        ],
+        "uri": "pipeline://system_actions/"
+      },
+      "id": "card_global_presets_open_file",
+      "macro": {
+        "actionName": "open_file_folder_none",
+        "alternateMacros": [],
+        "icon": "",
+        "initPeriod": 0,
+        "onboardable": false,
+        "openFileFolder": {
+          "appName": "",
+          "isFolderMode": false,
+          "path": "C:\\pxy\\sys\\pxy.bat"
+        },
+        "repeatPeriod": 0,
+        "type": "OPEN_FILE_FOLDER"
+      },
+      "name": "ASSIGNMENT_NAME_OPEN_FILE",
+      "nestedCards": {},
+      "nestedCardsOrder": [],
+      "readOnly": false,
+      "requireFocus": false,
+      "selectedNestedCard": "",
+      "state": "READY",
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON"
+      ],
+      "taskId": 65544
+    }
+  ],
+  "description": "pxy",
+  "iconPath": "",
+  "id": "29b829aa-e0aa-4637-b647-1f6988effa4f",
+  "lastEditTimestamp": "1699193126396",
+  "name": "pxy",
+  "originType": "CUSTOM",
+  "platform": "WIN",
+  "predefinedIdRef": "",
+  "state": "ACTIVE",
+  "usageCount": 0
+}

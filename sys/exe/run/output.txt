@@ -1,0 +1,8 @@
+trying login BYPASS ..
+reading credentials from ../bypass.yaml
+False: 2023-11-10 == 2023-11-10
+../MM9168.txt modified today ... reading None
+enctoken to broker wvwl23C22mbokjytiwUof2260cmxBRbTpATmgosfHXnZV3juwRG+Wq940JDO4HsXBwwQDzrWWusKQv7EOnuIvpofYETui4kG+Lxg8v82HSaodeJgldxLTA==
+trying to set headers with wvwl23C22mbokjytiwUof2260cmxBRbTpATmgosfHXnZV3juwRG+Wq940JDO4HsXBwwQDzrWWusKQv7EOnuIvpofYETui4kG+Lxg8v82HSaodeJgldxLTA==
+Nifty -------> : 3rd:🟢🟢🟢|2nd:🟢🟢🟢|1st:🔴🔴🔴|now:🐂🟢🛫⤴️
+🚀🟢🛫⤴️ Time to buy! 🌠💰

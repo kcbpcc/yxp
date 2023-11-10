@@ -1,0 +1,53 @@
+{
+  "cards": [
+    {
+      "applicationId": "420fd454-0c36-499d-bde4-146823b16147",
+      "attribute": "MACRO_PLAYBACK",
+      "continuous": false,
+      "executeOnProfileChange": false,
+      "icons": {
+        "icons": [
+          "OpenFolder.png",
+          "OpenFolder.svg"
+        ],
+        "uri": "pipeline://system_actions/"
+      },
+      "id": "card_global_presets_open_folder",
+      "macro": {
+        "actionName": "open_file_folder_none",
+        "alternateMacros": [],
+        "icon": "",
+        "initPeriod": 0,
+        "onboardable": false,
+        "openFileFolder": {
+          "appName": "",
+          "isFolderMode": true,
+          "path": "C:\\pxy\\sys\\exe\\run"
+        },
+        "repeatPeriod": 0,
+        "type": "OPEN_FILE_FOLDER"
+      },
+      "name": "ASSIGNMENT_NAME_OPEN_FOLDER",
+      "nestedCards": {},
+      "nestedCardsOrder": [],
+      "readOnly": false,
+      "requireFocus": false,
+      "selectedNestedCard": "",
+      "state": "READY",
+      "tags": [
+        "PRESET_TAG_KEY_OR_BUTTON"
+      ],
+      "taskId": 65545
+    }
+  ],
+  "description": "run",
+  "iconPath": "",
+  "id": "0b98a47e-b58a-4185-88a0-077a0bb140ac",
+  "lastEditTimestamp": "1699193094385",
+  "name": "run",
+  "originType": "CUSTOM",
+  "platform": "WIN",
+  "predefinedIdRef": "",
+  "state": "ACTIVE",
+  "usageCount": 0
+}
