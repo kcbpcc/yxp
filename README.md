@@ -1,1 +1,1 @@
-https://github.com/PreciseXceleratedYieldPXY/pxy.git
+git clone https://github.com/PreciseXceleratedYieldPXY/pxy.git
