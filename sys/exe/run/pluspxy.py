@@ -14,7 +14,7 @@ from colorama import Fore, Style
 SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
 RESET = "\033[0m"
-print(f'{SILVER}{UNDERLINE}"PXY® PreciseXceleratedYield Pvt Ltd™ All Rights Reserved."{RESET}')
+print(f'{SILVER}{UNDERLINE}"PXY® PreciseXceleratedYield Pvt Ltd™"{RESET}')
 logging = Logger(30, dir_path + "main.log")
 try:
     sys.stdout = open('output.txt', 'w')
@@ -287,7 +287,7 @@ try:
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['source','product', 'key', 'qty','avg','close', 'ltp', 'open', 'high','low','dPnL%','PXY','PnL%','PnL']]
-    PRINT_df = pxy_df[['source','product', 'key','dPnL%','PXY','PnL%','PnL']]
+    PRINT_df = pxy_df[['source','product', 'key','PXY','PnL%','PnL']]
     # Sort the DataFrame by 'PnL%' in ascending order
     # Assuming you have a DataFrame named PRINT_df
     PRINT_df_sorted = PRINT_df[(PRINT_df['product'] == 'MIS') | ((PRINT_df['product'] == 'CNC') & (PRINT_df['PnL%'] > 0))].sort_values(by='PnL', ascending=True)
@@ -309,19 +309,19 @@ try:
     BRIGHT_RED = "\033[91m"
     BRIGHT_GREEN = "\033[92m"
     # Print all three sets of values in a single line with rounding to 2 decimal places
-    column_width = 40
+    column_width = 36
     left_aligned_format = "{:<" + str(column_width) + "}"
     right_aligned_format = "{:>" + str(column_width) + "}"
-    print(left_aligned_format.format(f"Day Change %: {BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
-    print(right_aligned_format.format(f"Total Day dPnL {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
-    print(left_aligned_format.format(f"Day Status: {BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
-    print(right_aligned_format.format(f"Total Day dPnL% {BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
-    print(left_aligned_format.format(f"Open Change %: {BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
-    print(right_aligned_format.format(f"Precise Check (Precise): {BRIGHT_GREEN if Precise > 1.4 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
-    print(left_aligned_format.format(f"Total PnL: {BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
-    print(right_aligned_format.format(f"Xcelerated Check (Xlratd): {BRIGHT_GREEN if Xlratd > 2.4 else BRIGHT_RED}{round(Xlratd, 2)}{RESET}"))
-    print(left_aligned_format.format(f"Total PnL%: {BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-    print(right_aligned_format.format(f"Yield Check (Yield): {BRIGHT_GREEN if Yield > 3.4 else BRIGHT_RED}{round(Yield, 2)}{RESET}"))
+    print(left_aligned_format.format(f"@Close%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
+    print(right_aligned_format.format(f"dPnL {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
+    print(left_aligned_format.format(f"@Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
+    print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
+    print(left_aligned_format.format(f"@Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
+    print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if Precise > 1.4 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
+    print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
+    print(right_aligned_format.format(f"Xlratd:{BRIGHT_GREEN if Xlratd > 2.4 else BRIGHT_RED}{round(Xlratd, 2)}{RESET}"))
+    print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
+    print(right_aligned_format.format(f"Yield:{BRIGHT_GREEN if Yield > 3.4 else BRIGHT_RED}{round(Yield, 2)}{RESET}"))
     # Always print "Table" in bright yellow
     print(f"{BRIGHT_YELLOW}Table– Above Precise and reaching Xcelerated{RESET}")
     # Print EXE_df_sorted without color
@@ -376,7 +376,7 @@ try:
                         except Exception as e:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-                    elif row['product'] == 'MIS' and row['source'] == 'positions' and row['PnL%'] < -0.7 and row['qty'] < 0:
+                    elif row['product'] == 'MIS' and row['source'] == 'positions' and row['PnL%'] < 4 and row['qty'] < 0:
 
                         # Print the row before placing the order
                         print(row)
@@ -414,7 +414,7 @@ try:
         except Exception as e:
             # Handle any other exceptions that may occur during the loop
             print(f"An unexpected error occurred: {e}")
-        print(f'{SILVER}{UNDERLINE}"PXY® PreciseXceleratedYield Pvt Ltd™ All Rights Reserved."{RESET}')
+        print(f'{SILVER}{UNDERLINE}"PXY® PreciseXceleratedYield Pvt Ltd™"{RESET}')
 
 
 except Exception as e:
