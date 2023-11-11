@@ -1,26 +1,31 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
+import time
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--headless')
+# Set up Firefox options for running in headless mode
+firefox_options = Options()
+firefox_options.headless = True
 
-# Update the path to the Chromium WebDriver executable
-chromium_driver_path = '/path/to/chromium-driver'
+# Create a WebDriver instance with the specified Firefox options
+driver = webdriver.Firefox(options=firefox_options)
 
-driver = webdriver.Chrome(service=Service(chromium_driver_path), options=chrome_options)
-
+# Rest of your code remains the same
 url = 'https://scanners.streak.tech/scanner/minuspxy'
 driver.get(url)
 
-wait = WebDriverWait(driver, 20)
+# Wait for the "Run Scan >>" button to be clickable (increased timeout to 20 seconds)
+wait = WebDriverWait(driver, 5)
 scan_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Run Scan')]")))
 scan_button.click()
 
-wait.until(EC.presence_of_element_located((By.TAG_NAME, 'table')))
+# Wait for the table to load (you may need to adjust this wait time)
+time.sleep(2)
+
+# Capture the page source after clicking the button
 page_source = driver.page_source
 
 # Parse the HTML content with BeautifulSoup
@@ -30,7 +35,7 @@ soup = BeautifulSoup(page_source, 'html.parser')
 table = soup.find('table')
 
 if table:
-    with open('../minuspxy.txt', 'w') as file:  # Use '../' to refer to the parent directory
+    with open('../pluspxy.txt', 'w') as file:  # Use '../' to refer to the parent directory
         rows = table.find_all('tr')
         for row in rows:
             columns = row.find_all('td')
