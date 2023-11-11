@@ -1,3 +1,4 @@
+wheel
 setuptools==58.2.0
 git+https://github.com/PreciseXceleratedYieldPXY/kiteext.git
 git+https://github.com/PreciseXceleratedYieldPXY/toolkit.git
@@ -17,4 +18,3 @@ rich
 python-telegram-bot
 textblob
 colorama
-wheel

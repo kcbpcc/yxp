@@ -287,7 +287,7 @@ try:
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['source','product', 'key', 'qty','avg','close', 'ltp', 'open', 'high','low','dPnL%','PXY','PnL%','PnL']]
-    PRINT_df = pxy_df[['source','product', 'key','PXY','PnL%','PnL']]
+    PRINT_df = pxy_df[['source','product', 'key','dPnL%','PXY','PnL%','PnL']]
     # Rename columns for display
     PRINT_df = PRINT_df.rename(columns={'source': 'P/H', 'product': 'C/M'})
 
@@ -297,13 +297,17 @@ try:
     # Conditionally replace values in the 'C/M' column
     PRINT_df['C/M'] = PRINT_df['C/M'].replace({'CNC': 'C', 'MIS': 'M'})
 
+    # Convert the 'PnL' column to integers
+
+
+
     # Remove 'BSE:' or 'NSE:' from the 'key' column
     PRINT_df['key'] = PRINT_df['key'].str.replace(r'(BSE:|NSE:)', '', regex=True)
     
     # Sort the DataFrame by 'PnL%' in ascending order
     # Assuming you have a DataFrame named PRINT_df
     PRINT_df_sorted = PRINT_df[(PRINT_df['C/M'] == 'M') | ((PRINT_df['C/M'] == 'C') & (PRINT_df['PnL%'] > 0))].sort_values(by='PnL', ascending=True)
- 
+    PRINT_df_sorted['PnL'] = PRINT_df_sorted['PnL'].astype(int) 
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
@@ -408,7 +412,7 @@ try:
             # Handle any other exceptions that may occur during the loop
             print(f"An unexpected error occurred: {e}")
         
-        print(f"{BRIGHT_YELLOW}My Trades Overview & Market Dynamics {RESET}")
+        print(f"{BRIGHT_YELLOW}📉🔀📈 Trades Overview & Market Dynamics 🔄 {RESET}")
         # ANSI escape codes for text coloring
         RESET = "\033[0m"
         BRIGHT_YELLOW = "\033[93m"
@@ -429,7 +433,7 @@ try:
         print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Yield:{BRIGHT_GREEN if Yield > 3.4 else BRIGHT_RED}{round(Yield, 2)}{RESET}"))
 
-        print(f'{SILVER}{UNDERLINE}"PXY® PreciseXceleratedYield Pvt Ltd™"{RESET}')
+        print(f'{SILVER}{UNDERLINE}       PXY® PreciseXceleratedYield Pvt Ltd™{RESET}')
 except Exception as e:
     remove_token(dir_path)
     print(traceback.format_exc())

@@ -6,7 +6,7 @@ from rich.table import Table
 csv_file_path = "filePnL.csv"
 
 # Set the overall table width
-table_width = 30
+table_width = 35
 
 # Create a table to display the selected columns with custom headers
 table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
@@ -43,7 +43,7 @@ try:
             # Convert numerical values to strings and round them to two decimal places
             pxy = str(round(float(pxy), 1))
             pnl_percentage = str(round(float(pnl_percentage), 1))
-            pnl = str(round(float(pnl), 1))
+            pnl = str(round(float(pnl)))
 
             # Map product values
             product_mapping = {"CNC": "C", "MIS": "M"}

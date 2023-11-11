@@ -18,6 +18,26 @@ import traceback
 import sys
 import os
 import ynfndpxy
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from toolkit.logger import Logger
+from toolkit.currency import round_to_paise
+from toolkit.utilities import Utilities
+from login_get_kite import get_kite
+from cnstpxy import dir_path, fileutils, buybuff, max_target
+import pandas as pd
+import traceback
+import sys
+import os
+import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
 import os
@@ -61,7 +81,7 @@ soup = BeautifulSoup(page_source, 'html.parser')
 table = soup.find('table')
 
 if table:
-    with open('../minuspxy.txt', 'w') as file:  # Use '../' to refer to the parent directory
+    with open('../pluspxy.txt', 'w') as file:  # Use '../' to refer to the parent directory
         rows = table.find_all('tr')
         for row in rows:
             columns = row.find_all('td')
@@ -70,7 +90,7 @@ if table:
                 file.write(first_column + '\n')
 
 ### Print the contents of the file
-##with open('../minuspxy.txt', 'r') as file:  # Use '../' to refer to the parent directory
+##with open('../pluspxy.txt', 'r') as file:  # Use '../' to refer to the parent directory
 ##    file_contents = file.read()
 ##    print("File Contents:")
 ##    print(file_contents)
@@ -78,7 +98,6 @@ if table:
         
 # Close the browser window
 driver.quit()
-
 
 # Initialize the Logger
 logging = Logger(10)
