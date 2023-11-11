@@ -5,36 +5,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-
 chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = '/usr/bin/chromium'  # Update this path if needed
-
-# Add any other options you need, e.g., headless mode
 chrome_options.add_argument('--headless')
-
-# Specify the full path to your Chromedriver executable
 chromium_driver_path = '/usr/bin/chromedriver'
 
-# Create a ChromeDriver instance
 driver = webdriver.Chrome(service=Service(chromium_driver_path), options=chrome_options)
 
-
-
-# Navigate to the URL
 url = 'https://scanners.streak.tech/scanner/minuspxy'
 driver.get(url)
 
-# Wait for the "Run Scan >>" button to be clickable
 wait = WebDriverWait(driver, 20)
 scan_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Run Scan')]")))
 scan_button.click()
 
-# Wait for the table to load
 wait.until(EC.presence_of_element_located((By.TAG_NAME, 'table')))
-
-# Capture the page source after clicking the button
 page_source = driver.page_source
 
 # Parse the HTML content with BeautifulSoup
