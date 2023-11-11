@@ -7,14 +7,14 @@ from bs4 import BeautifulSoup
 import time
 
 # Set the path to the GeckoDriver executable
-geckodriver_path = '/home/userland/local/bin/geckodriver'  # Replace with the actual path
+#geckodriver_path = '/home/userland/local/bin/geckodriver'  # Replace with the actual path
 
 # Set up Firefox options for running in headless mode
 firefox_options = Options()
 firefox_options.headless = True
 
 # Create a WebDriver instance with the specified Firefox options and executable path
-driver = webdriver.Firefox(options=firefox_options, executable_path=geckodriver_path)
+driver = webdriver.Firefox(options=firefox_options)
 
 # Rest of your code remains the same...
 
