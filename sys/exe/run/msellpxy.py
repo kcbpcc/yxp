@@ -24,7 +24,7 @@ chrome_options.add_argument('--headless')  # Run Chrome in headless mode
 chrome_options.add_argument('--disable-gpu')  # Disable GPU for headless mode
 
 # Specify the path to your Chromium WebDriver executable
-chromium_driver_path = '/usr/bin'  # Replace this with the actual path
+chromium_driver_path = '/usr/bin/chromedriver'  # Replace this with the actual path
 driver = webdriver.Chrome(options=chrome_options, executable_path=chromium_driver_path)
 
 
