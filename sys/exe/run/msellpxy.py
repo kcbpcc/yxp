@@ -7,7 +7,9 @@ from bs4 import BeautifulSoup
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
-chromium_driver_path = '/usr/bin/chromedriver'
+
+# Update the path to the Chromium WebDriver executable
+chromium_driver_path = '/path/to/chromium-driver'
 
 driver = webdriver.Chrome(service=Service(chromium_driver_path), options=chrome_options)
 
@@ -38,6 +40,7 @@ if table:
 
 # Close the browser window
 driver.quit()
+
 
 
 
