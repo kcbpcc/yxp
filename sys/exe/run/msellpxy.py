@@ -18,7 +18,7 @@ chrome_options.add_argument('--headless')
 chromium_driver_path = '/usr/bin/chromedriver'
 
 # Create a ChromeDriver instance
-driver = webdriver.Chrome(service=Service(chromium_driver_path), options=chrome_options)
+driver = webdriver.Chrome(executable_path=chromium_driver_path, options=chrome_options)
 
 
 # Navigate to the URL
