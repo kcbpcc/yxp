@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
-import time
 
 # Set up Chrome options for running in headless mode
 chrome_options = webdriver.ChromeOptions()
@@ -12,21 +11,26 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')  # Run Chrome in headless mode
 chrome_options.add_argument('--disable-gpu')  # Disable GPU for headless mode
 
+# Specify the full path to the Chrome binary
+chrome_options.binary_location = '/usr/bin/chromium'
+
 # Specify the path to your Chromium WebDriver executable
-chromium_driver_path = '/usr/bin/chromedriver'  # Replace this with the actual path
+chromium_driver_path = '/path/to/chromedriver'  # Replace this with the actual path
+
+# Create a ChromeDriver instance
 driver = webdriver.Chrome(options=chrome_options, service=Service(chromium_driver_path))
 
 # Navigate to the URL
 url = 'https://scanners.streak.tech/scanner/minuspxy'
 driver.get(url)
 
-# Wait for the "Run Scan >>" button to be clickable (increased timeout to 20 seconds)
+# Wait for the "Run Scan >>" button to be clickable
 wait = WebDriverWait(driver, 20)
 scan_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Run Scan')]")))
 scan_button.click()
 
-# Wait for the table to load (you may need to adjust this wait time)
-time.sleep(2)
+# Wait for the table to load
+wait.until(EC.presence_of_element_located((By.TAG_NAME, 'table')))
 
 # Capture the page source after clicking the button
 page_source = driver.page_source
