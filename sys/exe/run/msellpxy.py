@@ -1,27 +1,14 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
-from toolkit.logger import Logger
-from toolkit.currency import round_to_paise
-from toolkit.utilities import Utilities
-from login_get_kite import get_kite
-from cnstpxy import dir_path, fileutils, buybuff, max_target
-import pandas as pd
-import traceback
-import sys
-import os
-from ynfndpxy import calculate_decision
-from mktpxy import mktpxy
 import time
-from byhopxy import get
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 
 # Set up Chrome options for running in headless mode
-chrome_options = Options()
+chrome_options = webdriver.ChromeOptions()
+
 chrome_options.add_argument('--headless')  # Run Chrome in headless mode
 chrome_options.add_argument('--disable-gpu')  # Disable GPU for headless mode
 
@@ -29,20 +16,14 @@ chrome_options.add_argument('--disable-gpu')  # Disable GPU for headless mode
 chromium_driver_path = '/usr/bin/chromedriver'  # Replace this with the actual path
 driver = webdriver.Chrome(options=chrome_options, service=Service(chromium_driver_path))
 
-# Close the browser window
-driver.quit()
-
-
-# Rest of your code remains the same
+# Navigate to the URL
 url = 'https://scanners.streak.tech/scanner/minuspxy'
 driver.get(url)
 
 # Wait for the "Run Scan >>" button to be clickable (increased timeout to 20 seconds)
-wait = WebDriverWait(driver, 5)
+wait = WebDriverWait(driver, 20)
 scan_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Run Scan')]")))
 scan_button.click()
-
-
 
 # Wait for the table to load (you may need to adjust this wait time)
 time.sleep(2)
@@ -65,15 +46,9 @@ if table:
                 first_column = columns[0].text.strip()  # Extract data from the first column
                 file.write(first_column + '\n')
 
-### Print the contents of the file
-##with open('../minuspxy.txt', 'r') as file:  # Use '../' to refer to the parent directory
-##    file_contents = file.read()
-##    print("File Contents:")
-##    print(file_contents)
-
-        
 # Close the browser window
 driver.quit()
+
 
 
 # Initialize the Logger
