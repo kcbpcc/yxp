@@ -3,7 +3,7 @@ from prettytable import PrettyTable
 from colorama import Fore, Style
 
 def convert_to_laks(value):
-    return f'{value/100000:.4f} Laks'
+    return f'{value/100000:.4f}'
 
 def format_value(value):
     if value == 'Profit & Loss':
