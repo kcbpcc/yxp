@@ -5,20 +5,21 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 
-# Set up Chrome options for running in headless mode
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+
 chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = '/usr/bin/chromium'  # Update this path if needed
 
-chrome_options.add_argument('--headless')  # Run Chrome in headless mode
-chrome_options.add_argument('--disable-gpu')  # Disable GPU for headless mode
+# Add any other options you need, e.g., headless mode
+chrome_options.add_argument('--headless')
 
-# Specify the full path to the Chrome binary
-chrome_options.binary_location = '/usr/bin/chromium'
-
-# Specify the path to your Chromium WebDriver executable
-chromium_driver_path = '/path/to/chromedriver'  # Replace this with the actual path
+# Specify the full path to your Chromedriver executable
+chromium_driver_path = '/usr/bin/chromedriver'
 
 # Create a ChromeDriver instance
-driver = webdriver.Chrome(options=chrome_options, service=Service(chromium_driver_path))
+driver = webdriver.Chrome(service=Service(chromium_driver_path), options=chrome_options)
+
 
 # Navigate to the URL
 url = 'https://scanners.streak.tech/scanner/minuspxy'
