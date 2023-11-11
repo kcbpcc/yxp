@@ -4,10 +4,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from toolkit.logger import Logger
 from toolkit.currency import round_to_paise
 from toolkit.utilities import Utilities
@@ -17,16 +13,9 @@ import pandas as pd
 import traceback
 import sys
 import os
-import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
-import os
 import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from bs4 import BeautifulSoup
 from byhopxy import get
 
 # Set up Chrome options for running in headless mode
@@ -34,8 +23,15 @@ chrome_options = Options()
 chrome_options.add_argument('--headless')  # Run Chrome in headless mode
 chrome_options.add_argument('--disable-gpu')  # Disable GPU for headless mode
 
-# Create a WebDriver instance with the specified Chrome options
-driver = webdriver.Chrome(options=chrome_options, executable_path=driver_path)
+# Specify the path to your Chromium WebDriver executable
+chromium_driver_path = '/usr/bin'  # Replace this with the actual path
+driver = webdriver.Chrome(options=chrome_options, executable_path=chromium_driver_path)
+
+
+
+# Close the browser window
+driver.quit()
+
 
 # Rest of your code remains the same
 url = 'https://scanners.streak.tech/scanner/minuspxy'
