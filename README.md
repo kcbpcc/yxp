@@ -16,7 +16,7 @@ sudo apt install python3.9-venv
 
 python3.9 -m venv env
 
-source env/bin/activate
+source ~/env/bin/activate
 
 pip install --upgrade pip
 
