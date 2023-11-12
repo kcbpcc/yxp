@@ -107,7 +107,7 @@ while True:
         for i in range(duration):
             time.sleep(1)
             print("✨.", end='', flush=True)
-        print("\nTask completed!")
+        print("\nNow getting on to market!")
     secs = 15 
     progress_bar(secs)
 
