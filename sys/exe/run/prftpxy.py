@@ -45,9 +45,9 @@ try:
             pnl_percentage = str(round(float(pnl_percentage), 1))
             pnl = str(round(float(pnl)))
 
-            # Map product values
-            product_mapping = {"CNC": "C", "MIS": "M"}
-            mapped_product = product_mapping.get(product.upper(), product)
+            # Map CM values
+            CM_mapping = {"CNC": "C", "MIS": "M"}
+            mapped_CM = CM_mapping.get(CM.upper(), CM)
 
             # Map PH values
             PH_mapping = {"positions": "P", "holdings": "H"}
@@ -57,7 +57,7 @@ try:
             total_profit += float(pnl)
 
             # Add the row to the table
-            table.add_row(mapped_PH, mapped_product, key, pxy, pnl_percentage, pnl)
+            table.add_row(mapped_PH, mapped_CM, key, pxy, pnl_percentage, pnl)
 
     # Print the table with the updated column names
     print(table)
