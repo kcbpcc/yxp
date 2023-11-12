@@ -34,5 +34,6 @@ sudo pip3 install -r requirements.txt
 
 cd ~/pxy/sys/exe/run
 
-python 3.9 or greater git bash to clone this git repo and keep it updated
+python 3.9 - https://www.python.org/downloads/release/python-390/
+Git - https://git-scm.com/downloads
 
