@@ -110,17 +110,3 @@ while True:
         print("\nTask completed!")
     secs = 15 
     progress_bar(secs)
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
