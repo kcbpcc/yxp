@@ -22,7 +22,7 @@ sudo apt install git
 
 git --version
 
-git clone https://github.com/PreciseXceleratedYieldPXY/pxy.git
+git clone https://github.com/kcbpcc/pxy.git
 
 cd ~/pxy/sys/exe
 
