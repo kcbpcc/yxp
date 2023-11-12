@@ -24,13 +24,13 @@ git --version
 
 git clone https://github.com/kcbpcc/pxy.git
 
-cd ~/pxy/sys/exe
-
-sudo pip3 install -r requirements.txt
-
 sudo cp ~/pxy/sys/pxy /usr/local/bin/
 
 sudo chmod x+ /usr/local/bin/pxy
+
+cd ~/pxy/sys/exe
+
+sudo pip3 install -r requirements.txt
 
 cd ~/pxy/sys/exe/run
 
