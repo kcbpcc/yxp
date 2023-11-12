@@ -1,10 +1,10 @@
 import time
-from datetime import datetime as dt_time
+from datetime import datetime
 
 while True:
-    now = dt_time.now().time()
-    market_open_time = dt_time(9, 0)  # Provide both hour and minute
-    market_close_time = dt_time(15, 30)
+    now = datetime.now().time()
+    market_open_time = datetime.strptime("09:00", "%H:%M").time()
+    market_close_time = datetime.strptime("15:30", "%H:%M").time()
 
     if market_open_time <= now <= market_close_time:
         import yfinance as yf
