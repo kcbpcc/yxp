@@ -12,6 +12,7 @@ while True:
     ############################################"PXY® PreciseXceleratedYield Pvt Ltd™############################################
 
     subprocess.run(['python3', 'prftpxy.py'])
+    subprocess.run(['python3', 'clnpxy.py'])
     #subprocess.run(['python3', 'prntpxy.py'])
     subprocess.run(['python3', 'dshpxy.py'])
     #subprocess.run(['python3', 'cndlpxy.py'])
