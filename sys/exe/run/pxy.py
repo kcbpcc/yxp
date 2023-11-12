@@ -75,7 +75,7 @@ while True:
         elif current_color == 'Bull' and last_closed_color == 'Bull':
             mktpxy = 'Bull'
             console.print("🐂🟢🟢🟢 [bold]Bullish sentiment![/bold] 💪💰", style=bull_style)
-            subprocess.run(['python3', 'buypxy.py'])
+            subprocess.run(['python3', 'buytrndpxy.py'])
             subprocess.run(['python3', 'pluspxy.py'])
         elif current_color == 'Bear' and last_closed_color == 'Bull':
             mktpxy = 'Sell'
@@ -85,7 +85,7 @@ while True:
         elif current_color == 'Bull' and last_closed_color == 'Bear':
             mktpxy = 'Buy'
             console.print("🚀🟢🛫⤴️ [bold]Time to buy![/bold] 🌠💰", style=buy_style)
-            subprocess.run(['python3', 'buypxy.py'])
+            subprocess.run(['python3', 'buytrndpxy.py'])
             subprocess.run(['python3', 'pluspxy.py'])
             
 
