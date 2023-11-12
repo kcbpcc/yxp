@@ -1,2 +1,3 @@
 @echo on
-cmd /k "cd /d C:\pxy\sys\exe\run & python pxy.py"
+cmd /k "C:\pxy\env\Scripts\activate & cd /d C:\pxy\sys\exe\run & python pxy.py"
+
