@@ -28,7 +28,9 @@ cd ~/pxy/sys/exe
 
 sudo pip3 install -r requirements.txt
 
-sudo cp ~/pxy/sys/pxy.sh ~/bin/pxy
+sudo cp ~/pxy/sys/pxy /usr/local/bin/
+
+sudo chmod x+ /usr/local/bin/pxy
 
 cd ~/pxy/sys/exe/run
 
