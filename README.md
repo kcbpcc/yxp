@@ -1,3 +1,6 @@
+python 3.9 - https://www.python.org/downloads/release/python-390/
+Git - https://git-scm.com/downloads
+
 sudo apt update
 
 sudo apt install software-properties-common
@@ -34,6 +37,5 @@ sudo pip3 install -r requirements.txt
 
 cd ~/pxy/sys/exe/run
 
-python 3.9 - https://www.python.org/downloads/release/python-390/
-Git - https://git-scm.com/downloads
+
 
