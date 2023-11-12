@@ -26,6 +26,6 @@ git clone https://github.com/PreciseXceleratedYieldPXY/pxy.git
 
 cd ~/pxy/sys/exe
 
-pip3 install -r requirements.txt
+sudo pip3 install -r requirements.txt
 
 cd ~/pxy/sys/exe/run
