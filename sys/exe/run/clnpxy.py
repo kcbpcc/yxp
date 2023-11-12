@@ -25,5 +25,5 @@ if is_time_between(start_time, end_time):
 
     print(f"Contents of {file_path} deleted successfully at {datetime.now()}.")
 else:
-    #print(f"Current time is not within the specified range. No deletion performed at {datetime.now()}.")
+    print(f"Current time is not within the specified range. No deletion performed at {datetime.now()}.")
 
