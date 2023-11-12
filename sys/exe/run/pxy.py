@@ -3,7 +3,7 @@ from datetime import datetime as dt_time
 
 while True:
     now = dt_time.now().time()
-    market_open_time = dt_time(9, 0)
+    market_open_time = dt_time(9, 0)  # Provide both hour and minute
     market_close_time = dt_time(15, 30)
 
     if market_open_time <= now <= market_close_time:
