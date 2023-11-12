@@ -35,7 +35,7 @@ try:
         # Iterate over each row in the CSV file and add it to the table
         for row in csvreader:
             # Adjust column indices to match your CSV file structure
-            PH, product, key, qty, avg, close, ltp, open, high, low, dpnl_percentage, pxy, pnl_percentage, pnl = row
+            PH, CM, key, qty, avg, close, ltp, open, high, low, dpnl_percentage, pxy, pnl_percentage, pnl = row
 
             # Remove "NSE:" or "BSE:" prefix from the "Key" column
             key = key.replace("NSE:", "").replace("BSE:", "")
