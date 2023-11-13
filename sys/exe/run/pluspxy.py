@@ -417,7 +417,7 @@ try:
         BRIGHT_RED = "\033[91m"
         BRIGHT_GREEN = "\033[92m"
         # Print all three sets of values in a single line with rounding to 2 decimal places
-        column_width = 30
+        column_width = 50
         left_aligned_format = "{:<" + str(column_width) + "}"
         right_aligned_format = "{:>" + str(column_width) + "}"
         print(left_aligned_format.format(f"@Close%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
