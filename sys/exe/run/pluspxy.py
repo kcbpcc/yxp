@@ -9,8 +9,6 @@ import subprocess
 from cnstpxy import dir_path
 from colorama import Fore, Style
 
-
-
 SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
 RESET = "\033[0m"
