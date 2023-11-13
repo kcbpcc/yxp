@@ -6,7 +6,7 @@ from rich.table import Table
 csv_file_path = "filePnL.csv"
 
 # Set the overall table width
-table_width = 35
+table_width = 40
 
 # Create a table to display the selected columns with custom headers
 table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
