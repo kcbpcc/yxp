@@ -285,7 +285,7 @@ try:
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['product','source', 'key', 'qty','avg','close', 'Pr', 'Xi', 'Yi','PnL%_H','dPnL%','PXY','PnL%','PnL']]
-    PRINT_df = pxy_df[['product','source', 'key','Pr','Xl',''Yi'','PnL']]
+    PRINT_df = pxy_df[['product','source', 'key','Pr','Xl','Yi','PnL']]
     # Rename columns for display
     PRINT_df = PRINT_df.rename(columns={'source': 'P/H', 'product': 'C/M'})
 
