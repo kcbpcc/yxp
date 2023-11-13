@@ -257,7 +257,7 @@ try:
     score_value = NIFTY['Score'].values[0]
     # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
     # Calculate the metrics
-    NIFTY['strength'] = NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['close_price'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['close_price'] - 0.01))) * 1.4
+    NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
     NIFTY['pricerange'] = (NIFTY['high'] + 0.01) - (NIFTY['close_price'] - 0.01)
     NIFTY['priceratio'] =  (NIFTY['ltp'] - NIFTY['close_price'])/NIFTY['pricerange']
     # Extract and print just the values without the column name and data type information
@@ -267,9 +267,9 @@ try:
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    Precise = max(1.4, (1 + (NIFTY['Day_Change_%'] * 2.4).round(1)).max())
-    Xlratd = max(1.4, (2 + (NIFTY['Day_Change_%'] * 3.4).round(1)).max())
-    Yield = max(1.4, (3 + (NIFTY['Day_Change_%'] * 4.4).round(1)).max())
+    Precise = max(1.4, (NIFTY['strength'] * 4).round(1)).max())
+    Xlratd = max(1.4, (NIFTY['strength'] * 5).round(1)).max())
+    Yield = max(1.4, (NIFTY['strength'] * 6).round(1)).max())
     conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear')]
     choices_pxy = ['Yield', 'Xlratd', 'Precise']
     PXY = np.select(conditions_pxy, choices_pxy, default='Yield')
