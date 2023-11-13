@@ -286,7 +286,7 @@ try:
     pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
-    EXE_df = pxy_df[['source','product', 'key', 'qty','avg','close', 'ltp', 'open', 'high','low','dPnL%','PXY','PnL%','PnL']]
+    EXE_df = pxy_df[['source','product', 'key', 'qty','avg','close', 'ltp', 'open', 'high','PnL%_H','dPnL%','PXY','PnL%','PnL']]
     PRINT_df = pxy_df[['product','source', 'key','dPnL%','PXY','PnL%','PnL']]
     # Rename columns for display
     PRINT_df = PRINT_df.rename(columns={'source': 'P/H', 'product': 'C/M'})
@@ -335,9 +335,11 @@ try:
                 key = row['key']  # Get the 'key' value
                 # Check the common conditions first
                 if (
-                    (row['ltp'] > 0 and row['avg'] > 0)
+                    (row['ltp'] > 0 and row['avg'] > 0 and row['PnL%'] > 1.4 )
                 ):
-                    if (row['source'] == 'holdings' and row['product'] == 'CNC' and row['PnL%'] > 1.4 and row['PnL%'] > row['PXY']
+                    if (row['source'] == 'holdings' and 
+                        row['product'] == 'CNC' and 
+                        (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])):
                         
                     ):
                         # Print the row before placing the order
