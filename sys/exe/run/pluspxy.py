@@ -429,7 +429,7 @@ try:
         print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Xlratd:{BRIGHT_GREEN if Xlratd > 3 else BRIGHT_RED}{round(Xlratd, 2)}{RESET}"))
         print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"{'🔴🔴🔴' if mktpxy == 'Bear' else '🟢🟢🟢' if mktpxy == 'Bull' else '🔴🛬⤵️' if mktpxy == 'Sell' else '🟢🛫⤴️' if mktpxy == 'Buy' else 'Unknown'} {mktpxy}"))
+        print(right_aligned_format.format(f"{'🔴🔴🔴' if mktpxy == 'Bear' else '🟢🟢🟢' if mktpxy == 'Bull' else '🔴🛬⤵️' if mktpxy == 'Sell' else '🟢🛫⤴️' if mktpxy == 'Buy' else 'Unknown'} {mktpxy}{RESET}"))
 
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
