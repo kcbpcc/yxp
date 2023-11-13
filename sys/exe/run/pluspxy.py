@@ -278,14 +278,14 @@ try:
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    pxy_df['Pre'] = Precise
-    pxy_df['Xlratd'] = Xlratd
-    pxy_df['Yield'] = Yield
+    pxy_df['Pr'] = Precise
+    pxy_df['Xl'] = Xlratd
+    pxy_df['Yi'] = Yield
     pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
-    EXE_df = pxy_df[['product','source', 'key', 'qty','avg','close', 'ltp', 'open', 'high','PnL%_H','dPnL%','PXY','PnL%','PnL']]
-    PRINT_df = pxy_df[['product','source', 'key','dPnL%','PXY','PnL%','PnL']]
+    EXE_df = pxy_df[['product','source', 'key', 'qty','avg','close', 'Pr', 'Xi', 'Yi','PnL%_H','dPnL%','PXY','PnL%','PnL']]
+    PRINT_df = pxy_df[['product','source', 'key','Pr','Xl',''Yi'','PnL']]
     # Rename columns for display
     PRINT_df = PRINT_df.rename(columns={'source': 'P/H', 'product': 'C/M'})
 
