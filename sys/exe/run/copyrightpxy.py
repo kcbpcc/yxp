@@ -4,20 +4,13 @@ import textwrap
 
 # Copyright Notice
 copyright_notice = (
-    "The PXY® trading tool and its content"
-    "are protected by copyright laws and"
-    "international treaties."
-    "All and complete rights reserved by"
-    "PXY®. Unauthorized use, reproduction,"
-    ",distribution are strictly prohibited."
-    "Infringement may lead to legal action"
-    "and financial penalties."
-    "PXY® is committed to protecting its"
-    "intellectual property."
+    "The PXY®' trading tool and its content are protected by copyright laws and international treaties."
+    " All rights reserved by PXY® .' Unauthorized use, reproduction, and distribution are strictly prohibited."
+    " Infringement may lead to legal action and financial penalties. PXY® ' is committed to protecting its intellectual property."
 )
 
 # Set the desired width
-width = 45
+width = 35
 
 # Use textwrap to format the text with a fixed width
 wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False)
@@ -30,6 +23,9 @@ panel = Panel(wrapped_notice, title="Copyright Notice", padding=(1, 2))
 
 # Display the panel
 console.print(panel)
+
+
+
 
 
 
