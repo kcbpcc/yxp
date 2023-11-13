@@ -267,9 +267,9 @@ try:
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    Precise = max(1.4, (NIFTY['strength'] * 4).round(1).max())
-    Xlratd = max(1.4, (NIFTY['strength'] * 5).round(1).max())
-    Yield = max(1.4, (NIFTY['strength'] * 6).round(1).max())
+    Precise = max(1.4, (0 + (NIFTY['strength'] * 4).round(1).max()))
+    Xlratd = max(1.4, (1 + (NIFTY['strength'] * 5).round(1).max()))
+    Yield = max(1.4, (2 + (NIFTY['strength'] * 6).round(1).max()))
     conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear')]
     choices_pxy = ['Yield', 'Xlratd', 'Precise']
     PXY = np.select(conditions_pxy, choices_pxy, default='Yield')
