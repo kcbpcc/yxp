@@ -1,4 +1,5 @@
 import time
+subprocess.run(['python3', 'copyrightpxy.py'])
 while True:
     import yfinance as yf
     import warnings
@@ -10,7 +11,7 @@ while True:
     from rich import print
 
     ############################################"PXY® PreciseXceleratedYield Pvt Ltd™############################################
-
+    
     subprocess.run(['python3', 'prftpxy.py'])
     subprocess.run(['python3', 'clnpxy.py'])
     #subprocess.run(['python3', 'prntpxy.py'])
