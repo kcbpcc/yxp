@@ -1,4 +1,5 @@
 import time
+import subprocess
 subprocess.run(['python3', 'copyrightpxy.py'])
 while True:
     import yfinance as yf
