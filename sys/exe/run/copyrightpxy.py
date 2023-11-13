@@ -8,7 +8,6 @@ copyright_notice = (
     "All rights reserved by 'PXY®. Unauthorized use, reproduction, and distribution are strictly prohibited."
     "Infringement may lead to legal action and financial penalties."
     "PXY® is committed to protecting its intellectual property."
-
 )
 
 # Set the desired width
