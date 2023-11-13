@@ -433,7 +433,7 @@ try:
         print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Yield:{BRIGHT_GREEN if Yield > 3.4 else BRIGHT_RED}{round(Yield, 2)}{RESET}"))
 
-        print(f'{SILVER}{UNDERLINE}       PXY® PreciseXceleratedYield Pvt Ltd™{RESET}')
+        print(f'{SILVER}{UNDERLINE}🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛{RESET}')
 except Exception as e:
     remove_token(dir_path)
     print(traceback.format_exc())
