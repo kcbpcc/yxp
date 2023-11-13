@@ -335,12 +335,12 @@ try:
                 key = row['key']  # Get the 'key' value
                 # Check the common conditions first
                 if (
-                    (row['ltp'] > 0 and row['avg'] > 0 and row['PnL%'] > 1.4 )
+                    (row['ltp'] > 0 and row['avg'] > 0 and row['PnL%'] > 1.4)
                 ):
-                    if (row['source'] == 'holdings' and 
+                    if (
+                        row['source'] == 'holdings' and 
                         row['product'] == 'CNC' and 
-                        (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])):
-                        
+                        (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])
                     ):
                         # Print the row before placing the order
                         print(row)
