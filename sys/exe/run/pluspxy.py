@@ -422,12 +422,24 @@ try:
         BRIGHT_RED = "\033[91m"
         BRIGHT_GREEN = "\033[92m"
         
-        # Print rows without a table
-        print(f"Day Change%: {BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}   dPnL: {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}")
-        print(f"Day Status: {BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}   dPnL%: {BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}")
-        print(f"Open Change%: {BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}   Booked: {BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET}")
-        print(f"Total_PnL: {BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}   PXY: {BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET}")
-        print(f"Total_PnL%: {BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}   {pktpxy}{RESET}")
+        # Function to print a row with left and right-aligned values
+        def print_row(left_label, left_value, right_label, right_value):
+            left_aligned_format = "{:<30}"
+            right_aligned_format = "{:>30}"
+            
+            left_formatted = left_aligned_format.format(f"{left_label}:{BRIGHT_GREEN if left_value >= 0 else BRIGHT_RED}{round(left_value, 2)}{RESET}")
+            right_formatted = right_aligned_format.format(f"{right_label}:{BRIGHT_GREEN if right_value > 0 else BRIGHT_RED}{round(right_value, 2)}{RESET}")
+        
+            print(left_formatted, end="")
+            print(right_formatted)
+        
+        # Print rows with left and right-aligned values
+        print_row("@Close%", NIFTY['Day_Change_%'][0], "dPnL", total_dPnL)
+        print_row("@Status", NIFTY['Day Status'][0], "dPnL%", total_dPnL_percentage)
+        print_row("@Open%", NIFTY['Open_Change_%'][0], "Precise", Precise)
+        print_row("@PnL", total_PnL, "Xlratd", Xlratd)
+        print_row("@PnL%", total_PnL_percentage, "", pktpxy)
+
         
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
