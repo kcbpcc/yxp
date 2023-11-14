@@ -426,12 +426,12 @@ try:
         
         # Example data
         table = PrettyTable()
-        table.field_names = ["Field 1", "Field 2"]
         
-        # Set alignments
+        # Set alignments for each column
         table.align["Field 1"] = "l"  # Left-align Field 1
         table.align["Field 2"] = "r"  # Right-align Field 2
         
+        # Add rows
         table.add_row([f"Day Change%: {BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}", f"👍dPnL: {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"])
         table.add_row([f"Day Status: {BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}", f"👍dPnL%: {BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"])
         table.add_row([f"Open Change%: {BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}", f"👍Booked: {BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET}"])
@@ -443,6 +443,7 @@ try:
         
         # Print the table
         print(table)
+
 
 
 
