@@ -415,38 +415,25 @@ try:
         
         print(f"{BRIGHT_YELLOW}📉🔀 Trades Overview & Market Dynamics 📈🔄 {RESET}")
 
-
-        # Color escape sequences
         RESET = "\033[0m"
         BRIGHT_YELLOW = "\033[93m"
         BRIGHT_RED = "\033[91m"
         BRIGHT_GREEN = "\033[92m"
-        
-        # Function to print a row with left and right-aligned values
-        def print_row(left_label, left_value, right_label, right_value):
-            left_aligned_format = "{:<30}"
-            right_aligned_format = "{:>30}"
-        
-            # Convert left_value to float (assuming it's a numeric value)
-            left_value = float(left_value) if left_value.replace('.', '', 1).isdigit() else left_value
-            # Convert right_value to float (assuming it's a numeric value)
-            right_value = float(right_value) if right_value.replace('.', '', 1).isdigit() else right_value
-            
-            left_formatted = left_aligned_format.format(f"{left_label}:{BRIGHT_GREEN if float(left_value) >= 0 else BRIGHT_RED}{round(float(left_value), 2)}{RESET}")
-            right_formatted = right_aligned_format.format(f"{right_label}:{BRIGHT_GREEN if float(right_value) > 0 else BRIGHT_RED}{round(float(right_value), 2)}{RESET}")
-        
-            print(left_formatted, end="")
-            print(right_formatted)
-        
-        # Example usage
-        print_row("Day Change%", NIFTY['Day_Change_%'][0], "dPnL", total_dPnL)
-        print_row("Day Status", NIFTY['Day Status'][0], "dPnL%", total_dPnL_percentage)
-        print_row("Open Change%", NIFTY['Open_Change_%'][0], "Booked", total_profit_main)
-        print_row("Total_PnL", total_PnL, "PXY", pxy_df['PXY'].iloc[0] if (pxy_df['PXY'] > 3).any() else 0)
-        print_row("Total_PnL%", total_PnL_percentage, "", pktpxy)
+        # Print all three sets of values in a single line with rounding to 2 decimal places
+        column_width = 30
+        left_aligned_format = "{:<" + str(column_width) + "}"
+        right_aligned_format = "{:>" + str(column_width) + "}"
+        print(left_aligned_format.format(f"@Close%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"dPnL {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
+        print(left_aligned_format.format(f"@Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
+        print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
+        print(left_aligned_format.format(f"@Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if Precise > 1.4 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
+        print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Xlratd:{BRIGHT_GREEN if Xlratd > 2.4 else BRIGHT_RED}{round(Xlratd, 2)}{RESET}"))
+        print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Yield:{pktpxy)}{RESET}"))
 
-
-        
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
 except Exception as e:
