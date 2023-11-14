@@ -142,8 +142,7 @@ try:
     import importlib
     from daypxy import get_nse_action
     from yipxy import calculate_Yi
-    current_time = datetime.datetime.now().time()
-    Yi = calculate_Yi(current_time)
+    Yi = calculate_Yi()
     csv_file_path = "filePnL.csv"
     total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
