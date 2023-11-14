@@ -141,7 +141,7 @@ try:
     import mktpxy
     import importlib
     from daypxy import get_nse_action
-    file_path = "filePnL.csv"
+    csv_file_path = "filePnL.csv"
     total_profit_main = process_csv(csv_file_path)
     mktpxy = mktpxy.get_market_check('^NSEI')
     SILVER = "\033[97m"
