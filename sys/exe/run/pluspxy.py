@@ -413,8 +413,7 @@ try:
             print(f"An unexpected error occurred: {e}")
 
         
-        print(f"{BRIGHT_YELLOW}📉🔀 Trades Overview & Market Dynamics 📈🔄 {RESET}")
-
+        # ANSI escape codes for text coloring
         RESET = "\033[0m"
         BRIGHT_YELLOW = "\033[93m"
         BRIGHT_RED = "\033[91m"
@@ -431,9 +430,8 @@ try:
         print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if Precise > 1.4 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
         print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Xlratd:{BRIGHT_GREEN if Xlratd > 2.4 else BRIGHT_RED}{round(Xlratd, 2)}{RESET}"))
-        print(right_aligned_format.format(f"{pktpxy}{RESET}"), end="")
-        print(right_aligned_format.format(pktpxy}{RESET}"))
-
+        print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Yield:{BRIGHT_GREEN if Yield > 3.4 else BRIGHT_RED}{round(Yield, 2)}{RESET}"))
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
 except Exception as e:
