@@ -426,17 +426,19 @@ try:
         
         # Example data
         table = PrettyTable()
-        table.add_row([f"@Close%: {BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}", f"dPnL: {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"])
-        table.add_row([f"@Status: {BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}", f"dPnL%: {BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"])
-        table.add_row([f"@Open%: {BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}", f"Booked: {BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET}"])
-        table.add_row([f"@PnL: {BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}", f"PXY: {BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET}"])
-        table.add_row([f"@PnL%: {BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}", f"mktpxy: {pktpxy}{RESET}"])
+        table.field_names = ["Field 1", "Field 2"]
+        table.add_row([f"@Close%: {BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}".ljust(15), f"dPnL: {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"])
+        table.add_row([f"@Status: {BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}".ljust(15), f"dPnL%: {BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"])
+        table.add_row([f"@Open%: {BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}".ljust(15), f"Booked: {BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET}"])
+        table.add_row([f"@PnL: {BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}".ljust(15), f"PXY: {BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET}"])
+        table.add_row([f"@PnL%: {BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}".ljust(15), f"mktpxy: {pktpxy}{RESET}"])
         
         # Increase column widths
-        table._max_width = {0: 50, 1: 30}  # Column indices instead of column names
+        table._max_width = {"Field 1": 30, "Field 2": 30}
         
         # Print the table
         print(table)
+
 
 
 
