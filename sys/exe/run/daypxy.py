@@ -31,27 +31,27 @@ def get_nse_action():
 
     # Determine the candlestick condition for today
     if current_price > today_open and current_price > yesterday_close:
-        nse_action = "Bull"
-        nse_factor = "Super"
+        nse_action = "🟩Bull"
+        nse_factor = "Super🟩"
     elif current_price < today_open and current_price < yesterday_close:
-        nse_action = "Bear"
-        nse_factor = "Danger."
+        nse_action = "🟥Bear"
+        nse_factor = "Danger🟥"
     elif current_price > today_open and current_price < yesterday_close:
-        nse_action = "Bull"
-        nse_factor = "Normal"
+        nse_action = "🟩Bull"
+        nse_factor = "Normal🟨"
     elif current_price < today_open and current_price < yesterday_close:
         nse_action = "Bear"
-        nse_factor = "Normal"
+        nse_factor = "Normal🟨"
     else:
-        nse_action = "Unkown"
-        nse_factor = "Unkown"
+        nse_action = "🟩🟥"
+        nse_factor = "🟥🟩"
 
     return nse_action, nse_factor
 
 # Call the get_nse_action function
 nse_action, nse_factor = get_nse_action()
 #print(f"{nse_action}")
-print(f"Todays Markek is {nse_factor} {nse_action}")
+print(f"Todays Markek is  {nse_action} {nse_factor}")
 
 
 
