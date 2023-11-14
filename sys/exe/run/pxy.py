@@ -104,11 +104,53 @@ while True:
 
     # Print the result (you can remove this if not needed)
     #print(f"mktpxy: {mktpxy}")
+
     import time
+    from datetime import datetime, timedelta
+    from pytz import timezone
+    
+    def is_within_time_range():
+        # Set the time zone to Indian Standard Time (IST)
+        ist = timezone('Asia/Kolkata')
+        
+        # Get the current time in IST
+        now = datetime.now(ist)
+        
+        # Define the start time as 9:00 AM IST
+        start_time = now.replace(hour=9, minute=0, second=0, microsecond=0)
+        
+        # Define the end time as 3:30 PM IST
+        end_time = now.replace(hour=15, minute=30, second=0, microsecond=0)
+        
+        # Check if the current time is within the specified range
+        return start_time <= now <= end_time
+    
     def progress_bar(duration):
-        for i in range(duration):
+        if not is_within_time_range():
+            print("Script is not run within the allowed time frame (9:00 AM to 3:30 PM IST). Exiting.")
+            return
+        
+        # Set the time zone to Indian Standard Time (IST)
+        ist = timezone('Asia/Kolkata')
+        
+        # Get the current time in IST
+        now = datetime.now(ist)
+        
+        # Define the end time as 3:30 PM IST
+        end_time = now.replace(hour=15, minute=30, second=0, microsecond=0)
+        
+        # Continue the loop until the current time exceeds the end time
+        while now < end_time:
             time.sleep(1)
             print("✨.", end='', flush=True)
+            
+            # Update the current time in each iteration
+            now = datetime.now(ist)
+        
         print("\nTask completed!")
+    
+    # Call the progress_bar function with the desired duration
     secs = 15 
     progress_bar(secs)
+
+
