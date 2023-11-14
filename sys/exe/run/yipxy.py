@@ -11,16 +11,16 @@ def calculate_Yi():
     # Convert the current IST time to UTC
     current_datetime_utc = current_datetime_ist.astimezone(pytz.utc)
 
+    # Convert start time to UTC
+    start_time_utc = ist_timezone.localize(datetime.datetime.strptime("09:00", "%H:%M")).astimezone(pytz.utc).time()
+    end_time_utc = ist_timezone.localize(datetime.datetime.strptime("15:30", "%H:%M")).astimezone(pytz.utc).time()
+
     # Extract the time from the UTC datetime object
     current_time_utc = current_datetime_utc.time()
 
-    # Calculate Yi value based on the given UTC time range (9:00 AM to 3:30 PM UTC)
-    start_time_utc = datetime.datetime.strptime("09:00", "%H:%M").time()
-    end_time_utc = datetime.datetime.strptime("15:30", "%H:%M").time()
-
     if start_time_utc <= current_time_utc <= end_time_utc:
         # Calculate Yi value based on the time difference
-        time_difference = current_datetime_utc - datetime.datetime.combine(current_datetime_utc.date(), start_time_utc)
+        time_difference = current_datetime_utc - datetime.datetime.combine(current_datetime_utc.date(), datetime.datetime.min.time())
         minutes_difference = time_difference.total_seconds() / 60
         Yi = max(5, 15 - int(minutes_difference / 30))
         return Yi
@@ -28,6 +28,9 @@ def calculate_Yi():
         # Return 15 if outside the specified time range
         return 15
 
+# Example usage:
+result = calculate_Yi()
+print(f"Yi value: {result}")
 
 
 
