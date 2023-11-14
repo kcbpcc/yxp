@@ -141,6 +141,7 @@ try:
     import mktpxy
     import importlib
     from daypxy import get_nse_action
+    file_path = "filePnL.csv"
     booked_sum = sum_booked_values(file_path)
     mktpxy = mktpxy.get_market_check('^NSEI')
     SILVER = "\033[97m"
