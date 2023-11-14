@@ -50,8 +50,8 @@ def get_nse_action():
 
 # Call the get_nse_action function
 nse_action, nse_factor = get_nse_action()
-print(f"{nse_action}")
-print(f"{nse_factor}")
+#print(f"{nse_action}")
+#print(f"{nse_factor}")
 
 
 
