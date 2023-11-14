@@ -134,13 +134,14 @@ try:
     from cnstpxy import sellbuff, secs, perc_col_name
     from time import sleep
     import subprocess
-    from prftpxy import *
+    from bkdpxy import sum_booked_values
     import random
     import os
     import numpy as np
     import mktpxy
     import importlib
     from daypxy import get_nse_action
+    booked_sum = sum_booked_values(file_path)
     mktpxy = mktpxy.get_market_check('^NSEI')
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
@@ -426,7 +427,7 @@ try:
         print(left_aligned_format.format(f"@Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
         print(left_aligned_format.format(f"@Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if Total Profit > 0 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
+        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if booked_sum > 0 else BRIGHT_RED}{round(booked_sum, 2)}{RESET}"))
         print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET}"))
         print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
