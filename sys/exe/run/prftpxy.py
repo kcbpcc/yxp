@@ -65,7 +65,7 @@ try:
     # Print the total profit in INR (₹) format rounded to two decimal places
     total_profit = round(total_profit, 2)
     print(f"Total Profit: ₹{total_profit:.2f}")
-return Total Profit
+#return Total Profit
     
 except FileNotFoundError:
     print("File not found!")
