@@ -414,6 +414,8 @@ try:
 
         
         print(f"{BRIGHT_YELLOW}📉🔀 Trades Overview & Market Dynamics 📈🔄 {RESET}")
+
+
         from prettytable import PrettyTable
         
         # Color escape sequences
