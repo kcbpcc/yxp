@@ -413,7 +413,7 @@ try:
             print(f"An unexpected error occurred: {e}")
 
 
-        print(f"{BRIGHT_YELLOW}📉🔀 Trades Overview & Market Dynamics 📈🔄 {RESET}")
+        print(f"{BRIGHT_YELLOW}📉🔀 Trades Overview & Market Dynamics📈🔄 {RESET}")
         # ANSI escape codes for text coloring
         RESET = "\033[0m"
         BRIGHT_YELLOW = "\033[93m"
