@@ -269,7 +269,7 @@ try:
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    Precise = max(1.5, (0 + (NIFTY['strength'] * 4).round(1).max()))
+    Precise = max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max()))
     Xlratd = max(1.6, (1 + (NIFTY['strength'] * 5).round(1).max()))
     Yield = max(1.7, (2 + (NIFTY['strength'] * 6).round(1).max()))
     conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear')]
@@ -282,7 +282,7 @@ try:
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    pxy_df['Pr'] = (1.2+((NIFTY['strength'])*2))
+    pxy_df['Pr'] = (1.2+max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max())))
     pxy_df['Xl'] = Xlratd
     pxy_df['Yi'] = Yi
     pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
