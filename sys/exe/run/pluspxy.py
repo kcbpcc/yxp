@@ -410,13 +410,6 @@ try:
             # Handle any other exceptions that may occur during the loop
             print(f"An unexpected error occurred: {e}")
 
-        csv_file_path = "filePnL.csv"
-    
-        # Call the function to get the total profit
-        total_profit = process_csv(csv_file_path)
-    
-        # Print the total profit in INR (₹) format rounded to two decimal places
-        total_profit = round(total_profit, 2)
         
         print(f"{BRIGHT_YELLOW}📉🔀 Trades Overview & Market Dynamics 📈🔄 {RESET}")
         # ANSI escape codes for text coloring
