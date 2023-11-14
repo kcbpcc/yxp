@@ -414,32 +414,33 @@ try:
 
         
         print(f"{BRIGHT_YELLOW}📉🔀 Trades Overview & Market Dynamics 📈🔄 {RESET}")
-        # ANSI escape codes for text coloring
+        # Color escape sequences
         RESET = "\033[0m"
         BRIGHT_YELLOW = "\033[93m"
         BRIGHT_RED = "\033[91m"
         BRIGHT_GREEN = "\033[92m"
-        # Print all three sets of values in a single line with rounding to 2 decimal places
-        column_width = 50
-        # Adjust the padding as needed
-        left_aligned_format = "{:<25}"  # Left-aligned with 25 characters width
-        right_aligned_format = "{:>25}"  # Right-aligned with 25 characters width
         
-        # Example print statements
-        print(left_aligned_format.format(f"@Close%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
+        # Example print statements in a table format
+        left_content_1 = f"@Close%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"
+        right_content_1 = f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"
+        print("{:<50} {:>50}".format(left_content_1, right_content_1))
         
-        print(left_aligned_format.format(f"@Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
-        print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
+        left_content_2 = f"@Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"
+        right_content_2 = f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"
+        print("{:<50} {:>50}".format(left_content_2, right_content_2))
         
-        print(left_aligned_format.format(f"@Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET}"))
+        left_content_3 = f"@Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"
+        right_content_3 = f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET}"
+        print("{:<50} {:>50}".format(left_content_3, right_content_3))
         
-        print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET}"))
+        left_content_4 = f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"
+        right_content_4 = f"PXY:{BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET}"
+        print("{:<50} {:>50}".format(left_content_4, right_content_4))
         
-        print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"mktpxy:{pktpxy}{RESET}"))
+        left_content_5 = f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"
+        right_content_5 = f"mktpxy:{pktpxy}{RESET}"
+        print("{:<50} {:>50}".format(left_content_5, right_content_5))
+
 
 
 
