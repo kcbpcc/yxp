@@ -436,7 +436,7 @@ try:
     # Always print "Table" in bright yellow
 
 
-        print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
+    print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
 except Exception as e:
     remove_token(dir_path)
     print(traceback.format_exc())
