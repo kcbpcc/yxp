@@ -420,7 +420,7 @@ try:
         BRIGHT_RED = "\033[91m"
         BRIGHT_GREEN = "\033[92m"
         # Print all three sets of values in a single line with rounding to 2 decimal places
-        column_width = 30
+        column_width = 50
         # Adjust the padding as needed
         left_aligned_format = "{:<25}"  # Left-aligned with 25 characters width
         right_aligned_format = "{:>25}"  # Right-aligned with 25 characters width
