@@ -68,7 +68,7 @@ def get_market_check(symbol):
     elif current_color == 'Bear' and last_closed_color == 'Bull':
         mktpxy = 'Sell'
         pktpxy =  '🔴🛬⤵️'
-        console.print("🛒🔴🛬⤵️ [bold]Time to sell![/bold] 📉💰", style=sell_style) 
+        console.print("           🛒🔴🛬⤵️ [bold]Time to sell![/bold] 📉💰", style=sell_style) 
     elif current_color == 'Bull' and last_closed_color == 'Bear':
         mktpxy = 'Buy'
         pktpxy =  '🟢🛫⤴️'
