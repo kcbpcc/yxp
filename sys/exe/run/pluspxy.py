@@ -141,6 +141,9 @@ try:
     from mktpxy import get_market_check
     import importlib
     from daypxy import get_nse_action
+    from Yipxy import calculate_Yi
+    current_time = datetime.datetime.now().time()
+    Yi = calculate_Yi(current_time)
     csv_file_path = "filePnL.csv"
     total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
@@ -282,7 +285,7 @@ try:
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     pxy_df['Pr'] = Precise
     pxy_df['Xl'] = Xlratd
-    pxy_df['Yi'] = Yield
+    #pxy_df['Yi'] = Yield
     pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
