@@ -43,8 +43,8 @@ def get_nse_action():
         nse_action = "Bear"
         nse_factor = "Normal🟨"
     else:
-        nse_action = "🟩🟥"
-        nse_factor = "🟥🟩"
+        nse_action = "🟩🟨🟥"
+        nse_factor = "🟥🟨🟩"
 
     return nse_action, nse_factor
 
