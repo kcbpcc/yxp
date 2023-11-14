@@ -432,7 +432,7 @@ try:
         table.add_row([f"@PnL%: {BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}", f"mktpxy:{pktpxy}{RESET}"])
         
         # Increase column widths
-        table._max_width = {"Combined Field": 30, "Field 3": 20}
+        table._max_width = {"Combined Field": 40, "Field 3": 40}
         
         # Print the table
         print(table)
