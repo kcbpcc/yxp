@@ -414,43 +414,25 @@ try:
 
         
         print(f"{BRIGHT_YELLOW}📉🔀 Trades Overview & Market Dynamics 📈🔄 {RESET}")
+        from tabulate import tabulate
+        
         # Color escape sequences
         RESET = "\033[0m"
         BRIGHT_YELLOW = "\033[93m"
         BRIGHT_RED = "\033[91m"
         BRIGHT_GREEN = "\033[92m"
         
-        # Example print statements in a box format
-        box_top = "+" + "-" * 50 + "+" + "-" * 50 + "+"
-        print(box_top)
+        # Example data
+        data = [
+            ["@Close%", f"{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}", f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"],
+            ["@Status", f"{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}", f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"],
+            ["@Open%", f"{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}", f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET}"],
+            ["@PnL", f"{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}", f"PXY:{BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET}"],
+            ["@PnL%", f"{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}", f"mktpxy:{pktpxy}{RESET}"],
+        ]
         
-        left_content_1 = f"| @Close%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"
-        right_content_1 = f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET} |"
-        print(left_content_1.ljust(50) + right_content_1.rjust(50))
-        
-        left_content_2 = f"| @Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"
-        right_content_2 = f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET} |"
-        print(left_content_2.ljust(50) + right_content_2.rjust(50))
-        
-        left_content_3 = f"| @Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"
-        right_content_3 = f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET} |"
-        print(left_content_3.ljust(50) + right_content_3.rjust(50))
-        
-        left_content_4 = f"| @PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"
-        right_content_4 = f"PXY:{BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET} |"
-        print(left_content_4.ljust(50) + right_content_4.rjust(50))
-        
-        left_content_5 = f"| @PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"
-        right_content_5 = f"mktpxy:{pktpxy}{RESET} |"
-        print(left_content_5.ljust(50) + right_content_5.rjust(50, " "))  # Adjust the width of the right content
-        
-        box_bottom = "+" + "-" * 50 + "+" + "-" * 50 + "+"
-        print(box_bottom)
-
-        
-        
-        
-        
+        # Print the table
+        print(tabulate(data, headers=["", "", ""], tablefmt="fancy_grid"))
 
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
