@@ -284,7 +284,7 @@ try:
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     pxy_df['Pr'] = Precise
     pxy_df['Xl'] = Xlratd
-    #pxy_df['Yi'] = Yield
+    pxy_df['Yi'] = Yi
     pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
