@@ -78,10 +78,10 @@ def get_market_check(symbol):
         console.print("🌟 [bold]Market on standby![/bold] 🍿💰📊")
         pktpxy =  '🍿💰📊'
 
-    return mktpxy,pktpxy
+    return mktpxy, pktpxy
 
 # Call the function and store the result in a variable
-mktpxy = get_market_check('^NSEI')
+mktpxy, pktpxy = get_market_check('^NSEI')  # Capture both return values
 
 # Print the result (you can remove this if not needed)
 #print(f"mktpxy: {mktpxy}")
