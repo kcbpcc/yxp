@@ -431,7 +431,7 @@ try:
         print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if Precise > 1.4 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
         print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Xlratd:{BRIGHT_GREEN if Xlratd > 2.4 else BRIGHT_RED}{round(Xlratd, 2)}{RESET}"))
-        print(left_aligned_format.format(f"{pktpxy}{RESET}"), end="")
+        print(right_aligned_format.format(f"{pktpxy}{RESET}"), end="")
         print(right_aligned_format.format(pktpxy}{RESET}"))
 
 
