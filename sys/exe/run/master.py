@@ -292,13 +292,13 @@ try:
     EXE_df = pxy_df[['product','source', 'key', 'qty','avg','ltp', 'Pr', 'Xl', 'Yi','PnL%_H','dPnL%','PXY','PnL%','PnL']]
     PRINT_df = pxy_df[['source','product', 'key','Pr','Xl','Yi','PnL%','PnL']]
     # Rename columns for display
-    PRINT_df = PRINT_df.rename(columns={'source': 'P/H', 'product': 'C/M'})
+    PRINT_df = PRINT_df.rename(columns={'source': '💷', 'product': '💶'})
 
-    # Conditionally replace values in the 'P/H' column
-    PRINT_df['P/H'] = PRINT_df['P/H'].replace({'holdings': 'H', 'positions': 'P'})
+    # Conditionally replace values in the '💷' column
+    PRINT_df['💷'] = PRINT_df['💷'].replace({'holdings': 'H', 'positions': 'P'})
 
-    # Conditionally replace values in the 'C/M' column
-    PRINT_df['C/M'] = PRINT_df['C/M'].replace({'CNC': 'C', 'MIS': 'M'})
+    # Conditionally replace values in the '💶' column
+    PRINT_df['💶'] = PRINT_df['💶'].replace({'CNC': 'C', 'MIS': 'M'})
 
     # Convert the 'PnL' column to integers
 
@@ -307,7 +307,7 @@ try:
     
     # Sort the DataFrame by 'PnL%' in ascending order
     # Assuming you have a DataFrame named PRINT_df
-    PRINT_df_sorted = PRINT_df[(PRINT_df['C/M'] == 'M') | ((PRINT_df['C/M'] == 'C') & (PRINT_df['PnL%'] > 0))].sort_values(by='PnL', ascending=True)
+    PRINT_df_sorted = PRINT_df[(PRINT_df['💶'] == 'M') | ((PRINT_df['💶'] == 'C') & (PRINT_df['PnL%'] > 0))].sort_values(by='PnL', ascending=True)
     PRINT_df_sorted['PnL'] = PRINT_df_sorted['PnL'].astype(int) 
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
