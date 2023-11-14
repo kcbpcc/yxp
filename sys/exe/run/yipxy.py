@@ -22,7 +22,7 @@ def calculate_Yi():
         # Calculate Yi value based on the time difference
         time_difference = current_datetime_utc - datetime.datetime.combine(current_datetime_utc.date(), datetime.datetime.min.time())
         minutes_difference = time_difference.total_seconds() / 60
-        Yi = max(5, 15 - int(minutes_difference / 30))
+        Yi = max(5, round(15 - minutes_difference / 30, 1))
         return Yi
     else:
         # Return 15 if outside the specified time range
