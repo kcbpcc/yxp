@@ -442,7 +442,7 @@ try:
         
         left_content_5 = f"| @PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"
         right_content_5 = f"mktpxy:{pktpxy}{RESET} |"
-        print(left_content_5.ljust(50) + right_content_5.rjust(50))
+        print(left_content_5.ljust(50) + right_content_5.rjust(50, " "))  # Adjust the width of the right content
         
         box_bottom = "+" + "-" * 50 + "+" + "-" * 50 + "+"
         print(box_bottom)
