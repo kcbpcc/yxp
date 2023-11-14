@@ -284,7 +284,7 @@ try:
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     pxy_df['Pr'] = max(1, 1 + max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max())))
-    pxy_df['Yi'] = pxy_df['Pr'].apply(lambda x: max(1.2, math.factorial(math.factorial(x))))
+    pxy_df['Xl'] = pxy_df['Pr'].apply(lambda x: max(1.2, math.factorial(math.factorial(int(math.floor(x))))))
     pxy_df['Yi'] = Yi
     pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
     pxy_df['avg'] =filtered_df['average_price']
