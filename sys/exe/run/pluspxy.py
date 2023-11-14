@@ -336,7 +336,7 @@ try:
                     if (
                         row['source'] == 'holdings' and 
                         row['product'] == 'CNC' and 
-                        (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])
+                        (row['PnL%'] < row['Yi'] and row['PnL%_H'] > row['Yi'])
                     ):
                         # Print the row before placing the order
                         print(row)
