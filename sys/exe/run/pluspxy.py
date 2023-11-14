@@ -426,19 +426,25 @@ try:
         def print_row(left_label, left_value, right_label, right_value):
             left_aligned_format = "{:<30}"
             right_aligned_format = "{:>30}"
+        
+            # Convert left_value to float (assuming it's a numeric value)
+            left_value = float(left_value) if left_value.replace('.', '', 1).isdigit() else left_value
+            # Convert right_value to float (assuming it's a numeric value)
+            right_value = float(right_value) if right_value.replace('.', '', 1).isdigit() else right_value
             
-            left_formatted = left_aligned_format.format(f"{left_label}:{BRIGHT_GREEN if left_value >= 0 else BRIGHT_RED}{round(left_value, 2)}{RESET}")
-            right_formatted = right_aligned_format.format(f"{right_label}:{BRIGHT_GREEN if right_value > 0 else BRIGHT_RED}{round(right_value, 2)}{RESET}")
+            left_formatted = left_aligned_format.format(f"{left_label}:{BRIGHT_GREEN if float(left_value) >= 0 else BRIGHT_RED}{round(float(left_value), 2)}{RESET}")
+            right_formatted = right_aligned_format.format(f"{right_label}:{BRIGHT_GREEN if float(right_value) > 0 else BRIGHT_RED}{round(float(right_value), 2)}{RESET}")
         
             print(left_formatted, end="")
             print(right_formatted)
         
-        # Print rows with left and right-aligned values
-        print_row("@Close%", NIFTY['Day_Change_%'][0], "dPnL", total_dPnL)
-        print_row("@Status", NIFTY['Day Status'][0], "dPnL%", total_dPnL_percentage)
-        print_row("@Open%", NIFTY['Open_Change_%'][0], "Precise", Precise)
-        print_row("@PnL", total_PnL, "Xlratd", Xlratd)
-        print_row("@PnL%", total_PnL_percentage, "", pktpxy)
+        # Example usage
+        print_row("Day Change%", NIFTY['Day_Change_%'][0], "dPnL", total_dPnL)
+        print_row("Day Status", NIFTY['Day Status'][0], "dPnL%", total_dPnL_percentage)
+        print_row("Open Change%", NIFTY['Open_Change_%'][0], "Booked", total_profit_main)
+        print_row("Total_PnL", total_PnL, "PXY", pxy_df['PXY'].iloc[0] if (pxy_df['PXY'] > 3).any() else 0)
+        print_row("Total_PnL%", total_PnL_percentage, "", pktpxy)
+
 
         
 
