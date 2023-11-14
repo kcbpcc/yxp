@@ -141,7 +141,7 @@ try:
     from mktpxy import get_market_check
     import importlib
     from daypxy import get_nse_action
-    from Yipxy import calculate_Yi
+    from yipxy import calculate_Yi
     current_time = datetime.datetime.now().time()
     Yi = calculate_Yi(current_time)
     csv_file_path = "filePnL.csv"
