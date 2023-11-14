@@ -282,7 +282,7 @@ try:
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    pxy_df['Pr'] = Precise
+    pxy_df['Pr'] = (1.2+((NIFTY['strength'])*2))
     pxy_df['Xl'] = Xlratd
     pxy_df['Yi'] = Yi
     pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
