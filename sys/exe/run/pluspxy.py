@@ -427,7 +427,7 @@ try:
         print(left_aligned_format.format(f"@Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if Precise > 2 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
         print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if pxy_df['PXY'] > 3 else BRIGHT_RED}{round(pxy_df['PXY'], 2)}{RESET}"))
+        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if (pxy_df['PXY'] > 3).any() else BRIGHT_RED}{round(pxy_df['PXY'].iloc[0], 2)}{RESET}"))
         print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"mktpxy: {BRIGHT_RED if mktpxy == 'Sell' or mktpxy == 'Bear' else BRIGHT_GREEN}{'Sell' if mktpxy == 'Sell' or mktpxy == 'Bear' else 'Buy'}{RESET}"))
 
