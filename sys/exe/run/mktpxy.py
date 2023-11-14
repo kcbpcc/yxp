@@ -60,11 +60,11 @@ def get_market_check(symbol):
     if current_color == 'Bear' and last_closed_color == 'Bear':
         mktpxy = 'Bear'
         pktpxy =  '🐻🔴🔴'
-        console.print("🐻🔴🔴🔴 [bold]Bearish sentiment![/bold] 🍯💰", style=bear_style)
+        console.print("         🐻🔴🔴🔴 [bold]Bearish sentiment![/bold] 🍯💰", style=bear_style)
     elif current_color == 'Bull' and last_closed_color == 'Bull':
         mktpxy = 'Bull'
         pktpxy =  '🐂🟢🟢'
-        console.print("🐂🟢🟢🟢 [bold]Bullish sentiment![/bold] 💪💰", style=bull_style)
+        console.print("         🐂🟢🟢🟢 [bold]Bullish sentiment![/bold] 💪💰", style=bull_style)
     elif current_color == 'Bear' and last_closed_color == 'Bull':
         mktpxy = 'Sell'
         pktpxy =  '🔴🛬⤵️'
@@ -72,10 +72,10 @@ def get_market_check(symbol):
     elif current_color == 'Bull' and last_closed_color == 'Bear':
         mktpxy = 'Buy'
         pktpxy =  '🟢🛫⤴️'
-        console.print("🚀🟢🛫⤴️ [bold]Time to buy![/bold] 🌠💰", style=buy_style)
+        console.print("               🚀🟢🛫⤴️ [bold]Time to buy![/bold] 🌠💰", style=buy_style)
     else:
         mktpxy = 'None'
-        console.print("🌟 [bold]Market on standby![/bold] 🍿💰📊")
+        console.print("         🌟 [bold]Market on standby![/bold] 🍿💰📊")
         pktpxy =  '🍿💰📊'
 
     return mktpxy, pktpxy
