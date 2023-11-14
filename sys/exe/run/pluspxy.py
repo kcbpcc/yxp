@@ -134,7 +134,7 @@ try:
     from cnstpxy import sellbuff, secs, perc_col_name
     from time import sleep
     import subprocess
-    from prftpxy get
+    from prftpxy import *
     import random
     import os
     import numpy as np
