@@ -434,7 +434,7 @@ try:
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main, 2)}{RESET}"))
 
-        from mktpxy import get_market_check
+        subprocess.run(['python3', 'mktpxy.py'])
 
     print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
 except Exception as e:
