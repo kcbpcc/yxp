@@ -34,12 +34,12 @@ def get_nse_action():
         nse_action = "Bull"
         nse_factor = "Super"
     elif current_price < today_open and current_price < yesterday_close:
-        nse_action = "Bull"
+        nse_action = "BEAR"
         nse_factor = "Danger."
-    elif current_price > today_open:
+    elif current_price > today_open and current_price > yesterday_close:
         nse_action = "Bull"
         nse_factor = "Normal"
-    elif current_price < today_open:
+    elif current_price < today_open and current_price < yesterday_close:
         nse_action = "Bear"
         nse_factor = "Normal"
     else:
