@@ -34,9 +34,9 @@ def get_nse_action():
         nse_action = "Bull"
         nse_factor = "Super"
     elif current_price < today_open and current_price < yesterday_close:
-        nse_action = "BEAR"
+        nse_action = "Bear"
         nse_factor = "Danger."
-    elif current_price > today_open and current_price > yesterday_close:
+    elif current_price > today_open and current_price < yesterday_close:
         nse_action = "Bull"
         nse_factor = "Normal"
     elif current_price < today_open and current_price < yesterday_close:
@@ -51,7 +51,7 @@ def get_nse_action():
 # Call the get_nse_action function
 nse_action, nse_factor = get_nse_action()
 #print(f"{nse_action}")
-#print(f"{nse_factor}")
+print(f"Todays Markek is {nse_factor} {nse_action}")
 
 
 
