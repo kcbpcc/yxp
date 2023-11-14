@@ -138,12 +138,12 @@ try:
     import random
     import os
     import numpy as np
-    import mktpxy
+    from mktpxy import get_market_check
     import importlib
     from daypxy import get_nse_action
     csv_file_path = "filePnL.csv"
     total_profit_main = process_csv(csv_file_path)
-    mktpxy, pktpxy = get_market_check('^NSEI')  # Capture both return values
+    mktpxy, pktpxy = get_market_check('^NSEI')
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
