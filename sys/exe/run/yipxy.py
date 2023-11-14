@@ -1,4 +1,4 @@
-# Yipxy.py
+# yipxy.py
 
 import datetime
 
@@ -17,8 +17,8 @@ def calculate_Yi():
         # Calculate Yi value based on the time difference
         time_difference = current_datetime - datetime.datetime.combine(current_datetime.date(), start_time)
         minutes_difference = time_difference.total_seconds() / 60
-        Yi_value = max(5, 15 - int(minutes_difference / 30))
-        return Yi_value
+        Yi = max(5, 15 - int(minutes_difference / 30))
+        return Yi
     else:
         # Return 15 if outside the specified time range
         return 15
