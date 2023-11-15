@@ -22,4 +22,3 @@ def calculate_timpxy():
 
 # Example usage:
 result = calculate_timpxy()
-print(f"timpxy value: {result}")
