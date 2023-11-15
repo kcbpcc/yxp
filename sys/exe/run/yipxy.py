@@ -30,6 +30,10 @@ def calculate_Yi():
 # Example usage:
 result = calculate_Yi()
 print(f"Yi value: {result}")
+print(f"Current IST Time: {current_datetime_ist}")
+print(f"Start Time IST: {start_time_ist}")
+print(f"End Time IST: {end_time_ist}")
+
 
 
 
