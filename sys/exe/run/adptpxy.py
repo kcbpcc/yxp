@@ -348,13 +348,13 @@ try:
                         row['source'] == 'holdings' and 
                         row['product'] == 'CNC' and 
                         (
-                            row['PnL%'] > row['Yi'] or 
+                            row['PnL%'] > 1 or 
                             (row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl'])
                         )
                     ):
                         # Print the row before placing the order
                         print(row)
-
+#row['Yi'] 
                         try:
                             is_placed = order_place(key, row)
                             if is_placed:
