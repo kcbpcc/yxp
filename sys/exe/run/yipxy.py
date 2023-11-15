@@ -9,8 +9,8 @@ def calculate_Yi():
     current_datetime_utc = datetime.datetime.now(utc_timezone)
 
     # Change the start and end times to UTC
-    start_time_utc = datetime.datetime.combine(current_datetime_utc.date(), datetime.datetime.strptime("03:30", "%H:%M").time()).astimezone(utc_timezone)
-    end_time_utc = datetime.datetime.combine(current_datetime_utc.date(), datetime.datetime.strptime("10:00", "%H:%M").time()).astimezone(utc_timezone)
+    start_time_utc = datetime.datetime.combine(current_datetime_utc.date(), datetime.time(3, 30)).astimezone(utc_timezone)
+    end_time_utc = datetime.datetime.combine(current_datetime_utc.date(), datetime.time(10, 0)).astimezone(utc_timezone)
 
     if start_time_utc <= current_datetime_utc <= end_time_utc:
         # Calculate Yi value based on the time difference
@@ -25,6 +25,7 @@ def calculate_Yi():
 # Example usage:
 result = calculate_Yi()
 print(f"Yi value: {result}")
+
 
 
 
