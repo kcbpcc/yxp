@@ -143,6 +143,7 @@ try:
     from daypxy import get_nse_action
     from timpxy import calculate_timpxy
     import math
+    from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
     csv_file_path = "filePnL.csv"
     total_profit_main = process_csv(csv_file_path)
@@ -378,6 +379,7 @@ try:
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
                                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
+                                    send_telegram_message(row, key)
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
