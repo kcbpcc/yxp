@@ -141,9 +141,9 @@ try:
     from mktpxy import get_market_check
     import importlib
     from daypxy import get_nse_action
-    from yipxy import calculate_Yi
+    from timpxy import calculate_timpxy
     import math
-    Yi = calculate_Yi()
+    timpxy = calculate_timpxy()
     csv_file_path = "filePnL.csv"
     total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
