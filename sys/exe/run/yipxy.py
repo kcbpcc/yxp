@@ -1,38 +1,28 @@
-import datetime
+import csv
+from datetime import datetime, timedelta
 import pytz
 
-def calculate_Yi():
-    # Define the time zone (Indian Standard Time)
-    ist_timezone = pytz.timezone('Asia/Kolkata')
+# Specify the path to your CSV file
+file_path = 'filePnL.csv'
 
-    # Get the current date and time in IST
-    current_datetime_ist = datetime.datetime.now(ist_timezone)
+# Function to check if the current time is between 7:00 AM and 9:14 AM IST
+def is_time_between(start_time, end_time):
+    current_time = datetime.now(ist_timezone)
+    return start_time <= current_time <= end_time
 
-    # Convert the current IST time to UTC
-    current_datetime_utc = current_datetime_ist.astimezone(pytz.utc)
+# Define the time zone (Indian Standard Time)
+ist_timezone = pytz.timezone('Asia/Kolkata')
 
-    # Convert start time to UTC
-    start_time_utc = ist_timezone.localize(datetime.datetime.strptime("09:00", "%H:%M")).astimezone(pytz.utc).time()
-    end_time_utc = ist_timezone.localize(datetime.datetime.strptime("15:30", "%H:%M")).astimezone(pytz.utc).time()
+# Specify the time range during which you want to delete contents (7:00 AM to 9:14 AM IST)
+start_time = ist_timezone.localize(datetime.combine(datetime.today(), datetime.min.time()) + timedelta(hours=7))
+end_time = ist_timezone.localize(datetime.combine(datetime.today(), datetime.min.time()) + timedelta(hours=9, minutes=14))
 
-    # Extract the time from the UTC datetime object
-    current_time_utc = current_datetime_utc.time()
+# Check if the current time is within the specified range
+if is_time_between(start_time, end_time):
+    # Open the file in write mode to truncate its contents
+    with open(file_path, 'w', newline='') as csvfile:
+        # Create a CSV writer object
+        csv_writer = csv.writer(csvfile)
 
-    if start_time_utc <= current_time_utc <= end_time_utc:
-        # Calculate Yi value based on the time difference
-        time_difference = current_datetime_utc - datetime.datetime.combine(current_datetime_utc.date(), datetime.datetime.min.time())
-        minutes_difference = time_difference.total_seconds() / 60
-        Yi = max(5, round(15 - minutes_difference / 30, 1))
-        return Yi
-    else:
-        # Return 15 if outside the specified time range
-        return 15
-
-# Example usage:
-result = calculate_Yi()
-#print(f"Yi value: {result}")
-
-
-
-
-
+        # Write an empty row to clear the contents
+        csv_writer.writerow([])
