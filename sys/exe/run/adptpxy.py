@@ -15,7 +15,7 @@ RESET = "\033[0m"
 print(f'{SILVER}{UNDERLINE}"PXY® PreciseXceleratedYield Pvt Ltd™"{RESET}')
 logging = Logger(30, dir_path + "main.log")
 try:
-    sys.stdout = open('output.txt', 'w')
+    sys.stdout = open('output.txt', 'w')P
     broker = get_kite(api="bypass", sec_dir=dir_path)
 except Exception as e:
     remove_token(dir_path)
@@ -209,7 +209,8 @@ try:
     total_PnL = combined_df_positive_qty['PnL'].sum()
     total_PnL_percentage = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100
     # Calculate and print the sum of 'dPnL' values and its total 'dPnL%' for rows where 'qty' is greater than 0
-    total_dPnL = combined_df_positive_qty['dPnL'].sum()
+    #total_dPnL = combined_df_positive_qty['dPnL'].sum()
+    total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
     total_dPnL_percentage = (total_dPnL / combined_df_positive_qty['Invested'].sum()) * 100
     import pandas as pd
     # Assuming you have a list of instrument keys, e.g., ['NIFTY50', 'RELIANCE', ...]
