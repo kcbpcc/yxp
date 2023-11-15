@@ -321,7 +321,7 @@ try:
 
  
     # Always print "Table" in bright yellow
-    print(f"{BRIGHT_YELLOW}Table– Cut@Precise or let reach@Xcelerated{RESET}")
+    print(f"{BRIGHT_YELLOW}Table– Stocks avbove {Pe} or let reach{Yi}{RESET}")
     # Print EXE_df_sorted without color
     print(PRINT_df_sorted.to_string(index=False))
 
