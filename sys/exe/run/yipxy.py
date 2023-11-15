@@ -14,9 +14,8 @@ def calculate_Yi():
 
     # Calculate Yi value based on the time difference
     if start_time_ist <= current_datetime_ist <= end_time_ist:
-        time_difference = current_datetime_ist - start_time_ist
-        minutes_difference = time_difference.total_seconds() / 60
-        Yi = max(5, round(15 - minutes_difference / 30, 1))
+        total_minutes = (current_datetime_ist - start_time_ist).total_seconds() / 60
+        Yi = max(5, round(15 - total_minutes / 30, 1))
         return Yi
     else:
         # Return 15 if outside the specified time range
