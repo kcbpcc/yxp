@@ -321,7 +321,7 @@ try:
 
  
     # Always print "Table" in bright yellow
-    print(f"{BRIGHT_YELLOW}Table– Stocks avbove {pxy_df['Pe']} or let reach{pxy_df['Yi']}{RESET}")
+    print(f"{BRIGHT_YELLOW}Table– Stocks avbove {pxy_df['Pr']} or let reach{pxy_df['Yi']}{RESET}")
     # Print EXE_df_sorted without color
     print(PRINT_df_sorted.to_string(index=False))
 
