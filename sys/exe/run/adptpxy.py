@@ -284,8 +284,9 @@ try:
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     pxy_df['Pr'] = max(1, 1 + max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max())))
-    pxy_df['Xl'] = (max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max())))*10
     pxy_df['Yi'] = Yi
+    pxy_df['Xl'] = max(5, Yi * max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max())))
+    
     pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
