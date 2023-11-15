@@ -2,19 +2,19 @@ import datetime
 import pytz
 
 def calculate_Yi():
-    # Define the time zone (UTC)
-    utc_timezone = pytz.timezone('UTC')
+    # Define the time zone (Indian Standard Time)
+    ist_timezone = pytz.timezone('Asia/Kolkata')
 
-    # Get the current date and time in UTC
-    current_datetime_utc = datetime.datetime.now(utc_timezone)
+    # Get the current date and time in IST
+    current_datetime_ist = datetime.datetime.now(ist_timezone)
 
-    # Set the start and end times in UTC
-    start_time_utc = datetime.datetime(current_datetime_utc.year, current_datetime_utc.month, current_datetime_utc.day, 3, 30, tzinfo=utc_timezone)
-    end_time_utc = datetime.datetime(current_datetime_utc.year, current_datetime_utc.month, current_datetime_utc.day, 10, 0, tzinfo=utc_timezone)
+    # Define the start and end times in IST
+    start_time_ist = datetime.datetime.combine(current_datetime_ist.date(), datetime.time(9, 0)).astimezone(ist_timezone)
+    end_time_ist = datetime.datetime.combine(current_datetime_ist.date(), datetime.time(15, 30)).astimezone(ist_timezone)
 
-    if start_time_utc <= current_datetime_utc <= end_time_utc:
+    if start_time_ist <= current_datetime_ist <= end_time_ist:
         # Calculate Yi value based on the time difference
-        time_difference = current_datetime_utc - datetime.datetime.combine(current_datetime_utc.date(), datetime.datetime.min.time().replace(tzinfo=utc_timezone))
+        time_difference = current_datetime_ist - datetime.datetime.combine(current_datetime_ist.date(), datetime.datetime.min.time().replace(tzinfo=ist_timezone))
         minutes_difference = time_difference.total_seconds() / 60
         Yi = max(5, round(15 - minutes_difference / 30, 1))
         return Yi
@@ -25,7 +25,6 @@ def calculate_Yi():
 # Example usage:
 result = calculate_Yi()
 print(f"Yi value: {result}")
-
 
 
 
