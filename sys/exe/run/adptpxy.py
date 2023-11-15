@@ -206,8 +206,7 @@ try:
     # Filter combined_df for rows where 'qty' is greater than 0
     combined_df_positive_qty = combined_df[(combined_df['qty'] > 0) & (combined_df['source'] == 'holdings')]
     # Calculate and print the sum of 'PnL' values and its total 'PnL%' for rows where 'qty' is greater than 0
-    total_PnL = int(round(combined_df_positive_qty['PnL'].sum()))
-    #total_PnL = total_PnL = int(round(combined_df_positive_qty['PnL'].sum()))
+    total_PnL = combined_df_positive_qty['PnL'].sum()
     total_PnL_percentage = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100
     # Calculate and print the sum of 'dPnL' values and its total 'dPnL%' for rows where 'qty' is greater than 0
     total_dPnL = combined_df_positive_qty['dPnL'].sum()
