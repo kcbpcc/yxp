@@ -1,7 +1,7 @@
 import datetime
 import pytz
 
-def calculate_Yi():
+def calculate_timpxy():
     # Define the start time in UTC
     start_time_utc = datetime.datetime.utcnow().replace(hour=3, minute=30, second=0, microsecond=0, tzinfo=pytz.utc)
     
@@ -21,5 +21,5 @@ def calculate_Yi():
         return 15
 
 # Example usage:
-result = calculate_Yi()
+result = calculate_timpxy()
 print(f"timpxy value: {result}")
