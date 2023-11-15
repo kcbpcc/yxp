@@ -12,7 +12,11 @@ def calculate_Yi():
     start_time_ist = datetime.datetime.combine(current_datetime_ist.date(), datetime.time(9, 0)).astimezone(ist_timezone)
     end_time_ist = datetime.datetime.combine(current_datetime_ist.date(), datetime.time(15, 30)).astimezone(ist_timezone)
 
+    # Get the current UTC time
+    current_datetime_utc = datetime.datetime.utcnow().replace(tzinfo=pytz.utc)
+    
     print(f"Current IST Time: {current_datetime_ist}")
+    print(f"Current UTC Time: {current_datetime_utc}")
     print(f"Start Time IST: {start_time_ist}")
     print(f"End Time IST: {end_time_ist}")
 
@@ -30,6 +34,11 @@ def calculate_Yi():
 # Example usage:
 result = calculate_Yi()
 print(f"Yi value: {result}")
+print(f"Current IST Time: {current_datetime_ist}")
+print(f"Current UTC Time: {current_datetime_utc}")
+print(f"Start Time IST: {start_time_ist}")
+print(f"End Time IST: {end_time_ist}")
+
 
 
 
