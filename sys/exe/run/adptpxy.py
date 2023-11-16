@@ -156,7 +156,8 @@ try:
     positions_response = broker.kite.positions()['net']
     holdings_df = get_holdingsinfo(holdings_response, broker)
     positions_df = get_positionsinfo(positions_response, broker)
-
+    response = broker.kite.margins()
+    available_cash = response["equity"]["available"]["live_balance"]  
     # Add 'key' column to holdings_df and positions_df
     # Create 'key' column if holdings_df is not empty
     holdings_df['key'] = holdings_df['exchange'] + ":" + holdings_df['tradingsymbol'] if not holdings_df.empty else None
