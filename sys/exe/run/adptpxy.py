@@ -311,9 +311,7 @@ try:
     
     # Sort the DataFrame by 'PnL%' in ascending order
     # Assuming you have a DataFrame named PRINT_df
-    PRINT_df_sorted = PRINT_df.loc[(PRINT_df['CM'] == 'M') | ((PRINT_df['CM'] == 'C') & (PRINT_df['PnL%'] > 0) & (PRINT_df.index > Pr))].sort_values(by='PnL', ascending=True)
-
-    #PRINT_df_sorted = PRINT_df[(PRINT_df['CM'] == 'M') | ((PRINT_df['CM'] == 'C') & (PRINT_df['PnL%'] > 0))].sort_values(by='PnL', ascending=True)
+    PRINT_df_sorted = PRINT_df[(PRINT_df['CM'] == 'M') | ((PRINT_df['CM'] == 'C') & (PRINT_df['PnL%'] > PRINT_df['Pr'] ))].sort_values(by='PnL', ascending=True)
     PRINT_df_sorted['PnL'] = PRINT_df_sorted['PnL'].astype(int) 
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
