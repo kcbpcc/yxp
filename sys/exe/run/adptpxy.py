@@ -291,7 +291,7 @@ try:
     pxy_df['Pr'] = max(1, 1 + max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max())))
     pxy_df['Xl'] = max(3, timpxy * max(0.1, (0 + (NIFTY['strength']).round(1).max())))
     pxy_df['Yi'] = np.maximum(timpxy, pxy_df['Xl'])
-    PXY = (NIFTY['weakness'])*((pxy_df['Yi'])*(0.3))    
+    PXY = (NIFTY['weakness'])*((pxy_df['Yi'])*(0.5))    
     pxy_df['PXY'] = PXY
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
