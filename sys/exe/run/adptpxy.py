@@ -449,7 +449,7 @@ try:
         print(left_aligned_format.format(f"Day Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if Precise > 1.4 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
         print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Funds: {BRIGHT_GREEN if available_cash > 12000 else BRIGHT_RED}{available_cash:.0f}{RESET}"))
+        print(right_aligned_format.format(f"Funds: {BRIGHT_GREEN if available_cash < 12000 else BRIGHT_RED}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
 
