@@ -396,17 +396,15 @@ try:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
                     elif (
-                        row['product'] == CNC and
-                        row['PnL%'] > 1.4 and  
-                        row['qty'] > 0 and
-                        (row['PnL%'] > row['Yi'] or 
-                        (row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl']) and (row['mktpxy'] == 'Sell' or row['mktpxy'] == 'Bear')                        
+                        row['product'] == MIS and
+                        row['qty'] < 0 and
+                        (row['PnL%'] > row['PXY']                    
                     ):
                         # Print the row before placing the order
                         print(row)
                         
                         try:
-                            is_placed = order_place(key, row) if row['product'] == 'CNC' else mis_order_sell(key, row)
+                            is_placed = mis_order_buy(key, row)
                             if is_placed:
                                 # Write the row to the CSV file here
                                 with open(csv_file_path, 'a', newline='') as csvfile:
