@@ -143,7 +143,7 @@ try:
     from daypxy import get_nse_action
     from timpxy import calculate_timpxy
     import math
-    from telpxy import send_telegram_message
+    #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
     csv_file_path = "filePnL.csv"
     total_profit_main = process_csv(csv_file_path)
