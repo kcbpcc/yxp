@@ -140,7 +140,7 @@ try:
     import numpy as np
     from mktpxy import get_market_check
     import importlib
-    from daypxy import get_nse_action
+    from nftpxy import get_nse_action
     from timpxy import calculate_timpxy
     import math
     #from telpxy import send_telegram_message
