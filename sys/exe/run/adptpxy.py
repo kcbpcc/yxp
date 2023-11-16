@@ -264,7 +264,8 @@ try:
     score_value = NIFTY['Score'].values[0]
     # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
     # Calculate the metrics
-    NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
+    NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
+    NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
     NIFTY['pricerange'] = (NIFTY['high'] + 0.01) - (NIFTY['close_price'] - 0.01)
     NIFTY['priceratio'] =  (NIFTY['ltp'] - NIFTY['close_price'])/NIFTY['pricerange']
     # Extract and print just the values without the column name and data type information
