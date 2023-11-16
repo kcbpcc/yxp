@@ -11,7 +11,7 @@ def process_csv(csv_file_path):
     table.add_column("PH")
     table.add_column("CM")
     table.add_column("Key")
-    table.add_column("PXY")
+    #table.add_column("PXY")
     table.add_column("PnL%")
     table.add_column("PnL")
 
