@@ -1,33 +1,15 @@
 from kiteconnect import KiteConnect
-from login_get_kite import get_kite
-import pandas as pd
-import traceback
-import logging  # Add this import statement for logging
-from toolkit.logger import Logger
-from toolkit.currency import round_to_paise
 from login_get_kite import get_kite, remove_token
 from toolkit.logger import Logger
 from toolkit.currency import round_to_paise
-import sys
-from time import sleep
 import traceback
-import os
-import subprocess
-from cnstpxy import dir_path
-from colorama import Fore, Style
+import logging
+import pandas as pd
 
-def place_mis_orders(positions_df):
+def place_mis_orders(positions_df, broker):
     try:
-        # Get KiteConnect instance
-        broker = get_kite(api="bypass", sec_dir=dir_path)
-    except Exception as e:
-        print(traceback.format_exc())
-        logging.error(f"{str(e)} Unable to get KiteConnect instance")
-        return False
-
-    # Place orders for MIS positions
-    for position in positions_df:  # Use the passed positions_df argument
-        try:
+        # Place orders for MIS positions
+        for position in positions_df:
             logging.info(f"Placing order for {position['tradingsymbol']}")
             order_id = broker.order_place(
                 tradingsymbol=position['tradingsymbol'],
@@ -42,18 +24,25 @@ def place_mis_orders(positions_df):
                 logging.info(f"Order {order_id} placed successfully for {position['tradingsymbol']}")
             else:
                 logging.error("Order placement failed")
-        except Exception as e:
-            print(traceback.format_exc())
-            logging.error(f"{str(e)} while placing order for {position['tradingsymbol']}")
-            return False
+    except Exception as e:
+        print(traceback.format_exc())
+        logging.error(f"{str(e)} while placing orders")
+        return False
 
     return True
 
+try:
+    # Get KiteConnect instance
+    broker = get_kite(api="bypass", sec_dir=dir_path)
+except Exception as e:
+    print(traceback.format_exc())
+    logging.error(f"{str(e)} Unable to get KiteConnect instance")
+
 # Get open MIS positions
-mis_positions = [pos for pos in get_kite().positions()['day'] if pos['product'] == 'MIS']
+mis_positions = [pos for pos in broker.positions()['day'] if pos['product'] == 'MIS']
 
 # Call the function with the appropriate arguments
-result = place_mis_orders(mis_positions)
+result = place_mis_orders(mis_positions, broker)
 
 # Do something with the result if needed
 if result:
@@ -61,13 +50,20 @@ if result:
 else:
     print("Failed to place orders.")
 
+# Get open MIS positions again for conversion
+mis_positions = [pos for pos in broker.positions()['net'] if pos['product'] == 'MIS' and pos['quantity'] > 0]
 
-positions = kite.positions()
-for position in positions['net']:
-    if position['product'] == 'MIS' and position['quantity'] > 0:
-        print(f"Symbol: {position['trading_symbol']}, Quantity: {position['quantity']}, Product: {position['product']}")
-        
-        # Convert MIS to CNC
-        kite.place_order(tradingsymbol=position['trading_symbol'], exchange=position['exchange'], quantity=position['quantity'], transaction_type='CONVERT', order_type='MARKET', product='CNC')
+# Convert MIS to CNC
+for position in mis_positions:
+    print(f"Symbol: {position['trading_symbol']}, Quantity: {position['quantity']}, Product: {position['product']}")
+    broker.place_order(
+        tradingsymbol=position['trading_symbol'],
+        exchange=position['exchange'],
+        quantity=position['quantity'],
+        transaction_type='CONVERT',
+        order_type='MARKET',
+        product='CNC'
+    )
 
 print("Conversion complete.")
+
