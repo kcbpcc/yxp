@@ -345,14 +345,15 @@ try:
                 key = row['key']  # Get the 'key' value
                 # Check the common conditions first
                 if (
-                    row['qty%'] > 0 and
+
                     row['ltp'] > 0 and 
                     row['avg'] > 0 and 
                     row['PnL%'] > 1.4
                 ):
                     if (
-                        row['PnL%'] > row['Yi'] or 
-                        (row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl'])
+                        row['qty'] > 0 and
+                        (row['PnL%'] > row['Yi'] or 
+                        (row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl']))
                     ):
                         # Print the row before placing the order
                         print(row)
