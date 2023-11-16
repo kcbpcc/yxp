@@ -197,7 +197,7 @@ try:
     #combined_df['PnL%'] = (combined_df['PnL'] / combined_df['Invested']) * 100
     combined_df['PnL%'] = ((combined_df['PnL'] / combined_df['Invested']) * 100) * np.where(combined_df['qty'] < 0, -1, 1)
     #combined_df['PnL%_H'] = (combined_df['PnL_H'] / combined_df['Invested']) * 100
-    combined_df['PnL%_H'] = ((combined_df['PnL_H'] / combined_df['Invested']) * 100) * np.where(combined_df['Qty_H'] < 0, -1, 1)
+    combined_df['PnL%_H'] = ((combined_df['PnL_H'] / combined_df['Invested']) * 100) * np.where(combined_df['qty'] < 0, -1, 1)
     # Calculate 'Yvalue' column as 'qty' * 'close'
     combined_df['Yvalue'] = combined_df['qty'] * combined_df['close']
     # Calculate 'dPnL' column as 'close_price' - 'ltp'
