@@ -42,7 +42,7 @@ except Exception as e:
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Buy', 'Bull']:
+if decision == "YES" and mktpxy in ['Sell', 'Bear']:
 
 
     try:
@@ -109,10 +109,10 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull']:
             order_id = broker.order_place(
                 tradingsymbol=dct['tradingsymbol'],
                 exchange='NSE',
-                transaction_type='BUY',
+                transaction_type='SELL',
                 quantity = int(float(dct['QTY'].replace(',', ''))),
-                order_type='LIMIT',
-                product='CNC',
+                order_type='MARKET',
+                product='MIS',
                 variety='regular',
                 price=round_to_paise(ltp, +0.1)
             )
