@@ -5,8 +5,6 @@ from toolkit.currency import round_to_paise
 import traceback
 import logging
 import pandas as pd
-from toolkit.logger import Logger
-from toolkit.currency import round_to_paise
 from toolkit.utilities import Utilities
 from login_get_kite import get_kite
 from cnstpxy import dir_path, fileutils, buybuff, max_target
@@ -14,7 +12,7 @@ from cnstpxy import dir_path, fileutils, buybuff, max_target
 def place_mis_orders(positions_df, broker):
     try:
         # Place orders for MIS positions
-        for position in positions_df:
+        for index, position in positions_df.iterrows():
             logging.info(f"Placing order for {position['tradingsymbol']}")
             order_id = broker.order_place(
                 tradingsymbol=position['tradingsymbol'],
@@ -44,7 +42,7 @@ except Exception as e:
     logging.error(f"{str(e)} Unable to get KiteConnect instance")
 
 # Get open MIS positions
-mis_positions = [pos for pos in broker.positions()['day'] if pos['product'] == 'MIS']
+mis_positions = pd.DataFrame([pos for pos in broker.positions()['day'] if pos['product'] == 'MIS'])
 
 # Call the function with the appropriate arguments
 result = place_mis_orders(mis_positions, broker)
@@ -56,10 +54,10 @@ else:
     print("Failed to place orders.")
 
 # Get open MIS positions again for conversion
-mis_positions = [pos for pos in broker.positions()['net'] if pos['product'] == 'MIS' and pos['quantity'] > 0]
+mis_positions = pd.DataFrame([pos for pos in broker.positions()['net'] if pos['product'] == 'MIS' and pos['quantity'] > 0])
 
 # Convert MIS to CNC
-for position in mis_positions:
+for index, position in mis_positions.iterrows():
     print(f"Symbol: {position['trading_symbol']}, Quantity: {position['quantity']}, Product: {position['product']}")
     broker.place_order(
         tradingsymbol=position['trading_symbol'],
@@ -71,4 +69,5 @@ for position in mis_positions:
     )
 
 print("Conversion complete.")
+
 
