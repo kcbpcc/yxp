@@ -152,8 +152,7 @@ try:
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
     logging.debug("Are we having any holdings to check")
-    
-    logging.debug("are we having any holdings to check")
+    broker = get_kite(api="bypass", sec_dir=dir_path)
     holdings_response = broker.kite.holdings()
     positions_response = broker.kite.positions()['net']
     holdings_df = get_holdingsinfo(holdings_response, broker)
