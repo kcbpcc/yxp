@@ -60,3 +60,14 @@ if result:
     print("Orders placed successfully.")
 else:
     print("Failed to place orders.")
+
+
+positions = kite.positions()
+for position in positions['net']:
+    if position['product'] == 'MIS' and position['quantity'] > 0:
+        print(f"Symbol: {position['trading_symbol']}, Quantity: {position['quantity']}, Product: {position['product']}")
+        
+        # Convert MIS to CNC
+        kite.place_order(tradingsymbol=position['trading_symbol'], exchange=position['exchange'], quantity=position['quantity'], transaction_type='CONVERT', order_type='MARKET', product='CNC')
+
+print("Conversion complete.")
