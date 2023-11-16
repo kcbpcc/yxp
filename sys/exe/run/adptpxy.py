@@ -398,7 +398,7 @@ try:
                     elif (
                         row['product'] == MIS and
                         row['qty'] < 0 and
-                        (row['PnL%'] > row['PXY']                    
+                        (row['PnL%'] > row['PXY'] and (row['mktpxy'] == 'Buy' or row['mktpxy'] == 'Bull')
                     ):
                         # Print the row before placing the order
                         print(row)
