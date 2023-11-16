@@ -16,16 +16,20 @@ from mktpxy import mktpxy
 logging = Logger(10)
 holdings = dir_path + "holdings.csv"
 black_file = dir_path + "blacklist.txt"
+
 try:
     sys.stdout = open('output.txt', 'w')
     broker = get_kite(api="bypass", sec_dir=dir_path)
+
     if fileutils.is_file_not_2day(holdings):
         logging.debug("getting holdings for the day ...")
         resp = broker.kite.holdings()
+
         if resp and any(resp):
             df = get(resp)
             logging.debug(f"writing to csv ... {holdings}")
             df.to_csv(holdings, index=False)
+
         with open(black_file, 'w+'):
             pass
 except Exception as e:
@@ -41,19 +45,23 @@ if decision == "YES" and mktpxy in ['Buy', 'Bear', 'Bull']:
         lst = []
         file_size_in_bytes = os.path.getsize(holdings)
         logging.debug(f"holdings file size: {file_size_in_bytes} bytes")
+
         if file_size_in_bytes > 50:
             logging.debug(f"reading from csv ...{holdings}")
             df_holdings = pd.read_csv(holdings)
+
             if not df_holdings.empty:
                 lst = df_holdings['tradingsymbol'].to_list()
 
         # get list from Trendlyne
         lst_tlyne = []
         lst_dct_tlyne = Trendlyne().entry()
+
         if lst_dct_tlyne and any(lst_dct_tlyne):
             print(pd.DataFrame(
                 lst_dct_tlyne).set_index('tradingsymbol').rename_axis('Trendlyne'), "\n")
             lst_tlyne = [dct['tradingsymbol'] for dct in lst_dct_tlyne]
+
     except Exception as e:
         print(traceback.format_exc())
         logging.error(f"{str(e)} unable to read holdings or Trendlyne calls")
@@ -68,6 +76,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bear', 'Bull']:
 
             # get list from positions
             lst_dct = broker.positions
+
             if lst_dct and any(lst_dct):
                 lst = [dct['symbol'] for dct in lst_dct]
                 lst_tlyne = [
@@ -83,12 +92,13 @@ if decision == "YES" and mktpxy in ['Buy', 'Bear', 'Bull']:
         target = round_to_paise(ltp, max_target)
         return max(resistance, target)
 
-    def transact(dct):
+    def transact(dct, broker):
         try:
             def get_ltp():
                 ltp = -1
                 key = "NSE:" + dct['tradingsymbol']
                 resp = broker.kite.ltp(key)
+
                 if resp and isinstance(resp, dict):
                     ltp = resp[key]['last_price']
                 return ltp
@@ -102,7 +112,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bear', 'Bull']:
             order_quantity = int(float(dct['QTY'].replace(',', '')))
             order_price = round_to_paise(ltp, +0.1)
 
-            available_cash = # Assign the actual value of available cash here
+            available_cash =  # Assign the actual value of available cash here
 
             if available_cash > 112000:
                 order_id = broker.order_place(
@@ -137,7 +147,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bear', 'Bull']:
 
     # Inside the loop where you call transact
     for d in lst_orders:
-        failed_symbol = transact(d)
+        failed_symbol = transact(d, broker)
         if failed_symbol:
             new_list.append(failed_symbol)
         Utilities().slp_til_nxt_sec()
@@ -145,4 +155,5 @@ if decision == "YES" and mktpxy in ['Buy', 'Bear', 'Bull']:
 elif decision == "NO":
     # Perform actions for "NO"
     print("\033[91mNo Funds Available \033[0m")
+
 
