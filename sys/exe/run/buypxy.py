@@ -112,7 +112,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull']:
                 transaction_type='BUY',
                 quantity = int(float(dct['QTY'].replace(',', ''))),
                 order_type='LIMIT',
-                product='CNC',
+                product='MIS',
                 variety='regular',
                 price=round_to_paise(ltp, +0.1)
             )
