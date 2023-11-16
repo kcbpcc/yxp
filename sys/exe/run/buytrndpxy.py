@@ -144,14 +144,15 @@ if decision == "YES" and mktpxy in ['Buy', 'Bear', 'Bull']:
             logging.error(f"{str(e)} while placing order")
             return dct['tradingsymbol']
 
-    # Rest of your code...
-
+    lst_orders = []
+    
     # Inside the loop where you call transact
     for d in lst_orders:
         failed_symbol = transact(d, broker)
         if failed_symbol:
             new_list.append(failed_symbol)
         Utilities().slp_til_nxt_sec()
+
 
 elif decision == "NO":
     # Perform actions for "NO"
