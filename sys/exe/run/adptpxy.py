@@ -364,7 +364,7 @@ try:
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
                                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                                    send_telegram_message(row, key)
+                                    #send_telegram_message(row, key)
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
@@ -383,7 +383,7 @@ try:
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
                                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                                    send_telegram_message(row, key)
+                                    #send_telegram_message(row, key)
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
@@ -401,7 +401,7 @@ try:
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
                                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                                    send_telegram_message(row, key)
+                                    #send_telegram_message(row, key)
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
@@ -420,7 +420,7 @@ try:
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
                                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                                    send_telegram_message(row, key)
+                                    #send_telegram_message(row, key)
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
