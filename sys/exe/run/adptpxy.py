@@ -368,14 +368,16 @@ try:
                                 telegram_sent = send_telegram_message(row, key)
                                 if not telegram_sent:
                                     print("Telegram message not sent successfully.")
-                        except Exception as e:
-                            print(f"Error: {e}")
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
+                        except AnotherSpecificException as e:
+                            # Handle another specific exception
+                            print(f"Another specific exception occurred: {e}")
                         except Exception as e:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
+
                     elif row['source'] == 'positions' and row['product'] == 'CNC' and row['PnL%'] > 1.4 and (row['PnL%'] > row['Xl']):
                         # Print the row before placing the order
                         print(row)
