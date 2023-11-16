@@ -280,7 +280,7 @@ try:
     Yield = max(1.7, (2 + (NIFTY['strength'] * 6).round(1).max()))
     conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear')]
     choices_pxy = ['Yield', 'Xlratd', 'Precise']
-    PXY = np.select(conditions_pxy, choices_pxy, default='Yield')
+    
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
     # Dump the DataFrame to the CSV file, overwriting any existing file
@@ -291,8 +291,8 @@ try:
     pxy_df['Pr'] = max(1, 1 + max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max())))
     pxy_df['Xl'] = max(3, timpxy * max(0.1, (0 + (NIFTY['strength']).round(1).max())))
     pxy_df['Yi'] = np.maximum(timpxy, pxy_df['Xl'])
-    
-    pxy_df['PXY'] = np.where(mktpxy == 'Bear', Precise, np.where((mktpxy == 'Buy') | (mktpxy == 'Bull'), Yield, Xlratd))
+    PXY = (NIFTY['weakness'])*pxy_df['Yi']    
+    pxy_df['PXY'] = PXY
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['product','source', 'key', 'qty','avg','ltp', 'Pr', 'Xl', 'Yi','PnL%_H','dPnL%','PXY','PnL%','PnL']]
@@ -448,7 +448,7 @@ try:
         print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'Super Bull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if Precise > 1.4 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
+        print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if PXY < - 1 else BRIGHT_RED}{round(PXY, 2)}{RESET}"))
         print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Funds: {BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
