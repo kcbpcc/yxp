@@ -153,17 +153,11 @@ try:
     RESET = "\033[0m"
     logging.debug("Are we having any holdings to check")
     
-    # Ensure proper initialization of the broker object
-    broker = initialize_broker()  # Replace with your actual initialization logic
-    
-    if broker is not None:
-        holdings_response = broker.kite.holdings()
-        positions_response = broker.kite.positions()['net']
-        holdings_df = get_holdings_info(holdings_response, broker)
-        positions_df = get_positions_info(positions_response, broker)
-    else:
-        logging.error("Broker is not properly initialized.")
-        # Handle the case where 'broker' is None
+    logging.debug("are we having any holdings to check")
+    holdings_response = broker.kite.holdings()
+    positions_response = broker.kite.positions()['net']
+    holdings_df = get_holdingsinfo(holdings_response, broker)
+    positions_df = get_positionsinfo(positions_response, broker)
 
     # Add 'key' column to holdings_df and positions_df
     # Create 'key' column if holdings_df is not empty
