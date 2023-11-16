@@ -11,7 +11,7 @@ def process_csv(csv_file_path):
     table.add_column("PH")
     table.add_column("CM")
     table.add_column("Key")
-    #table.add_column("PXY")  # Remove this line to exclude the "PXY" column
+    table.add_column("PXY")
     table.add_column("PnL%")
     table.add_column("PnL")
 
@@ -32,13 +32,14 @@ def process_csv(csv_file_path):
 
             # Iterate over each row in the CSV file and add it to the table
             for row in csvreader:
-                # Adjust column indices to match your CSV file structure after removing "PXY" column
-                PH, CM, key, qty, avg, close, ltp, open_price, high, low, dpnl_percentage, pnl_percentage, pnl = row
+                # Adjust column indices to match your CSV file structure
+                PH, CM, key, qty, avg, close, ltp, open_price, high, low, dpnl_percentage, pxy, pnl_percentage, pnl = row
 
                 # Remove "NSE:" or "BSE:" prefix from the "Key" column
                 key = key.replace("NSE:", "").replace("BSE:", "")
 
                 # Convert numerical values to strings and round them to two decimal places
+                pxy = str(round(float(pxy), 1))
                 pnl_percentage = str(round(float(pnl_percentage), 1))
                 pnl = str(round(float(pnl)))
 
@@ -54,7 +55,7 @@ def process_csv(csv_file_path):
                 total_profit += float(pnl)
 
                 # Add the row to the table
-                table.add_row(mapped_PH, mapped_CM, key, pnl_percentage, pnl)
+                table.add_row(mapped_PH, mapped_CM, key, pxy, pnl_percentage, pnl)
 
     except FileNotFoundError:
         print("File not found!")
@@ -75,7 +76,7 @@ csv_file_path = "filePnL.csv"
 total_profit_main = process_csv(csv_file_path)
 
 # Now you can use total_profit_main in your main code
-#print("Total Profit in Main:", total_profit_main)
+#print("Total Profit in Main:", total_profit_main) 
 
 
 
