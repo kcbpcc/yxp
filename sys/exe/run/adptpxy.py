@@ -364,7 +364,12 @@ try:
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
                                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                                    send_telegram_message(row, key)
+                                # Send Telegram message after writing to CSV
+                                telegram_sent = send_telegram_message(row, key)
+                                if not telegram_sent:
+                                    print("Telegram message not sent successfully.")
+                        except Exception as e:
+                            print(f"Error: {e}")
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
