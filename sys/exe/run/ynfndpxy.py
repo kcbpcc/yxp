@@ -29,6 +29,7 @@ def calculate_decision():
         decision = "YES" if available_cash > 10000 else "NO"
 
         return decision
+        return available_cash
         
     except Exception as e:
         remove_token(dir_path)
