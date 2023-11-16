@@ -40,15 +40,17 @@ class Trendlyne:
                         data_list_of_dicts = []
                         for row in rows:
                             data_dict = {
-                                'PXY_OPENDAGGARA': row[0],
-                                'tradingsymbol': row[1],
-                                'QTY': row[2],
+                            
+                                'tradingsymbol': row[0],
+                                'QTY': row[1],
+                                '3': row[2],
                                 '4': row[3],
                                 '5': row[4],
                                 '6': row[5],
                                 '7': row[6],
                                 '8': row[7],
-                                '9': row[8]
+                                '9': row[8],
+                    
                             }
                             data_list_of_dicts.append(data_dict)
                         return data_list_of_dicts
