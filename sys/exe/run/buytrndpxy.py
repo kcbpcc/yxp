@@ -112,7 +112,8 @@ if decision == "YES" and mktpxy in ['Buy', 'Bear', 'Bull']:
             order_quantity = int(float(dct['QTY'].replace(',', '')))
             order_price = round_to_paise(ltp, +0.1)
 
-            available_cash =  # Assign the actual value of available cash here
+            response = broker.kite.margins()
+            available_cash = response["equity"]["available"]["live_balance"]  
 
             if available_cash > 112000:
                 order_id = broker.order_place(
