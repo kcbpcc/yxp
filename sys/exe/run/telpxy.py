@@ -1,6 +1,6 @@
 import asyncio
 from telegram import Bot
-from telegram import telegram
+from telegram import ParseMode
 
 # Move the token, usernames, and message_text definition here
 bot_token = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'
