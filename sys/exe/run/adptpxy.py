@@ -345,12 +345,12 @@ try:
                 key = row['key']  # Get the 'key' value
                 # Check the common conditions first
                 if (
-
                     row['ltp'] > 0 and 
-                    row['avg'] > 0 and 
-                    row['PnL%'] > 1.4
+                    row['avg'] > 0 
                 ):
                     if (
+                        row['product'] == 'CNC'
+                        row['PnL%'] > 1.4
                         row['qty'] > 0 and
                         (row['PnL%'] > row['Yi'] or 
                         (row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl']))
@@ -359,7 +359,7 @@ try:
                         print(row)
                         
                         try:
-                            is_placed = order_place(key, row)
+                            is_placed = order_place(key, row) if row['product'] == 'CNC' else mis_order_sell(key, row)
                             if is_placed:
                                 # Write the row to the CSV file here
                                 with open(csv_file_path, 'a', newline='') as csvfile:
@@ -373,7 +373,8 @@ try:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
 
-                    elif row['source'] == 'positions' and row['product'] == 'CNC' and row['PnL%'] > 1.4 and (row['PnL%'] > row['Xl']):
+                    elif 
+                    row['source'] == 'positions' and row['product'] == 'CNC' and row['PnL%'] > 1.4 and (row['PnL%'] > row['Xl']):
                         # Print the row before placing the order
                         print(row)
                         
