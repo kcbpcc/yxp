@@ -275,12 +275,18 @@ try:
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    Precise = max(1.3, (1 + (NIFTY['strength'] * 2).round(1).max()))
+    Precise = max(1.3, (1 + (NIFTY['strength']).round(1).max()))
     Xlratd = NIFTY['strength'] * timpxy
     Yield = timpxy
     conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bear')]
     choices_pxy = ['Yield', 'Xlratd', 'Precise','Yield']
     
+
+
+
+
+
+
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
