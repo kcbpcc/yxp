@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 # Specify the path to your CSV file
 file_path = 'filePnL.csv'
 
-# Function to check if the current time is between 2:00 AM and 3:00 AM UTC
+# Function to check if the current time is between 2:00 AM and 3:45 AM UTC
 def is_time_between(start_time, end_time):
     current_time = datetime.utcnow()
     return start_time <= current_time <= end_time
