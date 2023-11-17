@@ -381,7 +381,8 @@ try:
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['PnL%'] > 0.3 and 
-                        (row['PnL%'] > row['Yi']) or ((row['PnL%'] > row['Xl']) and (mktpxy == 'Sell' or mktpxy == 'Bear'))                    ):
+                        (row['PnL%'] > row['Yi']) or ((row['PnL%'] > row['Xl']) and (mktpxy == 'Sell' or mktpxy == 'Bear'))
+                    ):
                         # Print the row before placing the order
                         print(row)
     
