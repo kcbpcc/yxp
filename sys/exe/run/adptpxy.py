@@ -277,15 +277,15 @@ try:
     
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
     Precise = max(1.3, (1 + (NIFTY['strength']).round(1).max()))
-    Xlratd = NIFTY['strength'] * timpxy
+    Xlratd = (NIFTY['strength'] * timpxy).clip(1.3, None)
     Yield = timpxy
     conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bull')]
     choices_pxy = ['Yield', 'Xlratd', 'Precise','Yield']
     PXY = choices_pxy
     
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    _Precise = min(1.3, (NIFTY['weakness']).round(1).max(), -1)
-    _Xlratd = (NIFTY['weakness'] * timpxy).clip(None, -1)
+    _Precise = min((NIFTY['weakness']).round(1).max(), -1.3)
+    _Xlratd = (NIFTY['weakness'] * timpxy).clip(None, -1.3)
     _Yield = timpxy * (-1)
     _conditions_pxy = [(mktpxy == 'Bear') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bull')]
     _choices_pxy = ['_Yield', '_Xlratd', '_Precise','_Yield']
