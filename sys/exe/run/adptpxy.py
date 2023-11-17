@@ -380,7 +380,7 @@ try:
                         row['qty'] > 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
-                        row['PnL%'] > 0.3 and 
+                        row['PnL%'] < 0 and 
                         #(row['PnL%'] > row['Yi']) or ((row['PnL%'] > row['Xl']) and (mktpxy == 'Sell' or mktpxy == 'Bear'))
                         row['PnL%'] < 0
                     ):
