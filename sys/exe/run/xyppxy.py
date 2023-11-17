@@ -2,9 +2,10 @@ import yfinance as yf
 import numpy as np
 import pandas as pd
 from timpxy import calculate_timpxy
+from mktpxy import get_market_check
 import math
 
-
+mktpxy, pktpxy = get_market_check('^NSEI')
 # Function to fetch NIFTY data using yfinance
 def fetch_nifty_data():
     nifty_ticker = yf.Ticker('^NSEI')  # NSE NIFTY 50 index symbol
