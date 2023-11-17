@@ -280,12 +280,15 @@ try:
     Yield = timpxy
     conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bear')]
     choices_pxy = ['Yield', 'Xlratd', 'Precise','Yield']
+    PXY = choices_pxy
     
-
-
-
-
-
+    # Assuming NIFTY['Day_Change_%'] is a Pandas Series
+    _Precise = max(1.3, (1 + (NIFTY['weakness']).round(1).max()))
+    _Xlratd = NIFTY['strength'] * timpxy
+    _Yield = timpxy
+    _conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bear')]
+    _choices_pxy = ['_Yield', '_Xlratd', '_Precise','_Yield']
+    _PXY = choices_pxy
 
     
     # Define the file path for the CSV file
