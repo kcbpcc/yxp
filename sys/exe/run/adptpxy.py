@@ -352,7 +352,7 @@ try:
                      row['avg'] > 0) 
                 ):
                     if (
-                        row['qty'] > 0
+                        row['qty'] > 0 and
                         row['source'] == 'holdings' and
                         row['PnL%'] > 1.4 and 
                         (row['PnL%'] > row['Yi'] or ((row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl']) and (mktpxy == 'Sell' or mktpxy == 'Bear')))
