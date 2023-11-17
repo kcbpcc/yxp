@@ -275,7 +275,7 @@ try:
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
     
-    Precise = max(1.3, (1 + NIFTY['strength'].round(1).max()))
+    Precise = min(1.3, (1 + NIFTY['strength']).round(1).max())
     Xlratd = NIFTY['strength'] * timpxy
     Yield = timpxy
     
@@ -291,16 +291,7 @@ try:
     _choices_pxy = ['_Yield', '_Xlratd', '_Precise', '_Yield']
     _PXY = np.select(_conditions_pxy, _choices_pxy)
     
-    # Print values
-    print("Precise:", Precise)
-    print("Xlratd:", Xlratd)
-    print("Yield:", Yield)
-    print("PXY:", PXY)
-    
-    print("_Precise:", _Precise)
-    print("_Xlratd:", _Xlratd)
-    print("_Yield:", _Yield)
-    print("_PXY:", _PXY)
+
 
     
     # Define the file path for the CSV file
@@ -471,6 +462,22 @@ try:
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
 
+        # Print values
+        print("Precise:", Precise)
+        print("Xlratd:", Xlratd)
+        print("Yield:", Yield)
+        print("PXY:", PXY)
+        
+        print("_Precise:", _Precise)
+        print("_Xlratd:", _Xlratd)
+        print("_Yield:", _Yield)
+        print("_PXY:", _PXY)
+
+
+
+
+
+        
         subprocess.run(['python3', 'mktpxy.py'])
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
