@@ -76,7 +76,7 @@ if not NIFTY.empty:
     print("Precise:", round(Precise, 1))
     print("Xlratd:", Xlratd.round(1))
     print("Yield:", round(Yield, 1))
-    print("PXY:", PXY.astype(str).replace('nan', 'NaN').round(1))
+    print("PXY:", np.where(np.isnan(PXY), 'NaN', PXY).round(1))
 
     print("_Precise:", round(_Precise, 1))
     print("_Xlratd:", _Xlratd.round(1))
