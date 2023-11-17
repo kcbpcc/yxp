@@ -1,6 +1,9 @@
 import yfinance as yf
 import numpy as np
 import pandas as pd
+from timpxy import calculate_timpxy
+import math
+timpxy = calculate_timpxy()
 
 # Function to fetch NIFTY data using yfinance
 def fetch_nifty_data():
