@@ -337,20 +337,16 @@ try:
     # Define the CSV file path
     csv_file_path = "filePnL.csv"
     # Create an empty list to store the rows that meet the condition
-    selected_rows = []# Loop through the DataFrame and place orders based on conditions
-
-    #_____________________________________________________________________
+    selected_rows = []# Loop through the DataFrame and place orders based on conditions    
     if any(item in mktpxy for item in ['Sell', 'Bear', 'Buy', 'Bull', 'None']):  # Check if mktpxy is one of the specified values
         try:
             for index, row in EXE_df.iterrows():
                 key = row['key']  # Get the 'key' value
                 # Check the common conditions first
                 if (
-                    (row['ltp'] > 0 and
-                     row['avg'] > 0)
+                    (row['ltp'] > 0 and row['avg'] > 0)
                 ):
-                    if (row['source'] == 'holdings' and row['product'] == 'CNC' and
-                        row['PnL%'] > 1.4 and row['PnL%'] > row['PXY']
+                    if (row['source'] == 'holdings' and row['product'] == 'CNC' and row['PnL%'] > 1.4 and row['PnL%'] > row['PXY']
                         
                     ):
                         # Print the row before placing the order
@@ -424,8 +420,8 @@ try:
         except Exception as e:
             # Handle any other exceptions that may occur during the loop
             print(f"An unexpected error occurred: {e}")
-
-        print(f"{BRIGHT_YELLOW}📉🔀Trades Overview & Market Dynamics 📈🔄 {RESET}")
+        
+        print(f"{BRIGHT_YELLOW}📉🔀📈 Trades Overview & Market Dynamics 🔄 {RESET}")
         # ANSI escape codes for text coloring
         RESET = "\033[0m"
         BRIGHT_YELLOW = "\033[93m"
@@ -435,23 +431,22 @@ try:
         column_width = 30
         left_aligned_format = "{:<" + str(column_width) + "}"
         right_aligned_format = "{:>" + str(column_width) + "}"
-        print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
+        print(left_aligned_format.format(f"@Close%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
-        print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'Super Bull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
+        print(left_aligned_format.format(f"@Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'SuperBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
-        print(left_aligned_format.format(f"Day Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if PXY.iloc[0] < -1 else BRIGHT_RED}{round(PXY.iloc[0], 2)}{RESET}"))
-        print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Funds: {BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
-        print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
+        print(left_aligned_format.format(f"@Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Precise:{BRIGHT_GREEN if Precise > 1.4 else BRIGHT_RED}{round(Precise, 2)}{RESET}"))
+        print(left_aligned_format.format(f"@PnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Xlratd:{BRIGHT_GREEN if Xlratd > 2.4 else BRIGHT_RED}{round(Xlratd, 2)}{RESET}"))
+        print(left_aligned_format.format(f"@PnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Yield:{BRIGHT_GREEN if Yield > 3.4 else BRIGHT_RED}{round(Yield, 2)}{RESET}"))
 
-        subprocess.run(['python3', 'mktpxy.py'])
-
-        print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
+        print(f'{SILVER}{UNDERLINE}       PXY® PreciseXceleratedYield Pvt Ltd™{RESET}')
 except Exception as e:
     remove_token(dir_path)
     print(traceback.format_exc())
     logging.error(f"{str(e)} in the main loop")
+
 
 
