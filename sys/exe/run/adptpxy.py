@@ -338,115 +338,115 @@ try:
     csv_file_path = "filePnL.csv"
     # Create an empty list to store the rows that meet the condition
     selected_rows = []# Loop through the DataFrame and place orders based on conditions
-    if any(item in mktpxy for item in ['Sell', 'Bear', 'Buy', 'Bull', 'None']):  # Check if mktpxy is one of the specified values
-        try:
-            for index, row in EXE_df.iterrows():
-                key = row['key']  # Get the 'key' value
-                # Check the common conditions first
-                if (
-                    row['product'] == 'CNC' and
-                    row['PnL%'] > 1.4 and  
-                    row['qty'] > 0 and
-                    (
-                        row['PnL%'] > row['Yi'] or 
+        if any(item in mktpxy for item in ['Sell', 'Bear', 'Buy', 'Bull', 'None']):  # Check if mktpxy is one of the specified values
+            try:
+                for index, row in EXE_df.iterrows():
+                    key = row['key']  # Get the 'key' value
+                    # Check the common conditions first
+                    if (
+                        row['product'] == 'CNC' and
+                        row['PnL%'] > 1.4 and  
+                        row['qty'] > 0 and
                         (
-                            row['PnL%_H'] > row['Xl'] and 
-                            row['PnL%'] < row['Xl']
-                        ) and 
-                        (
-                            row['mktpxy'] == 'Sell' or 
-                            row['mktpxy'] == 'Bear'
+                            row['PnL%'] > row['Yi'] or 
+                            (
+                                row['PnL%_H'] > row['Xl'] and 
+                                row['PnL%'] < row['Xl']
+                            ) and 
+                            (
+                                row['mktpxy'] == 'Sell' or 
+                                row['mktpxy'] == 'Bear'
+                            )
                         )
-                    )
-                ):                        
-                    # Print the row before placing the order
-                        print(row)
-                        
-                        try:
-                            is_placed = order_place(key, row)
-                            if is_placed:
-                                # Write the row to the CSV file here
-                                with open(csv_file_path, 'a', newline='') as csvfile:
-                                    csvwriter = csv.writer(csvfile)
-                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                                    #send_telegram_message(row, key)
-                        except InputException as e:
-                            # Handle the specific exception and print only the error message
-                            print(f"An error occurred while placing an order for key {key}: {e}")
-                        except Exception as e:
-                            # Handle any other exceptions that may occur during order placement
-                            print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-    
-                elif (
-                    row['product'] == 'CNC' and
-                    row['PnL%'] > 1.4 and  
-                    row['qty'] > 0 and
-                    (
-                        row['PnL%'] > row['Yi'] or 
+                    ):                        
+                        # Print the row before placing the order
+                            print(row)
+                            
+                            try:
+                                is_placed = order_place(key, row)
+                                if is_placed:
+                                    # Write the row to the CSV file here
+                                    with open(csv_file_path, 'a', newline='') as csvfile:
+                                        csvwriter = csv.writer(csvfile)
+                                        csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
+                                        #send_telegram_message(row, key)
+                            except InputException as e:
+                                # Handle the specific exception and print only the error message
+                                print(f"An error occurred while placing an order for key {key}: {e}")
+                            except Exception as e:
+                                # Handle any other exceptions that may occur during order placement
+                                print(f"An unexpected error occurred while placing an order for key {key}: {e}")
+        
+                    elif (
+                        row['product'] == 'CNC' and
+                        row['PnL%'] > 1.4 and  
+                        row['qty'] > 0 and
                         (
-                            row['PnL%_H'] > row['Xl'] and 
-                            row['PnL%'] < row['Xl']
-                        ) and 
-                        (
-                            row['mktpxy'] == 'Sell' or 
-                            row['mktpxy'] == 'Bear'
+                            row['PnL%'] > row['Yi'] or 
+                            (
+                                row['PnL%_H'] > row['Xl'] and 
+                                row['PnL%'] < row['Xl']
+                            ) and 
+                            (
+                                row['mktpxy'] == 'Sell' or 
+                                row['mktpxy'] == 'Bear'
+                            )
                         )
-                    )
-                ):                        
-                    # Print the row before placing the order
-                        print(row)
-                        
-                        try:
-                            is_placed = order_place(key, row)
-                            if is_placed:
-                                # Write the row to the CSV file here
-                                with open(csv_file_path, 'a', newline='') as csvfile:
-                                    csvwriter = csv.writer(csvfile)
-                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                                    #send_telegram_message(row, key)
-                        except InputException as e:
-                            # Handle the specific exception and print only the error message
-                            print(f"An error occurred while placing an order for key {key}: {e}")
-                        except Exception as e:
-                            # Handle any other exceptions that may occur during order placement
-                            print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-                elif (
-                    row['product'] == 'CNC' and
-                    row['PnL%'] > 1.4 and  
-                    row['qty'] > 0 and
-                    (
-                        row['PnL%'] > row['Yi'] or 
+                    ):                        
+                        # Print the row before placing the order
+                            print(row)
+                            
+                            try:
+                                is_placed = order_place(key, row)
+                                if is_placed:
+                                    # Write the row to the CSV file here
+                                    with open(csv_file_path, 'a', newline='') as csvfile:
+                                        csvwriter = csv.writer(csvfile)
+                                        csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
+                                        #send_telegram_message(row, key)
+                            except InputException as e:
+                                # Handle the specific exception and print only the error message
+                                print(f"An error occurred while placing an order for key {key}: {e}")
+                            except Exception as e:
+                                # Handle any other exceptions that may occur during order placement
+                                print(f"An unexpected error occurred while placing an order for key {key}: {e}")
+                    elif (
+                        row['product'] == 'CNC' and
+                        row['PnL%'] > 1.4 and  
+                        row['qty'] > 0 and
                         (
-                            row['PnL%_H'] > row['Xl'] and 
-                            row['PnL%'] < row['Xl']
-                        ) and 
-                        (
-                            row['mktpxy'] == 'Sell' or 
-                            row['mktpxy'] == 'Bear'
+                            row['PnL%'] > row['Yi'] or 
+                            (
+                                row['PnL%_H'] > row['Xl'] and 
+                                row['PnL%'] < row['Xl']
+                            ) and 
+                            (
+                                row['mktpxy'] == 'Sell' or 
+                                row['mktpxy'] == 'Bear'
+                            )
                         )
-                    )
-                ):                        
-                    # Print the row before placing the order
-                        print(row)
-                        
-                        try:
-                            is_placed = order_place(key, row)
-                            if is_placed:
-                                # Write the row to the CSV file here
-                                with open(csv_file_path, 'a', newline='') as csvfile:
-                                    csvwriter = csv.writer(csvfile)
-                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                                    #send_telegram_message(row, key)
-                        except InputException as e:
-                            # Handle the specific exception and print only the error message
-                            print(f"An error occurred while placing an order for key {key}: {e}")
-                        except Exception as e:
-                            # Handle any other exceptions that may occur during order placement
-                            print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-                             
-         except Exception as e:
-            # Handle any other exceptions that may occur during the loop
-            print(f"An unexpected error occurred: {e}")
+                    ):                        
+                        # Print the row before placing the order
+                            print(row)
+                            
+                            try:
+                                is_placed = order_place(key, row)
+                                if is_placed:
+                                    # Write the row to the CSV file here
+                                    with open(csv_file_path, 'a', newline='') as csvfile:
+                                        csvwriter = csv.writer(csvfile)
+                                        csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
+                                        #send_telegram_message(row, key)
+                            except InputException as e:
+                                # Handle the specific exception and print only the error message
+                                print(f"An error occurred while placing an order for key {key}: {e}")
+                            except Exception as e:
+                                # Handle any other exceptions that may occur during order placement
+                                print(f"An unexpected error occurred while placing an order for key {key}: {e}")
+                                 
+             except Exception as e:
+                # Handle any other exceptions that may occur during the loop
+                print(f"An unexpected error occurred: {e}")
 
 
 
@@ -474,10 +474,10 @@ try:
         subprocess.run(['python3', 'mktpxy.py'])
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
-    except Exception as e:
-        remove_token(dir_path)
-        print(traceback.format_exc())
-        logging.error(f"{str(e)} in the main loop")
+except Exception as e:
+    remove_token(dir_path)
+    print(traceback.format_exc())
+    logging.error(f"{str(e)} in the main loop")
 
 
 
