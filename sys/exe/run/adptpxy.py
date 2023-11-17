@@ -290,7 +290,7 @@ try:
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    pxy_df['Pr'] = max(1, 1 + max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max())))
+    pxy_df['Pr'] = max(1, 1 + max(0.2, (0 + (NIFTY['strength'] * 1).round(1).max())))
     pxy_df['Xl'] = max(3, timpxy * max(0.1, (0 + (NIFTY['strength']).round(1).max())))
     pxy_df['Yi'] = np.maximum((timpxy*(0.5)), pxy_df['Xl'])
     PXY = ((NIFTY['weakness'])*((pxy_df['Yi'])*(0.5)))* (-1)    
