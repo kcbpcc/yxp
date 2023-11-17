@@ -33,40 +33,18 @@ Xlratd = NIFTY['strength'] * timpxy
 # Calculate Yield
 Yield = timpxy * (-1)
 
-# Conditions and choices for PXY
-conditions_pxy = [
-    (mktpxy == 'Bull') | (mktpxy == 'Buy'),
-    (mktpxy == 'Sell'),
-    (mktpxy == 'Bear'),
-    (mktpxy == 'Bull')
-]
-choices_pxy = ['Yield', 'Xlratd', 'Precise', 'Yield']
-PXY = np.select(conditions_pxy, choices_pxy)
 
 # Assuming NIFTY['Day_Change_%'] is a Pandas Series
 _Precise = min(1.3, (NIFTY['weakness']).round(1).max(), -1)
 _Xlratd = (NIFTY['weakness'] * timpxy).clip(None, -1)
 _Yield = timpxy * (-1)
 
-# Conditions and choices for _PXY
-_conditions_pxy = [
-    (mktpxy == 'Bear') | (mktpxy == 'Buy'),
-    (mktpxy == 'Sell'),
-    (mktpxy == 'Bear'),
-    (mktpxy == 'Bull')
-]
-_choices_pxy = ['_Yield', '_Xlratd', '_Precise', '_Yield']
-_PXY = np.select(_conditions_pxy, _choices_pxy)
-
 # Print values with one decimal place
 print("Precise:", round(Precise, 1))
 print("Xlratd:", Xlratd.round(1).values)  # Use .values to remove the Datetime index
 print("Yield:", round(Yield, 1))
-print("PXY:")
-print(pd.Series(PXY).astype(str).replace('nan', 'NaN').round(1).values)  # Convert to Pandas Series to remove the Datetime index
+
 
 print("_Precise:", round(_Precise, 1))
 print("_Xlratd:", _Xlratd.round(1).values)  # Use .values to remove the Datetime index
 print("_Yield:", round(_Yield, 1))
-print("_PXY:")
-print(pd.Series(_PXY).astype(str).replace('nan', 'NaN').round(1).values)  # Convert to Pandas Series to remove the Datetime index
