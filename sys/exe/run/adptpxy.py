@@ -344,17 +344,22 @@ try:
                 key = row['key']  # Get the 'key' value
                 # Check the common conditions first
                 if (
-                    row['ltp'] > 0 and 
-                    row['avg'] > 0 
-                ):
-                    if (
-                        row['product'] == CNC and
-                        row['PnL%'] > 1.4 and  
-                        row['qty'] > 0 and
-                        (row['PnL%'] > row['Yi'] or 
-                        (row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl']) and (row['mktpxy'] == 'Sell' or row['mktpxy'] == 'Bear')                        
-                    ):
-                        # Print the row before placing the order
+                    row['product'] == 'CNC' and
+                    row['PnL%'] > 1.4 and  
+                    row['qty'] > 0 and
+                    (
+                        row['PnL%'] > row['Yi'] or 
+                        (
+                            row['PnL%_H'] > row['Xl'] and 
+                            row['PnL%'] < row['Xl']
+                        ) and 
+                        (
+                            row['mktpxy'] == 'Sell' or 
+                            row['mktpxy'] == 'Bear'
+                        )
+                    )
+                ):                        
+                    # Print the row before placing the order
                         print(row)
                         
                         try:
