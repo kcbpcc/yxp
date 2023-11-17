@@ -195,9 +195,7 @@ try:
     combined_df['PnL_H'] = combined_df['value_H'] - combined_df['Invested']
     # Calculate 'PnL%' column as ('PnL' / 'Invested') * 100
     combined_df['PnL%'] = (combined_df['PnL'] / combined_df['Invested']) * 100
-    #combined_df['PnL%'] = ((combined_df['PnL'] / combined_df['Invested']) * 100) * np.where(combined_df['qty'] < 0, -1, 1)
     combined_df['PnL%_H'] = (combined_df['PnL_H'] / combined_df['Invested']) * 100
-    #combined_df['PnL%_H'] = ((combined_df['PnL_H'] / combined_df['Invested']) * 100) * np.where(combined_df['qty'] < 0, -1, 1)
     # Calculate 'Yvalue' column as 'qty' * 'close'
     combined_df['Yvalue'] = combined_df['qty'] * combined_df['close']
     # Calculate 'dPnL' column as 'close_price' - 'ltp'
@@ -268,20 +266,21 @@ try:
     # Calculate the metrics
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
-    NIFTY['pricerange'] = (NIFTY['high'] + 0.01) - (NIFTY['close_price'] - 0.01)
-    NIFTY['priceratio'] =  (NIFTY['ltp'] - NIFTY['close_price'])/NIFTY['pricerange']
+    #NIFTY['pricerange'] = (NIFTY['high'] + 0.01) - (NIFTY['close_price'] - 0.01)
+    #NIFTY['priceratio'] =  (NIFTY['ltp'] - NIFTY['close_price'])/NIFTY['pricerange']
     # Extract and print just the values without the column name and data type information
-    strength_values = NIFTY['strength'].values
-    pricerange_values = NIFTY['pricerange'].values
-    priceratio_values = NIFTY['priceratio'].values
+    #strength_values = NIFTY['strength'].values
+    #pricerange_values = NIFTY['pricerange'].values
+    #priceratio_values = NIFTY['priceratio'].values
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
     Precise = max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max()))
     Xlratd = max(1.6, (1 + (NIFTY['strength'] * 5).round(1).max()))
-    Yield = max(1.7, (2 + (NIFTY['strength'] * 6).round(1).max()))
-    conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear')]
-    choices_pxy = ['Yield', 'Xlratd', 'Precise']
+    Yield = timpxy
+    conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bear')]
+    choices_pxy = ['Yield', 'Xlratd', 'Precise','Yield']
+    
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
