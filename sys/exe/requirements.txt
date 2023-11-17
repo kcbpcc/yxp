@@ -1,8 +1,8 @@
 wheel
 setuptools==58.2.0
-git+https://github.com/PreciseXceleratedYieldPXY/kiteext.git
-git+https://github.com/PreciseXceleratedYieldPXY/toolkit.git
-git+https://github.com/PreciseXceleratedYieldPXY/omspy-brokers.git
+git+https://github.com/PreciseXceleratedYieldPXY/depx.git
+git+https://github.com/PreciseXceleratedYieldPXY/depy.git
+git+https://github.com/PreciseXceleratedYieldPXY/depz.git
 kiteconnect
 pandas
 pyotp
