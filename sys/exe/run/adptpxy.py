@@ -376,17 +376,13 @@ try:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
 
-
-                elif (
-                    (row['ltp'] > 0 and
-                     row['avg'] > 0) 
-                     
-                ):
-                    if (row['source'] == 'positions' and
+                    elif 
+                       (row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['qty'] > 0 and
                         row['PnL%'] > 1.4 and 
-                        (row['PnL%'] > row['Pr'])
+                        (row['PnL%'] > row['Yi'] or ((row['PnL%'] > row['Xl']) and (row['mktpxy'] == 'Sell' or row['mktpxy'] == 'Bear')))
+
      
                     ):
                         # Print the row before placing the order
@@ -406,12 +402,8 @@ try:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
 
-                elif (
-                    (row['ltp'] > 0 and
-                     row['avg'] > 0) 
-                     
-                ):
-                    if (row['source'] == 'positions' and
+                    elif 
+                        (row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['qty'] < 0 and
                         (row['PnL%'] > row['PXY'])
