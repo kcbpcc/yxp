@@ -377,7 +377,7 @@ try:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
     
-                if (
+                elif (
                     row['product'] == 'CNC' and
                     row['PnL%'] > 1.4 and  
                     row['qty'] > 0 and
@@ -410,7 +410,7 @@ try:
                         except Exception as e:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-                if (
+                elif (
                     row['product'] == 'CNC' and
                     row['PnL%'] > 1.4 and  
                     row['qty'] > 0 and
