@@ -274,19 +274,20 @@ try:
     #priceratio_values = NIFTY['priceratio'].values
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
+    
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
     Precise = max(1.3, (1 + (NIFTY['strength']).round(1).max()))
     Xlratd = NIFTY['strength'] * timpxy
     Yield = timpxy
-    conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bear')]
+    conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bull')]
     choices_pxy = ['Yield', 'Xlratd', 'Precise','Yield']
     PXY = choices_pxy
     
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    _Precise = max(1.3, (1 + (NIFTY['weakness']).round(1).max()))
-    _Xlratd = NIFTY['strength'] * timpxy
-    _Yield = timpxy
-    _conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bear')]
+    _Precise = min(1.3, (NIFTY['weakness']).round(1).max(), -1)
+    _Xlratd = (NIFTY['weakness'] * timpxy).clip(None, -1)
+    _Yield = timpxy * (-1)
+    _conditions_pxy = [(mktpxy == 'Bear') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bull')]
     _choices_pxy = ['_Yield', '_Xlratd', '_Precise','_Yield']
     _PXY = choices_pxy
 
