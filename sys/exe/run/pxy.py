@@ -75,22 +75,22 @@ while True:
             mktpxy = 'Bear'
             console.print("🐻🔴🔴🔴 [bold]Bearish sentiment![/bold] 🍯💰", style=bear_style)
             subprocess.run(['python3', 'sellpxy.py']) if nse_action == "NIFTYBEAR" else None
-            subprocess.run(['python3', 'adptpxy.py']) 
+            subprocess.run(['python3', 'cntrlpxy.py']) 
         elif current_color == 'Bull' and last_closed_color == 'Bull':
             mktpxy = 'Bull'
             console.print("🐂🟢🟢🟢 [bold]Bullish sentiment![/bold] 💪💰", style=bull_style)
             subprocess.run(['python3', 'buypxy.py']) if nse_action == "NIFTYBULL" else None
-            subprocess.run(['python3', 'adptpxy.py'])
+            subprocess.run(['python3', 'cntrlpxy.py'])
         elif current_color == 'Bear' and last_closed_color == 'Bull':
             mktpxy = 'Sell'
             console.print("🛒🔴🛬⤵️ [bold]Time to sell![/bold] 📉💰", style=sell_style) 
             subprocess.run(['python3', 'sellpxy.py']) if nse_action == "NIFTYBEAR" else None
-            subprocess.run(['python3', 'adptpxy.py'])
+            subprocess.run(['python3', 'cntrlpxy.py'])
         elif current_color == 'Bull' and last_closed_color == 'Bear':
             mktpxy = 'Buy'
             console.print("🚀🟢🛫⤴️ [bold]Time to buy![/bold] 🌠💰", style=buy_style)
             subprocess.run(['python3', 'buypxy.py']) if nse_action == "NIFTYBULL" else None
-            subprocess.run(['python3', 'adptpxy.py'])           
+            subprocess.run(['python3', 'cntrlpxy.py'])           
             
         else:
             mktpxy = 'None'
