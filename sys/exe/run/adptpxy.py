@@ -473,11 +473,11 @@ try:
 
         subprocess.run(['python3', 'mktpxy.py'])
 
-    print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
-except Exception as e:
-    remove_token(dir_path)
-    print(traceback.format_exc())
-    logging.error(f"{str(e)} in the main loop")
+        print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
+    except Exception as e:
+        remove_token(dir_path)
+        print(traceback.format_exc())
+        logging.error(f"{str(e)} in the main loop")
 
 
 
