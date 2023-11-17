@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from timpxy import calculate_timpxy
 import math
-timpxy = calculate_timpxy()
+
 
 # Function to fetch NIFTY data using yfinance
 def fetch_nifty_data():
@@ -22,7 +22,7 @@ NIFTY['weakness'] = ((NIFTY['Close'] - (NIFTY['High'] - 0.01)) /
                       (np.abs(NIFTY['High'] + 0.01) - np.abs(NIFTY['Low'] - 0.01)))
 
 # Assuming other necessary variables are defined
-timpxy =  # You need to define 'timpxy' variable
+timpxy = calculate_timpxy()
 
 # Calculate Precise
 Precise = min(1.3, (1 + NIFTY['strength']).round(1).max())
