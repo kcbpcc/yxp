@@ -386,7 +386,7 @@ try:
                         row['product'] == 'MIS' and
                         row['qty'] > 0 and
                         row['PnL%'] > 1.4 and 
-                        (row['PnL%'] > row['Yi'])
+                        (row['PnL%'] > row['Pr'])
      
                     ):
                         # Print the row before placing the order
