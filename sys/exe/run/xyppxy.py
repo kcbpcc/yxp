@@ -9,7 +9,7 @@ mktpxy, pktpxy = get_market_check('^NSEI')
 # Function to fetch NIFTY data using yfinance
 def fetch_nifty_data():
     nifty_ticker = yf.Ticker('^NSEI')  # NSE NIFTY 50 index symbol
-    nifty_data = nifty_ticker.history(period='1d', interval='1m')
+    nifty_data = nifty_ticker.history(period='1d', interval='1d')
     return nifty_data
 
 # Fetch NIFTY data
