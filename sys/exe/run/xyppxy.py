@@ -36,7 +36,7 @@ Yield = timpxy * (-1)
 
 # Conditions for PXY
 conditions_pxy = [
-    (mktpxy.isin(['Bull', 'Buy'])),
+    (mktpxy == 'Bear') | (mktpxy == 'Buy'),
     (mktpxy == 'Sell'),
     (mktpxy == 'Bear'),
     (mktpxy == 'Bull')
