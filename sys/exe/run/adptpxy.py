@@ -275,21 +275,32 @@ try:
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
     
-    # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    Precise = max(1.3, (1 + (NIFTY['strength']).round(1).max()))
-    Xlratd = (NIFTY['strength'] * timpxy).clip(1.3, None)
+    Precise = max(1.3, (1 + NIFTY['strength'].round(1).max()))
+    Xlratd = NIFTY['strength'] * timpxy
     Yield = timpxy
-    conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bull')]
-    choices_pxy = ['Yield', 'Xlratd', 'Precise','Yield']
-    PXY = choices_pxy
+    
+    conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'), (mktpxy == 'Bull')]
+    choices_pxy = ['Yield', 'Xlratd', 'Precise', 'Yield']
+    PXY = np.select(conditions_pxy, choices_pxy)
     
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    _Precise = min((NIFTY['weakness']).round(1).max(), -1.3)
-    _Xlratd = (NIFTY['weakness'] * timpxy).clip(None, -1.3)
+    _Precise = min(1.3, (NIFTY['weakness']).round(1).max(), -1)
+    _Xlratd = (NIFTY['weakness'] * timpxy).clip(None, -1)
     _Yield = timpxy * (-1)
-    _conditions_pxy = [(mktpxy == 'Bear') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'),(mktpxy == 'Bull')]
-    _choices_pxy = ['_Yield', '_Xlratd', '_Precise','_Yield']
-    _PXY = choices_pxy
+    _conditions_pxy = [(mktpxy == 'Bear') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear'), (mktpxy == 'Bull')]
+    _choices_pxy = ['_Yield', '_Xlratd', '_Precise', '_Yield']
+    _PXY = np.select(_conditions_pxy, _choices_pxy)
+    
+    # Print values
+    print("Precise:", Precise)
+    print("Xlratd:", Xlratd)
+    print("Yield:", Yield)
+    print("PXY:", PXY)
+    
+    print("_Precise:", _Precise)
+    print("_Xlratd:", _Xlratd)
+    print("_Yield:", _Yield)
+    print("_PXY:", _PXY)
 
     
     # Define the file path for the CSV file
