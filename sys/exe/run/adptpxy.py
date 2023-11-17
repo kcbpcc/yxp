@@ -398,7 +398,10 @@ try:
                         except Exception as e:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-    
+        
+        except Exception as e:
+            # Handle any other exceptions that may occur during the loop
+            print(f"An unexpected error occurred: {e}")
 
 
         
