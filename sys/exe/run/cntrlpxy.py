@@ -265,23 +265,11 @@ try:
     NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
     score_value = NIFTY['Score'].values[0]
     # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
+##########################################################################################################################
+##########################################################################################################################
     # Calculate the metrics
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
-    NIFTY['pricerange'] = (NIFTY['high'] + 0.01) - (NIFTY['close_price'] - 0.01)
-    NIFTY['priceratio'] =  (NIFTY['ltp'] - NIFTY['close_price'])/NIFTY['pricerange']
-    # Extract and print just the values without the column name and data type information
-    strength_values = NIFTY['strength'].values
-    pricerange_values = NIFTY['pricerange'].values
-    priceratio_values = NIFTY['priceratio'].values
-    # Assuming NIFTY is a dictionary-like object with pandas Series
-    import pandas as pd
-    # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    Precise = max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max()))
-    Xlratd = max(1.6, (1 + (NIFTY['strength'] * 5).round(1).max()))
-    Yield = max(1.7, (2 + (NIFTY['strength'] * 6).round(1).max()))
-    conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear')]
-    choices_pxy = ['Yield', 'Xlratd', 'Precise']
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
@@ -290,11 +278,17 @@ try:
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    pxy_df['Pr'] = max(1, 1 + max(0.2, (0 + (NIFTY['strength'] * 1).round(1).max())))
-    pxy_df['Xl'] = round(max(3, timpxy * 0.7 * max(0.1, (0 + NIFTY['strength'].round(1).max()))), 1)
-    pxy_df['Yi'] = np.maximum(timpxy, pxy_df['Xl'])
-    PXY = ((NIFTY['weakness'])*((pxy_df['Yi'])*(0.5)))* (-1)    
-    pxy_df['PXY'] = PXY
+    
+    pxy_df['Pr'] = max(1.0, 3.0 + max(0.2, (0.0 + (NIFTY['strength'] * 1.0).round(1).max())))
+    pxy_df['Xl'] = round(max(3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['strength'].round(1).max()))), 1)
+    pxy_df['Yi'] = np.maximum(float(timpxy), pxy_df['Xl'].astype(float))
+    
+    pxy_df['_Pr'] = max(-1.3, 1.0 - max(-0.2, (0.0 + (NIFTY['weakness'] * 1.0).round(1).min())))
+    pxy_df['_Xl'] = round(max(-3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['weakness'].round(1).min()))), 1)
+    pxy_df['_Yi'] = np.minimum(float(timpxy), pxy_df['_Xl'].astype(float))
+
+
+    
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['product','source', 'key', 'qty','avg','ltp', 'Pr', 'Xl', 'Yi','PnL%_H','dPnL%','PXY','PnL%','PnL']]
@@ -452,6 +446,14 @@ try:
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
 
         subprocess.run(['python3', 'mktpxy.py'])
+
+        print("pxy_df['Pr']: ", pxy_df['Pr'])
+        print("pxy_df['Xl']: ", pxy_df['Xl'])
+        print("pxy_df['Yi']: ", pxy_df['Yi'])
+        
+        print("pxy_df['_Pr']: ", pxy_df['_Pr'])
+        print("pxy_df['_Xl']: ", pxy_df['_Xl'])
+        print("pxy_df['_Yi']: ", pxy_df['_Yi'])
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
 
