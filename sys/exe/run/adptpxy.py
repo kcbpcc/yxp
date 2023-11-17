@@ -353,10 +353,8 @@ try:
                 ):
                     if (
                         row['source'] == 'holdings' and
-                        row['product'] == 'CNC' and
-                        row['qty'] > 0 and
                         row['PnL%'] > 1.4 and 
-                        (row['PnL%'] > row['Yi'] or ((row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl']) and (row['mktpxy'] == 'Sell' or row['mktpxy'] == 'Bear')))
+                        (row['PnL%'] > row['Yi'] or ((row['PnL%_H'] > row['Xl'] and row['PnL%'] < row['Xl']) and (mktpxy == 'Sell' or mktpxy == 'Bear')))
                     ):
                         # Print the row before placing the order
                         print(row)
