@@ -60,12 +60,13 @@ _PXY = np.select(_conditions_pxy, _choices_pxy)
 
 # Print values with one decimal place
 print("Precise:", round(Precise, 1))
-print("Xlratd:", Xlratd.round(1))
+print("Xlratd:", Xlratd.round(1).values)  # Use .values to remove the Datetime index
 print("Yield:", round(Yield, 1))
-PXY_series = pd.Series(PXY)
-print("PXY:", PXY_series.astype(str).replace('nan', 'NaN').round(1))
+print("PXY:")
+print(pd.Series(PXY).astype(str).replace('nan', 'NaN').round(1).values)  # Convert to Pandas Series to remove the Datetime index
 
 print("_Precise:", round(_Precise, 1))
-print("_Xlratd:", _Xlratd.round(1))
+print("_Xlratd:", _Xlratd.round(1).values)  # Use .values to remove the Datetime index
 print("_Yield:", round(_Yield, 1))
-print("_PXY:", _PXY.astype(str).replace('nan', 'NaN').round(1))
+print("_PXY:")
+print(pd.Series(_PXY).astype(str).replace('nan', 'NaN').round(1).values)  # Convert to Pandas Series to remove the Datetime index
