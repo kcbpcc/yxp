@@ -195,7 +195,9 @@ try:
     combined_df['PnL_H'] = combined_df['value_H'] - combined_df['Invested']
     # Calculate 'PnL%' column as ('PnL' / 'Invested') * 100
     combined_df['PnL%'] = (combined_df['PnL'] / combined_df['Invested']) * 100
+    #combined_df['PnL%'] = ((combined_df['PnL'] / combined_df['Invested']) * 100) * np.where(combined_df['qty'] < 0, -1, 1)
     combined_df['PnL%_H'] = (combined_df['PnL_H'] / combined_df['Invested']) * 100
+    #combined_df['PnL%_H'] = ((combined_df['PnL_H'] / combined_df['Invested']) * 100) * np.where(combined_df['qty'] < 0, -1, 1)
     # Calculate 'Yvalue' column as 'qty' * 'close'
     combined_df['Yvalue'] = combined_df['qty'] * combined_df['close']
     # Calculate 'dPnL' column as 'close_price' - 'ltp'
@@ -266,71 +268,20 @@ try:
     # Calculate the metrics
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
-    #NIFTY['pricerange'] = (NIFTY['high'] + 0.01) - (NIFTY['close_price'] - 0.01)
-    #NIFTY['priceratio'] =  (NIFTY['ltp'] - NIFTY['close_price'])/NIFTY['pricerange']
+    NIFTY['pricerange'] = (NIFTY['high'] + 0.01) - (NIFTY['close_price'] - 0.01)
+    NIFTY['priceratio'] =  (NIFTY['ltp'] - NIFTY['close_price'])/NIFTY['pricerange']
     # Extract and print just the values without the column name and data type information
-    #strength_values = NIFTY['strength'].values
-    #pricerange_values = NIFTY['pricerange'].values
-    #priceratio_values = NIFTY['priceratio'].values
+    strength_values = NIFTY['strength'].values
+    pricerange_values = NIFTY['pricerange'].values
+    priceratio_values = NIFTY['priceratio'].values
     # Assuming NIFTY is a dictionary-like object with pandas Series
     import pandas as pd
-    
-    # Calculate Precise
-    Precise = min(1.3, (1 + NIFTY['strength']).round(1).max())
-    
-    # Calculate Xlratd
-    Xlratd = NIFTY['strength'] * timpxy
-    
-    # Calculate Yield
-    Yield = timpxy * (-1)
-    
-    # Conditions for PXY
-    conditions_pxy = [
-        (mktpxy.isin(['Bull', 'Buy'])),
-        (mktpxy == 'Sell'),
-        (mktpxy == 'Bear'),
-        (mktpxy == 'Bull')
-    ]
-    
-    # Choices for PXY
-    choices_pxy = ['Yield', 'Xlratd', 'Precise', 'Yield']
-    
-    # Calculate PXY
-    PXY = np.select(conditions_pxy, choices_pxy)
-    
     # Assuming NIFTY['Day_Change_%'] is a Pandas Series
-    # Calculate _Precise, _Xlratd, _Yield, and _PXY
-    _Precise = min(1.3, (NIFTY['weakness']).round(1).max(), -1)
-    _Xlratd = (NIFTY['weakness'] * timpxy).clip(None, -1)
-    _Yield = timpxy * (-1)
-    
-    # Conditions for _PXY
-    _conditions_pxy = [
-        (mktpxy == 'Bear') | (mktpxy == 'Buy'),
-        (mktpxy == 'Sell'),
-        (mktpxy == 'Bear'),
-        (mktpxy == 'Bull')
-    ]
-    
-    # Choices for _PXY
-    _choices_pxy = ['_Yield', '_Xlratd', '_Precise', '_Yield']
-    
-    # Calculate _PXY
-    _PXY = np.select(_conditions_pxy, _choices_pxy)
-    
-    # Print values
-    print("Precise:", Precise)
-    print("Xlratd:", Xlratd)
-    print("Yield:", Yield)
-    print("PXY:", PXY)
-    
-    print("_Precise:", _Precise)
-    print("_Xlratd:", _Xlratd)
-    print("_Yield:", _Yield)
-    print("_PXY:", _PXY)
-    
-
-
+    Precise = max(0.2, (0 + (NIFTY['strength'] * 2).round(1).max()))
+    Xlratd = max(1.6, (1 + (NIFTY['strength'] * 5).round(1).max()))
+    Yield = max(1.7, (2 + (NIFTY['strength'] * 6).round(1).max()))
+    conditions_pxy = [(mktpxy == 'Bull') | (mktpxy == 'Buy'), (mktpxy == 'Sell'), (mktpxy == 'Bear')]
+    choices_pxy = ['Yield', 'Xlratd', 'Precise']
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
@@ -500,22 +451,6 @@ try:
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
 
-        # Print values
-        print("Precise:", Precise)
-        print("Xlratd:", Xlratd)
-        print("Yield:", Yield)
-        print("PXY:", PXY)
-        
-        print("_Precise:", _Precise)
-        print("_Xlratd:", _Xlratd)
-        print("_Yield:", _Yield)
-        print("_PXY:", _PXY)
-
-
-
-
-
-        
         subprocess.run(['python3', 'mktpxy.py'])
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
