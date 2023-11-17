@@ -382,7 +382,7 @@ try:
                      row['avg'] > 0) 
                      
                 ):
-                    if (row['source'] == 'holdings' and
+                    if (row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['qty'] > 0 and
                         row['PnL%'] > 1.4 and 
@@ -411,7 +411,7 @@ try:
                      row['avg'] > 0) 
                      
                 ):
-                    if (row['source'] == 'holdings' and
+                    if (row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['qty'] < 0 and
                         (row['PnL%'] < row['PXY'])
