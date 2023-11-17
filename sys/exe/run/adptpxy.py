@@ -414,7 +414,7 @@ try:
                     if (row['source'] == 'holdings' and
                         row['product'] == 'MIS' and
                         row['qty'] < 0 and
-                        (row['PnL%'] > row['PXY'])
+                        (row['PnL%'] < row['PXY'])
      
                     ):
                         # Print the row before placing the order
