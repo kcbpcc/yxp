@@ -10,7 +10,7 @@ copyright_notice = (
 )
 
 # Set the desired width
-width = 40
+width = 30
 
 # Use textwrap to format the text with a fixed width and center-align
 wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).center(width)
@@ -19,7 +19,7 @@ wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).
 console = Console()
 
 # Create a styled panel with a title
-panel = Panel(wrapped_notice, title="Copyright Notice", padding=(1, 0))
+panel = Panel(wrapped_notice, title="Copyright Notice", padding=(0, 1))
 
 # Display the panel
 console.print(panel)
