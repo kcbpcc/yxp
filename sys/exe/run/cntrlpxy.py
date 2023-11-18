@@ -265,8 +265,6 @@ try:
     NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
     score_value = NIFTY['Score'].values[0]
     # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
-##########################################################################################################################
-##########################################################################################################################
     # Calculate the metrics
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
@@ -290,12 +288,11 @@ try:
     combined_df.to_csv(lstchk_file, index=False)
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
-    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
+    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','Pr','_Pr' 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     
     pxy_df['Pr'] = Pr
     pxy_df['Xl'] = Xl
     pxy_df['Yi'] = Yi
-
     pxy_df['_Pr'] = _Pr
     pxy_df['_Xl'] = _Xl
     pxy_df['_Yi'] = _Yi
@@ -305,30 +302,27 @@ try:
     
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
-    EXE_df = pxy_df[['product','source', 'key', 'qty','avg','ltp', 'Pr', 'Xl', 'Yi','PnL%_H','dPnL%','PXY','YXP','PnL%','PnL']]
-    PRINT_df = pxy_df[['source','product', 'key','Pr','Xl','Yi','PnL%','PnL']]
+    EXE_df = pxy_df[['product','source', 'key', 'qty','avg','ltp','PnL%_H','dPnL%','PXY','YXP','PnL%','PnL']]
+    PRINT_df = pxy_df[['source','product', 'key','YXP','PXY','PnL%','PnL']]
     # Rename columns for display
     PRINT_df = PRINT_df.rename(columns={'source': 'HP', 'product': 'CM'})
-
     # Conditionally replace values in the 'HP' column
     PRINT_df['HP'] = PRINT_df['HP'].replace({'holdings': 'H', 'positions': 'P'})
-
     # Conditionally replace values in the 'CM' column
     PRINT_df['CM'] = PRINT_df['CM'].replace({'CNC': 'C', 'MIS': 'M'})
-
     # Convert the 'PnL' column to integers
-
     # Remove 'BSE:' or 'NSE:' from the 'key' column
-    PRINT_df['key'] = PRINT_df['key'].str.replace(r'(BSE:|NSE:)', '', regex=True)
-    
+    PRINT_df['key'] = PRINT_df['key'].str.replace(r'(BSE:|NSE:)', '', regex=True)    
     # Sort the DataFrame by 'PnL%' in ascending order
     # Assuming you have a DataFrame named PRINT_df
-
-    PRINT_df_sorted = PRINT_df[(PRINT_df['CM'] == 'M') | ((PRINT_df['CM'] == 'C') & (PRINT_df['PnL%'] > 0))].sort_values(by='PnL%', ascending=True)
+    PRINT_df_sorted = PRINT_df[
+        (PRINT_df['qty'] != 0) & (
+            ((PRINT_df['qty'] > 0) & (PRINT_df['PnL%'] > pxy_df['Pr'])) |
+            ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < pxy_df['_Pr']))
+        )
+    ]
     PRINT_df_sorted['PnL'] = PRINT_df_sorted['PnL'].astype(int)
-    
-    #PRINT_df_sorted = PRINT_df[(PRINT_df['CM'] == 'M') | ((PRINT_df['CM'] == 'C') & (PRINT_df['PnL%'] > PRINT_df['Pr'] ))].sort_values(by='PnL', ascending=True)
-    #PRINT_df_sorted['PnL'] = PRINT_df_sorted['PnL'].astype(int) 
+
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
