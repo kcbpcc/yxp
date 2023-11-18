@@ -11,7 +11,7 @@ copyright_notice = (
 )
 
 # Some label for the first row
-first_row_label = "Copyright Notice"
+#first_row_label = "Copyright Notice"
 
 # Set the desired width
 width = 41
@@ -24,7 +24,7 @@ wrapped_title = textwrap.fill(first_row_label, width, break_long_words=False).ce
 table = Table()
 
 # Add the first row as a label/header
-table.add_row(wrapped_title)
+#table.add_row(wrapped_title)
 
 # Add the second row with the wrapped notice
 table.add_row(wrapped_notice)
