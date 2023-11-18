@@ -315,7 +315,7 @@ try:
     # Sort the DataFrame by 'PnL%' in ascending order
     # Assuming you have a DataFrame named PRINT_df
 
-    PRINT_df_sorted = PRINT_df_display[
+    PRINT_df_sorted = PRINT_df[
         ((PRINT_df_display['qty'] > 0) & (PRINT_df_display['PnL%'] > pxy_df['Pr'])) |
         ((PRINT_df_display['qty'] < 0) & (PRINT_df_display['PnL%'] < pxy_df['_Pr']))
     ]
