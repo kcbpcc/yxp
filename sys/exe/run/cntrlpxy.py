@@ -277,8 +277,8 @@ try:
     PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else (1))
     
     _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)    
-    _Xl = round(max(-3.0, timpxy * 0.5 * max(0.1, round((0.0 + NIFTY['weakness']).round(1).min(), 2))), 1)
-    _Yi = min(float(timpxy), float(_Xl))
+    _Xl = Xl = round(min(-1.4, -1 + (_Pr * 2)), 2)
+    _Yi = Xl = round(min(-1.4, -1 + (_Pr * 3)), 2)
     YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else (-1))
     
     # Define the file path for the CSV file
