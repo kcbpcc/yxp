@@ -19,7 +19,7 @@ wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).
 console = Console()
 
 # Create a styled panel with a title
-panel = Panel(wrapped_notice, title="Copyright Notice", padding=(1, 2))
+panel = Panel(wrapped_notice, title="Copyright Notice", padding=(0, 0))
 
 # Display the panel
 console.print(panel)
