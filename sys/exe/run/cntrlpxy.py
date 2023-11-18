@@ -303,23 +303,30 @@ try:
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['product','source', 'key', 'qty','avg','ltp','PnL%_H','dPnL%','PXY','YXP','PnL%','PnL']]
     PRINT_df = pxy_df[['source','product','qty','key','_Pr','Pr','YXP','PXY','PnL%','PnL']]
+    columns_to_exclude = ['qty', '_Pr', 'Pr']
+
+    # Create a new DataFrame by excluding the specified columns
+    PRINT_df_display = PRINT_df.drop(columns=columns_to_exclude)
+    
     # Rename columns for display
-    PRINT_df = PRINT_df.rename(columns={'source': 'HP', 'product': 'CM'})
+    PRINT_df_display = PRINT_df_display.rename(columns={'source': 'HP', 'product': 'CM'})
     # Conditionally replace values in the 'HP' column
-    PRINT_df['HP'] = PRINT_df['HP'].replace({'holdings': 'H', 'positions': 'P'})
+    PRINT_df_display['HP'] = PRINT_df_display['HP'].replace({'holdings': 'H', 'positions': 'P'})
     # Conditionally replace values in the 'CM' column
-    PRINT_df['CM'] = PRINT_df['CM'].replace({'CNC': 'C', 'MIS': 'M'})
+    PRINT_df_display['CM'] = PRINT_df_display['CM'].replace({'CNC': 'C', 'MIS': 'M'})
     # Convert the 'PnL' column to integers
     # Remove 'BSE:' or 'NSE:' from the 'key' column
-    PRINT_df['key'] = PRINT_df['key'].str.replace(r'(BSE:|NSE:)', '', regex=True)    
+    PRINT_df_display['key'] = PRINT_df_display['key'].str.replace(r'(BSE:|NSE:)', '', regex=True)    
+    
     # Sort the DataFrame by 'PnL%' in ascending order
-    # Assuming you have a DataFrame named PRINT_df
-    PRINT_df_sorted = PRINT_df[
-        (PRINT_df['qty'] != 0) & (
-            ((PRINT_df['qty'] > 0) & (PRINT_df['PnL%'] > pxy_df['Pr'])) |
-            ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < pxy_df['_Pr']))
+    PRINT_df_sorted = PRINT_df_display[
+        (PRINT_df_display['qty'] != 0) & (
+            ((PRINT_df_display['qty'] > 0) & (PRINT_df_display['PnL%'] > pxy_df['Pr'])) |
+            ((PRINT_df_display['qty'] < 0) & (PRINT_df_display['PnL%'] < pxy_df['_Pr']))
         )
     ]
+    
+    # Convert the 'PnL' column to integers
     PRINT_df_sorted.loc[:, 'PnL'] = PRINT_df_sorted['PnL'].astype(int)
 
     SILVER = "\033[97m"
@@ -331,13 +338,12 @@ try:
     BRIGHT_RED = "\033[91m"
     BRIGHT_GREEN = "\033[92m"
     import pandas as pd
-
  
     # Always print "Table" in bright yellow
     print(f"{BRIGHT_YELLOW}Table– Stocks above @Pr and might reach @Yi {RESET}")
 
-    # Print EXE_df_sorted without color
-    print(PRINT_df_sorted.to_string(index=False))
+    # Display the modified DataFrame
+    print(PRINT_df_sorted)
 
     # Define the CSV file path
     csv_file_path = "filePnL.csv"
