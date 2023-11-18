@@ -269,12 +269,14 @@ try:
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
 
-    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2))
+    epsilon = 1e-10
+    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2) + epsilon)
     Xl = round(max(3.0, timpxy * 0.5 * max(0.1, round((0.0 + NIFTY['strength']).round(1).max(), 2))), 1)
     Yi = max(float(timpxy), float(Xl))  # Use max instead of np.maximum for scalar values
     
     PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else Pr)
     
+    epsilon = 1e-10
     _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2))
     _Xl = round(max(-3.0, timpxy * 0.5 * max(0.1, round((0.0 + NIFTY['weakness']).round(1).min(), 2))), 1)
     _Yi = min(float(timpxy), float(_Xl))  # Use min instead of np.minimum for scalar values
