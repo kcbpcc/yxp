@@ -270,6 +270,17 @@ try:
     # Calculate the metrics
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
+
+    Pr = max(1.0, 3.0 + max(0.2, (0.0 + (NIFTY['strength'] * 1.0).round(1).max())))
+    Xl = round(max(3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['strength'].round(1).max()))), 1)
+    pxy_df['Yi'] = np.maximum(float(timpxy), Xl.astype(float))
+    
+    _Pr = max(-1.3, 1.0 - max(-0.2, (0.0 + (NIFTY['weakness'] * 1.0).round(1).min())))
+    _Xl = round(max(-3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['weakness'].round(1).min()))), 1)
+    _Yi = np.minimum(float(timpxy), _Xl.astype(float))
+    PXY = 2
+    pxy_df['PXY'] = PXY
+
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
@@ -279,15 +290,7 @@ try:
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     
-    pxy_df['Pr'] = max(1.0, 3.0 + max(0.2, (0.0 + (NIFTY['strength'] * 1.0).round(1).max())))
-    pxy_df['Xl'] = round(max(3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['strength'].round(1).max()))), 1)
-    pxy_df['Yi'] = np.maximum(float(timpxy), pxy_df['Xl'].astype(float))
-    
-    pxy_df['_Pr'] = max(-1.3, 1.0 - max(-0.2, (0.0 + (NIFTY['weakness'] * 1.0).round(1).min())))
-    pxy_df['_Xl'] = round(max(-3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['weakness'].round(1).min()))), 1)
-    pxy_df['_Yi'] = np.minimum(float(timpxy), pxy_df['_Xl'].astype(float))
-    PXY = 2
-    pxy_df['PXY'] = PXY
+
 
     
     pxy_df['avg'] =filtered_df['average_price']
@@ -450,13 +453,13 @@ try:
 
         subprocess.run(['python3', 'mktpxy.py'])
 
-        print("pxy_df['Pr']: ", pxy_df['Pr'])
-        print("pxy_df['Xl']: ", pxy_df['Xl'])
+        print("Pr: ", Pr)
+        print("Xl: ", Xl)
         print("pxy_df['Yi']: ", pxy_df['Yi'])
         
-        print("pxy_df['_Pr']: ", pxy_df['_Pr'])
-        print("pxy_df['_Xl']: ", pxy_df['_Xl'])
-        print("pxy_df['_Yi']: ", pxy_df['_Yi'])
+        print("_Pr: ", _Pr)
+        print("_Xl: ", _Xl)
+        print("_Yi: ", _Yi)
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
 
