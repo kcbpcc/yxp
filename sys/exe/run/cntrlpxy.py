@@ -455,7 +455,7 @@ try:
 
         print("Pr: ", Pr)
         print("Xl: ", Xl)
-        print("pxy_df['Yi']: ", pxy_df['Yi'])
+        print("Yi: ", Yi')
         
         print("_Pr: ", _Pr)
         print("_Xl: ", _Xl)
