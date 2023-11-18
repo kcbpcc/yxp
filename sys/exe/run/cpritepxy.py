@@ -11,7 +11,7 @@ copyright_notice = (
 )
 
 # Set the desired width
-width = 44
+width = 43
 
 # Use textwrap to format the text with a fixed width and center-align
 wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).center(width)
