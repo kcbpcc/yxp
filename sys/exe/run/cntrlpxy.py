@@ -289,6 +289,9 @@ try:
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     
+    pxy_df['Pr'] = Pr
+    pxy_df['Xl'] = Xl
+    pxy_df['Yi'] = Yi
     PXY = 2
     pxy_df['PXY'] = PXY
 
