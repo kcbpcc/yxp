@@ -10,6 +10,9 @@ copyright_notice = (
     " Infringement may lead to legal action and financial penalties. PXY® is committed to protecting its intellectual property."
 )
 
+# Some label for the first row
+first_row_label = "Copyright Notice"
+
 # Set the desired width
 width = 41
 
@@ -19,11 +22,15 @@ wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).
 # Create a table
 table = Table()
 
-# Add a single cell to the table with the wrapped notice
+# Add the first row as a label/header
+table.add_row(first_row_label)
+
+# Add the second row with the wrapped notice
 table.add_row(wrapped_notice)
 
 # Display the table
 print(table)
+
 
 
 
