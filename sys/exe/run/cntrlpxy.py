@@ -316,8 +316,8 @@ try:
     # Assuming you have a DataFrame named PRINT_df
 
     PRINT_df_sorted = PRINT_df[
-        ((PRINT_df_display['qty'] > 0) & (PRINT_df_display['PnL%'] > pxy_df['Pr'])) |
-        ((PRINT_df_display['qty'] < 0) & (PRINT_df_display['PnL%'] < pxy_df['_Pr']))
+        ((PRINT_df['qty'] > 0) & (PRINT_df['PnL%'] > pxy_df['Pr'])) |
+        ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < pxy_df['_Pr']))
     ]
     
     PRINT_df_sorted.loc[:, 'PnL'] = PRINT_df_sorted['PnL'].astype(int)
