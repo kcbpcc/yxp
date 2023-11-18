@@ -1,6 +1,8 @@
-from rich.console import Console
+import csv
+from rich import print
 from rich.table import Table
 import textwrap
+from io import StringIO
 
 # Copyright Notice
 copyright_notice = (
@@ -15,17 +17,21 @@ width = 30
 # Use textwrap to format the text with a fixed width and center-align
 wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).center(width)
 
-# Create a console for styling
-console = Console()
+# Create a CSV file-like object using StringIO
+csv_data = StringIO()
+csv_writer = csv.writer(csv_data)
+csv_writer.writerow([wrapped_notice])
+csv_data.seek(0)
 
 # Create a table
-table = Table(show_header=False, box=None)
+table = Table()
 
-# Add a single cell to the table with the wrapped notice
-table.add_row(wrapped_notice)
+# Read the CSV data into the table
+table.add_row(*csv_reader := csv.reader(csv_data), end="")
 
 # Display the table
-console.print(table)
+print(table)
+
 
 
 
