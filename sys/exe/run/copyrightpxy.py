@@ -1,5 +1,5 @@
 from rich.console import Console
-from rich.panel import Panel
+from rich.table import Table
 import textwrap
 
 # Copyright Notice
@@ -18,11 +18,14 @@ wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).
 # Create a console for styling
 console = Console()
 
-# Create a styled panel with a title
-panel = Panel(wrapped_notice, title="Copyright Notice", padding=(0, 1))
+# Create a table
+table = Table(show_header=False, box=None)
 
-# Display the panel
-console.print(panel)
+# Add a single cell to the table with the wrapped notice
+table.add_row(wrapped_notice)
+
+# Display the table
+console.print(table)
 
 
 
