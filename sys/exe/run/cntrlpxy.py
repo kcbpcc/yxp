@@ -272,8 +272,8 @@ try:
     epsilon = 1e-10
     
     Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2) + epsilon)    
-    Xl = round(max(3.0, timpxy * 0.5 * max(0.1, round((0.0 + NIFTY['strength']).round(1).max(), 2))), 1)
-    Yi = max(float(timpxy), float(Xl))
+    Xl = round(max(1.4, 1 + (Pr * 2)), 2)
+    Yi = round(max(1.4, 1 + (Pr * 3)), 2)
     PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else (1))
     
     _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)    
