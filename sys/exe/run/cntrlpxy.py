@@ -321,7 +321,7 @@ try:
             ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < pxy_df['_Pr']))
         )
     ]
-    PRINT_df_sorted['PnL'] = PRINT_df_sorted['PnL'].astype(int)
+    PRINT_df_sorted.loc[:, 'PnL'] = PRINT_df_sorted['PnL'].astype(int)
 
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
