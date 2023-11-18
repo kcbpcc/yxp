@@ -274,12 +274,12 @@ try:
     Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2) + epsilon)    
     Xl = round(max(3.0, timpxy * 0.5 * max(0.1, round((0.0 + NIFTY['strength']).round(1).max(), 2))), 1)
     Yi = max(float(timpxy), float(Xl))
-    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else Pr)
+    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else (1))
     
     _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)    
     _Xl = round(max(-3.0, timpxy * 0.5 * max(0.1, round((0.0 + NIFTY['weakness']).round(1).min(), 2))), 1)
     _Yi = min(float(timpxy), float(_Xl))
-    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else _Pr)
+    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else (-1))
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
