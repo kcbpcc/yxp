@@ -449,8 +449,8 @@ try:
         left_aligned_format = "{:<" + str(column_width) + "}"
         right_aligned_format = "{:>" + str(column_width) + "}"
         
-        print(left_aligned_format.format(f"YXP:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] < 0 else BRIGHT_RED}{round(YXP[0], 2)}{RESET}"), end="")
-        print(left_aligned_format.format(f"PXY:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] < 0 else BRIGHT_RED}{round(PXY[0], 2)}{RESET}"), end="")
+        print(left_aligned_format.format(f"YXP:{BRIGHT_GREEN if NIFTY['Open_Change_%'] < 0 else BRIGHT_RED}{round(YXP, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if NIFTY['Open_Change_%'] < 0 else BRIGHT_RED}{round(PXY, 2)}{RESET}"), end="")
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'Super Bull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
@@ -465,13 +465,6 @@ try:
         
         subprocess.run(['python3', 'mktpxy.py'])
 
-        print("Pr: ", Pr)
-        print("Xl: ", Xl)
-        print("Yi: ", Yi)
-        
-        print("_Pr: ", _Pr)
-        print("_Xl: ", _Xl)
-        print("_Yi: ", _Yi)
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
 
