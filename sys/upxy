@@ -1,7 +1,11 @@
 #!/bin/bash
 cd /home/userland/pxy
 git pull
-# Activate the virtual environment
+
+sudo cp ~/pxy/sys/*xy /usr/local/bin/
+
+sudo chmod +x /usr/local/bin/*xy# Activate the virtual environment
+
 source ~/env/bin/activate
 
 # Change to the script's directory
