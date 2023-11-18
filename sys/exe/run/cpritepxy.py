@@ -10,8 +10,6 @@ copyright_notice = (
     " Infringement may lead to legal action and financial penalties. PXY® is committed to protecting its intellectual property."
 )
 
-title = ( "Copyright Notice" )
-
 # Some label for the first row
 first_row_label = "Copyright Notice"
 
@@ -20,19 +18,20 @@ width = 41
 
 # Use textwrap to format the text with a fixed width and center-align
 wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).center(width)
-wrapped_title = textwrap.fill(cwrapped_title, width, break_long_words=False).center(width)
+wrapped_title = textwrap.fill(first_row_label, width, break_long_words=False).center(width)
 
 # Create a table
 table = Table()
 
 # Add the first row as a label/header
-table.add_row(fwrapped_title)
+table.add_row(wrapped_title)
 
 # Add the second row with the wrapped notice
 table.add_row(wrapped_notice)
 
 # Display the table without extra space
-print(table, end="")
+print(table)
+
 
 
 
