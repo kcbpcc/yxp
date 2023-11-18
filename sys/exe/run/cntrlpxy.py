@@ -320,6 +320,11 @@ try:
         ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < pxy_df['_Pr']))
     ]
     
+    
+   # Sort the DataFrame by 'PnL' in ascending order
+    PRINT_df_sorted = PRINT_df_sorted.sort_values(by='PnL', ascending=True)
+
+    # Convert the 'PnL' column to integers
     PRINT_df_sorted.loc[:, 'PnL'] = PRINT_df_sorted['PnL'].astype(int)
  
     SILVER = "\033[97m"
