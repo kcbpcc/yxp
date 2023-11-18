@@ -286,8 +286,8 @@ try:
     pxy_df['_Pr'] = max(-1.3, 1.0 - max(-0.2, (0.0 + (NIFTY['weakness'] * 1.0).round(1).min())))
     pxy_df['_Xl'] = round(max(-3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['weakness'].round(1).min()))), 1)
     pxy_df['_Yi'] = np.minimum(float(timpxy), pxy_df['_Xl'].astype(float))
-
-    pxy_df['PXY'] = 2
+    PXY = 2
+    pxy_df['PXY'] = PXY
 
     
     pxy_df['avg'] =filtered_df['average_price']
