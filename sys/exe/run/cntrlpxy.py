@@ -59,7 +59,7 @@ def mis_order_sell(index, row):
                 exchange=exchsym[0],
                 transaction_type='SELL',
                 quantity=int(row['qty']),
-                order_type='LIMIT',
+                order_type='MARKET',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(row['ltp'], -0.1)
@@ -86,7 +86,7 @@ def mis_order_buy(index, row):
                 exchange=exchsym[0],
                 transaction_type='BUY',
                 quantity=int(-1*row['qty']),
-                order_type='LIMIT',
+                order_type='MARKET',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(row['ltp'], +0.1)
@@ -359,6 +359,7 @@ try:
                     if (
                         row['qty'] > 0 and
                         row['source'] == 'holdings' and
+                        row['product'] == 'CNC' and
                         row['PnL%'] > 1.4 and 
                         (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])
                     ):
@@ -382,6 +383,7 @@ try:
                         row['qty'] > 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
+                        row['PnL%'] > 0.4 and 
                         row['PnL%'] > row['PXY']
                     ):
                         # Print the row before placing the order
@@ -404,6 +406,7 @@ try:
                         row['qty'] < 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
+                        row['PnL%'] < 0.4 and 
                         row['PnL%'] < row['YXP']
                     ):
                         # Print the row before placing the order
