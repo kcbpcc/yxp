@@ -281,7 +281,7 @@ try:
     _Xl = round(max(-3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['weakness'].round(1).min()))), 1)
     _Yi = min(float(timpxy), float(_Xl))  # Use min instead of np.minimum for scalar values
 
-    XYP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else _Pr)    
+    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else _Pr)    
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
@@ -300,7 +300,7 @@ try:
     pxy_df['_Yi'] = _Yi
     
     pxy_df['PXY'] = PXY
-    pxy_df['XYP'] = YXP 
+    pxy_df['YXP'] = YXP 
     
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
