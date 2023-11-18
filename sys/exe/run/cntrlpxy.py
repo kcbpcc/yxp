@@ -294,6 +294,10 @@ try:
     pxy_df['Pr'] = Pr
     pxy_df['Xl'] = Xl
     pxy_df['Yi'] = Yi
+
+    pxy_df['_Pr'] = _Pr
+    pxy_df['_Xl'] = _Xl
+    pxy_df['_Yi'] = _Yi
     
     pxy_df['PXY'] = PXY
     pxy_df['XYP'] = XYP 
