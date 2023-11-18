@@ -288,7 +288,7 @@ try:
     combined_df.to_csv(lstchk_file, index=False)
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
-    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','Pr','_Pr' 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
+    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','Pr','_Pr', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     
     pxy_df['Pr'] = Pr
     pxy_df['Xl'] = Xl
