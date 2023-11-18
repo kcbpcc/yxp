@@ -277,7 +277,6 @@ try:
 
     PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else Pr)
 
-    
     _Pr = max(-1.3, 1.0 - max(-0.2, (0.0 + (NIFTY['weakness'] * 1.0).round(1).min())))
     _Xl = round(max(-3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['weakness'].round(1).min()))), 1)
     _Yi = min(float(timpxy), float(_Xl))  # Use min instead of np.minimum for scalar values
