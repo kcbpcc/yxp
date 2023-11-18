@@ -300,7 +300,7 @@ try:
     pxy_df['_Yi'] = _Yi
     
     pxy_df['PXY'] = PXY
-    pxy_df['XYP'] = XYP 
+    pxy_df['XYP'] = YXP 
     
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
