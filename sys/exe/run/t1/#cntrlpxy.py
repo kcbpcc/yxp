@@ -337,8 +337,8 @@ try:
     print(f"{BRIGHT_YELLOW}Table– Stocks above @Pr and might reach @Yi {RESET}")
 
     # Print EXE_df_sorted without color
-    print(PRINT_df_sorted.to_string(index=False))
-
+    print(PRINT_df_sorted.drop(columns=['qty', '_Pr', 'Pr']).to_string(index=False))
+    
     # Define the CSV file path
     csv_file_path = "filePnL.csv"
     # Create an empty list to store the rows that meet the condition
