@@ -28,8 +28,8 @@ table.add_row(first_row_label)
 # Add the second row with the wrapped notice
 table.add_row(wrapped_notice)
 
-# Display the table
-print(table)
+# Display the table without extra space
+print(table, end="")
 
 
 
