@@ -357,7 +357,7 @@ try:
                         row['qty'] > 0 and
                         row['source'] == 'holdings' and
                         row['PnL%'] > 1.4 and 
-                        (row['PnL%'] < row['PXY'] and row['PnL%_H] > row['PXY'])
+                        (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])
                     ):
                         # Print the row before placing the order
                         print(row)   
