@@ -1,8 +1,8 @@
 python 3.9 - https://www.python.org/downloads/release/python-390/
 
-sudo timedatectl set-timezone UTC && sudo timedatectl set-local-rtc 0 && timedatectl
-
 Git - https://git-scm.com/downloads
+
+sudo timedatectl set-timezone UTC && sudo timedatectl set-local-rtc 0 && timedatectl
 
 sudo apt update
 
