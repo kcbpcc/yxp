@@ -443,6 +443,10 @@ try:
         
         print(left_aligned_format.format(f"_Pr: {round(_Pr, 2)}"), end="")
         print(right_aligned_format.format(f"Pr: {round(Pr, 2)}{RESET}"))
+        
+        print(left_aligned_format.format(f"_Pr:{BRIGHT_GREEN if (_Pr < 0).any() else BRIGHT_RED}{round(_Pr, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Pr:{BRIGHT_GREEN if (Pr > 0).any() else BRIGHT_RED}{round(Pr, 2)}{RESET}"))
+        
         print(left_aligned_format.format(f"YXP:{BRIGHT_GREEN if (NIFTY['Open_Change_%'] < 0).any() else BRIGHT_RED}{round(YXP, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if (NIFTY['Open_Change_%'] > 0).any() else BRIGHT_RED}{round(PXY, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
