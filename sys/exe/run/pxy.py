@@ -13,7 +13,7 @@ while True:
     from rich import print
     nse_action = get_nse_action()
     ############################################"PXY® PreciseXceleratedYield Pvt Ltd™############################################
-    subprocess.run(['python3', 'copyrightpxy.py'])
+    subprocess.run(['python3', 'cpritepxy.py'])
     subprocess.run(['python3', 'prftpxy.py'])
     subprocess.run(['python3', 'clnpxy.py'])
     #subprocess.run(['python3', 'prntpxy.py'])
