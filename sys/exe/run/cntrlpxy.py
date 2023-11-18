@@ -279,8 +279,6 @@ try:
     _Xl = round(max(-3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['weakness'].round(1).min()))), 1)
     _Yi = min(float(timpxy), float(_Xl))  # Use min instead of np.minimum for scalar values
 
-    PXY = 2
-    pxy_df['PXY'] = PXY
 
     
     # Define the file path for the CSV file
@@ -291,7 +289,8 @@ try:
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low', 'key','dPnL%','PnL','PnL%_H', 'PnL%']]
     
-
+    PXY = 2
+    pxy_df['PXY'] = PXY
 
     
     pxy_df['avg'] =filtered_df['average_price']
