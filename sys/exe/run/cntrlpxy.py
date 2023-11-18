@@ -273,11 +273,12 @@ try:
 
     Pr = max(1.0, 3.0 + max(0.2, (0.0 + (NIFTY['strength'] * 1.0).round(1).max())))
     Xl = round(max(3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['strength'].round(1).max()))), 1)
-    Yi = np.maximum(float(timpxy), Xl.astype(float))
+    Yi = max(float(timpxy), float(Xl))  # Use max instead of np.maximum for scalar values
     
     _Pr = max(-1.3, 1.0 - max(-0.2, (0.0 + (NIFTY['weakness'] * 1.0).round(1).min())))
     _Xl = round(max(-3.0, timpxy * 0.5 * max(0.1, (0.0 + NIFTY['weakness'].round(1).min()))), 1)
-    _Yi = np.minimum(float(timpxy), _Xl.astype(float))
+    _Yi = min(float(timpxy), float(_Xl))  # Use min instead of np.minimum for scalar values
+
     PXY = 2
     pxy_df['PXY'] = PXY
 
