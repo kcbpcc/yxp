@@ -303,7 +303,7 @@ try:
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['product','source', 'key', 'qty','avg','ltp','PnL%_H','dPnL%','PXY','YXP','PnL%','PnL']]
-    PRINT_df = pxy_df[['source','product', 'key','YXP','PXY','PnL%','PnL']]
+    PRINT_df = pxy_df[['source','product', 'qty',key','YXP','PXY','PnL%','PnL']]
     # Rename columns for display
     PRINT_df = PRINT_df.rename(columns={'source': 'HP', 'product': 'CM'})
     # Conditionally replace values in the 'HP' column
