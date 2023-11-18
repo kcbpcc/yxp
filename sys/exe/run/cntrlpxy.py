@@ -461,6 +461,7 @@ try:
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
+        print(f'____________________________________________________________________________')
         subprocess.run(['python3', 'mktpxy.py'])
 
 except Exception as e:
