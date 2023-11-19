@@ -1,6 +1,0 @@
-#!/bin/bash
-cd /home/userland/pxy
-git pull
-sudo cp ~/pxy/sys/*xy /usr/local/bin/
-sudo cp ~/pxy/sys/* /usr/local/bin/
-sudo chmod +x /usr/local/bin/*
