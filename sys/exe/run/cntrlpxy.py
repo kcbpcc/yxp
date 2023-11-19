@@ -253,14 +253,13 @@ try:
         (NIFTY['Day_Change_%'] < 0) & (NIFTY['Open_Change_%'] < 0),
         (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] < 0)
     ]
-    values = [2, 1, 2, 1]
     choices = ['Super Bull', 'Bull', 'Danger Bear', 'Bear']
-    NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bull')
-
-
-
-
-    
+    NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
+    status_factors = {
+        'Super Bull': 2.8,
+        'Bull': 1.4,
+        'Bear': 0.7,
+        'Danger Bear': 0
     }
     # Calculate 'Score' for each row based on 'Day Status' and 'status_factors'
     NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
