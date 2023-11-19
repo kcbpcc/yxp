@@ -256,10 +256,10 @@ try:
     choices = ['Super Bull', 'Bull', 'Danger Bear', 'Bear']
     NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
     status_factors = {
-        'Super Bull': +2,
-        'Bull': +1,
-        'Bear': -1,
-        'Danger Bear': -2
+        'Super Bull': 2,
+        'Bull': 1,
+        'Bear': 1,
+        'Danger Bear': 2
     }
     # Calculate 'Score' for each row based on 'Day Status' and 'status_factors'
     NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
@@ -271,15 +271,15 @@ try:
 
     epsilon = 1e-10
     
-    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2) + epsilon)    
-    Xl = round(max(1.4, 1 + (Pr * 2)), 2)
-    Yi = round(max(1.4, 1 + (Pr * 3)), 2)
-    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else (1))
+    Pr = (max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2) + epsilon))*status_factors    
+    Xl = (round(max(1.4, 1 + (Pr * 2)), 2))*status_factors 
+    Yi = (round(max(1.4, 1 + (Pr * 3)), 2)
+    PXY = (Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else (1)))*status_factors 
     
-    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)    
-    _Xl = Xl = round(min(-1.4, -1 + (_Pr * 2)), 2)
-    _Yi = Xl = round(min(-1.4, -1 + (_Pr * 3)), 2)
-    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else (-1))
+    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon))*status_factors    
+    _Xl = (Xl = round(min(-1.4, -1 + (_Pr * 2)), 2))*status_factors 
+    _Yi = Xl = round(min(-1.4, -1 + (_Pr * 3)), 2))*status_factors 
+    YXP = (_Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else (-1)))*status_factors 
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
