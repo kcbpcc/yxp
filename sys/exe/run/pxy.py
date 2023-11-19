@@ -12,8 +12,8 @@ while True:
     import sys
     import subprocess
     from rich import print
-    from luppxy import calculate_loop_duration
-    loop_duration = calculate_loop_duration(current_utc_time)
+    from luppxy import loop_duration
+    
     nse_action = get_nse_action()
     ############################################"PXY® PreciseXceleratedYield Pvt Ltd™############################################
     subprocess.run(['python3', 'cpritepxy.py'])
