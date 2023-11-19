@@ -2,4 +2,5 @@
 cd /home/userland/pxy
 git pull
 sudo cp ~/pxy/sys/*xy /usr/local/bin/
+sudo cp ~/pxy/sys/ido* /usr/local/bin/
 sudo chmod +x /usr/local/bin/*xy
