@@ -256,8 +256,8 @@ try:
     choices = ['Super Bull', 'Bull', 'Danger Bear', 'Bear']
     NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
     status_factors = {
-        'Super Bull': 1.4,
-        'Bull': 04,
+        'Super Bull': +1.4,
+        'Bull': +0.4,
         'Bear': -0.4,
         'Danger Bear': -1.4
     }
