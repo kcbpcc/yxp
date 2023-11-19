@@ -271,15 +271,15 @@ try:
 
     epsilon = 1e-10
     
-    Pr = (max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2) + epsilon))*status_factors    
-    Xl = (round(max(1.4, 1 + (Pr * 2)), 2))*status_factors 
+    Pr = (max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2)
+    Xl = (round(max(1.4, 1 + (Pr * 2)), 2))
     Yi = (round(max(1.4, 1 + (Pr * 3)), 2)
-    PXY = (Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else (1)))*status_factors 
+    PXY = (Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else (1)))
     
-    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon))*status_factors    
-    _Xl = (Xl = round(min(-1.4, -1 + (_Pr * 2)), 2))*status_factors 
-    _Yi = Xl = round(min(-1.4, -1 + (_Pr * 3)), 2))*status_factors 
-    YXP = (_Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else (-1)))*status_factors 
+    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon))
+    _Xl = (Xl = round(min(-1.4, -1 + (_Pr * 2)), 2))
+    _Yi = Xl = round(min(-1.4, -1 + (_Pr * 3)), 2))
+    YXP = (_Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else (-1)))
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
