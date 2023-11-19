@@ -3,6 +3,7 @@ import subprocess
 from nftpxy import get_nse_action
 
 while True:
+    from nftpxy import get_nse_action
     import yfinance as yf
     import warnings
     from rich import print
@@ -11,6 +12,8 @@ while True:
     import sys
     import subprocess
     from rich import print
+    from luppxy import calculate_loop_duration
+    loop_duration = calculate_loop_duration(current_utc_time)
     nse_action = get_nse_action()
     ############################################"PXY® PreciseXceleratedYield Pvt Ltd™############################################
     subprocess.run(['python3', 'cpritepxy.py'])
