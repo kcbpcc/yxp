@@ -111,6 +111,6 @@ while True:
             time.sleep(1)
             print("✨.", end='', flush=True)
         print("\nTask completed!")
-    secs = loop_duration 
+    secs = 15 
     progress_bar(secs)
 
