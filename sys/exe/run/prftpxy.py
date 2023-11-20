@@ -4,7 +4,7 @@ from rich.table import Table
 
 def process_csv(csv_file_path):
     # Set the overall table width
-    table_width = 45
+    table_width = 43
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
@@ -12,8 +12,9 @@ def process_csv(csv_file_path):
     table.add_column("Source")
     table.add_column("Key")
     table.add_column("PXY")
-    table.add_column("PnL%_H")
+    table.add_column("YXP")
     table.add_column("PnL%")
+    table.add_column("PnL")
 
     # Initialize the total profit variable
     total_profit = 0
@@ -28,11 +29,11 @@ def process_csv(csv_file_path):
             header_row = next(csvreader)
 
             # Rename the columns in the table
-            table.field_names = ["Product", "Source", "Key", "PXY", "PnL%_H", "PnL%"]
+            table.field_names = ["Product", "Source", "Key", "PXY", "YXP", "PnL%", "PnL"]
 
             # Iterate over each row in the CSV file and add it to the table
             for row in csvreader:
-                # Adjust column indices to match your CSV file structure
+                # Adjust column names to match your CSV file structure
                 product, source, key, qty, avg, ltp, pnl_percentage_H, dpnl_percentage, pxy, yxp, pnl_percentage, pnl = row
 
                 # Remove "NSE:" or "BSE:" prefix from the "Key" column
@@ -40,14 +41,13 @@ def process_csv(csv_file_path):
 
                 # Convert numerical values to strings and round them to two decimal places
                 pxy = str(round(float(pxy), 1))
-                pnl_percentage_H = str(round(float(pnl_percentage_H), 1))
                 pnl_percentage = str(round(float(pnl_percentage)))
 
                 # Accumulate the total profit
                 total_profit += float(pnl)
 
                 # Add the row to the table
-                table.add_row(product, source, key, pxy, pnl_percentage_H, pnl_percentage)
+                table.add_row(product, source, key, pxy, yxp, pnl_percentage, pnl)
 
     except FileNotFoundError:
         print("File not found!")
@@ -69,6 +69,7 @@ total_profit_main = process_csv(csv_file_path)
 
 # Now you can use total_profit_main in your main code
 # print("Total Profit in Main:", total_profit_main)
+
 
 
 
