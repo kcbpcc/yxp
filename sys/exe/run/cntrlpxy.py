@@ -59,7 +59,7 @@ def mis_order_sell(index, row):
                 exchange=exchsym[0],
                 transaction_type='SELL',
                 quantity=int(row['qty']),
-                order_type='LIMIT',
+                order_type='MARKET',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(row['ltp'], -0.1)
@@ -86,7 +86,7 @@ def mis_order_buy(index, row):
                 exchange=exchsym[0],
                 transaction_type='BUY',
                 quantity=int(-1*row['qty']),
-                order_type='LIMIT',
+                order_type='MARKET',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(row['ltp'], +0.1)
@@ -316,8 +316,8 @@ try:
     # Assuming you have a DataFrame named PRINT_df
 
     PRINT_df_sorted = PRINT_df[
-        ((PRINT_df['qty'] > 0) & (PRINT_df['PnL%'] > pxy_df['Pr'])) |
-        ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < pxy_df['_Pr']))
+        ((PRINT_df['qty'] > 0) & (PRINT_df['PnL%'] > 0)) |
+        ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < 0))
     ]
     
     
