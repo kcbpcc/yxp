@@ -253,13 +253,13 @@ try:
         (NIFTY['Day_Change_%'] < 0) & (NIFTY['Open_Change_%'] < 0),
         (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] < 0)
     ]
-    choices = ['Super Bull', 'Bull', 'Danger Bear', 'Bear']
+    choices = ['sBull', 'Bull', 'sBear', 'Bear']
     NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
     status_factors = {
-        'Super Bull': +1,
+        'sBull': +1,
         'Bull': 0,
         'Bear': 0,
-        'Danger Bear': -1
+        'sBear': -1
     }
     # Calculate 'Score' for each row based on 'Day Status' and 'status_factors'
     NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
@@ -450,7 +450,7 @@ try:
         print(right_aligned_format.format(f"Bull Power:{BRIGHT_GREEN if (Pr > 0.5).any() else BRIGHT_RED}{round(Pr, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
-        print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'Super Bull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
+        print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'sBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if PXY < -1 else BRIGHT_RED}{round(PXY, 2)}{RESET}"))
