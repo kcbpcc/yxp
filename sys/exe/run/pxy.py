@@ -112,5 +112,5 @@ while True:
             print("✨.", end='', flush=True)
         print("\nTask completed!")
     secs = 60
-    progress_bar(secs)
+    progress_bar(loop_duration)
 
