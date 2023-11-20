@@ -191,7 +191,7 @@ try:
     combined_df['value'] = combined_df['qty'] * combined_df['ltp']
     combined_df['value_H'] = combined_df['qty'] * combined_df['high']
     # Calculate 'PnL' column as 'value' - 'Invested'
-    combined_df['PnL'] = combined_df['value'] - combined_df['Invested']
+    combined_df['PnL'] = (combined_df['value'] - combined_df['Invested']).astype(int)
     combined_df['PnL_H'] = combined_df['value_H'] - combined_df['Invested']
     # Calculate 'PnL%' column as ('PnL' / 'Invested') * 100
     combined_df['PnL%'] = (combined_df['PnL'] / combined_df['Invested']) * 100
