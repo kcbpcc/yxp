@@ -59,7 +59,7 @@ def mis_order_sell(index, row):
                 exchange=exchsym[0],
                 transaction_type='SELL',
                 quantity=int(row['qty']),
-                order_type='MARKET',
+                order_type='LIMIT',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(row['ltp'], -0.1)
@@ -86,7 +86,7 @@ def mis_order_buy(index, row):
                 exchange=exchsym[0],
                 transaction_type='BUY',
                 quantity=int(-1*row['qty']),
-                order_type='MARKET',
+                order_type='LIMIT',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(row['ltp'], +0.1)
@@ -134,9 +134,7 @@ try:
     from cnstpxy import sellbuff, secs, perc_col_name
     from time import sleep
     import subprocess
-
-
-    from prftpxy import *
+    from prftpxy import process_csv
     import random
     import os
     import numpy as np
@@ -145,7 +143,7 @@ try:
     from nftpxy import get_nse_action
     from timpxy import calculate_timpxy
     import math
-    from telpxy import send_telegram_message
+    #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
     csv_file_path = "filePnL.csv"
     total_profit_main = process_csv(csv_file_path)
@@ -255,13 +253,13 @@ try:
         (NIFTY['Day_Change_%'] < 0) & (NIFTY['Open_Change_%'] < 0),
         (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] < 0)
     ]
-    choices = ['sBull', 'Bull', 'sBear', 'Bear']
+    choices = ['Super Bull', 'Bull', 'Danger Bear', 'Bear']
     NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
     status_factors = {
-        'sBull': +1,
+        'Super Bull': +1,
         'Bull': 0,
         'Bear': 0,
-        'sBear': -1
+        'Danger Bear': -1
     }
     # Calculate 'Score' for each row based on 'Day Status' and 'status_factors'
     NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
@@ -338,12 +336,13 @@ try:
     BRIGHT_RED = "\033[91m"
     BRIGHT_GREEN = "\033[92m"
     import pandas as pd
+
  
     # Always print "Table" in bright yellow
     print(f"{BRIGHT_YELLOW}Table– Stocks above @Pr and might reach @Yi {RESET}")
 
-    # Display the modified DataFrame
-    print(PRINT_df_sorted.drop(columns=['qty', '_Pr', 'Pr']).to_string(index=False))
+    # Print EXE_df_sorted without color
+    print(PRINT_df_sorted.to_string(index=False))
 
     # Define the CSV file path
     csv_file_path = "filePnL.csv"
@@ -445,28 +444,24 @@ try:
         column_width = 30
         left_aligned_format = "{:<" + str(column_width) + "}"
         right_aligned_format = "{:>" + str(column_width) + "}"
-
+        
+        
         print(left_aligned_format.format(f"Bear Power:{BRIGHT_GREEN if (_Pr < 0.5).any() else BRIGHT_RED}{round(_Pr, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Bull Power:{BRIGHT_GREEN if (Pr > 0.5).any() else BRIGHT_RED}{round(Pr, 2)}{RESET}"))        
-        print(left_aligned_format.format(f"YXP:{BRIGHT_GREEN if (NIFTY['Open_Change_%'] < 0).any() else BRIGHT_RED}{round(YXP, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if PXY < -1 else BRIGHT_RED}{round(PXY, 2)}{RESET}"))
+        print(right_aligned_format.format(f"Bull Power:{BRIGHT_GREEN if (Pr > 0.5).any() else BRIGHT_RED}{round(Pr, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"dPnL {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
-        print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'sBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
+        print(right_aligned_format.format(f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
+        print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'Super Bull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"mktpxy:{(BRIGHT_GREEN if mktpxy in ['Bull', 'Buy'] else BRIGHT_RED)}{mktpxy}{RESET}"))
+        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if PXY < -1 else BRIGHT_RED}{round(PXY, 2)}{RESET}"))
         print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
+        print(right_aligned_format.format(f"Funds: {BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-        #print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
-        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit > 0 else BRIGHT_RED}{round(total_profit)}{RESET}"))
+        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
 
-
-        
-        print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
-        print(f'==========================================')
         subprocess.run(['python3', 'mktpxy.py'])
+
+        print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
 
 except Exception as e:
     remove_token(dir_path)
