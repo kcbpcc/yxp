@@ -447,7 +447,7 @@ try:
         print(left_aligned_format.format(f"Bear Power:{BRIGHT_GREEN if (_Pr < 0.5).any() else BRIGHT_RED}{round(_Pr, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Bull Power:{BRIGHT_GREEN if (Pr > 0.5).any() else BRIGHT_RED}{round(Pr, 2)}{RESET}"))        
         print(left_aligned_format.format(f"YXP:{BRIGHT_GREEN if (NIFTY['Open_Change_%'] < 0).any() else BRIGHT_RED}{round(YXP, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if (NIFTY['Open_Change_%'] > 0).any() else BRIGHT_RED}{round(PXY, 2)}{RESET}"))
+        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if PXY < -1 else BRIGHT_RED}{round(PXY, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'Super Bull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
