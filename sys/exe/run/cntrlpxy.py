@@ -372,7 +372,7 @@ try:
                         (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])
                     ):
                         # Print the row before placing the order
-                        print(row['product'], row['source'], row['key'], row['PXY'], row['YXP'], row['PnL%'], row['PnL'])
+                        print(row)
 
                         try:
                             is_placed = order_place(key, row)
@@ -380,7 +380,7 @@ try:
                                 # Write the row to the CSV file here
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
-                                    csvwriter.writerow([row['product'], row['source'], row['key'], row['PXY'], row['YXP'], row['PnL%'], row['PnL']])
+                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
@@ -396,7 +396,7 @@ try:
                         row['PnL%'] > row['PXY']
                     ):
                         # Print the row before placing the order
-                        print(row['product'], row['source'], row['key'], row['PXY'], row['YXP'], row['PnL%'], row['PnL'])
+                        print(row)
 
                         try:
                             is_placed = mis_order_sell(key, row)
@@ -404,7 +404,7 @@ try:
                                 # Write the row to the CSV file here
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
-                                    csvwriter.writerow([row['product'], row['source'], row['key'], row['PXY'], row['YXP'], row['PnL%'], row['PnL']])
+                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
@@ -420,7 +420,7 @@ try:
                         row['PnL%'] < row['YXP']
                     ):
                         # Print the row before placing the order
-                        print(row['product'], row['source'], row['key'], row['PXY'], row['YXP'], row['PnL%'], row['PnL'])
+                        print(row)
 
                         try:
                             is_placed = mis_order_buy(key, row)
@@ -428,7 +428,7 @@ try:
                                 # Write the row to the CSV file here
                                 with open(csv_file_path, 'a', newline='') as csvfile:
                                     csvwriter = csv.writer(csvfile)
-                                    csvwriter.writerow([row['product'], row['source'], row['key'], row['PXY'], row['YXP'], row['PnL%'], row['PnL']])
+                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
