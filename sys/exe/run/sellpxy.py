@@ -109,7 +109,7 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
             order_id = broker.order_place(
                 tradingsymbol=dct['tradingsymbol'],
                 exchange='NSE',
-                transaction_type='SELL',
+                transaction_type='MARKET',
                 quantity = int(float(dct['QTY'].replace(',', ''))),
                 order_type='LIMIT',
                 product='MIS',
