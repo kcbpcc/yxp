@@ -8,7 +8,7 @@ echo -e "3.\tpxykill - SquireOff all Positions"
 echo -e "4.\tpxykillbuy - Sell all Buy Positions"
 echo -e "5.\tpxykillsell - Buy all Sell Positions"
 echo -e "6.\tpxyupdate - Update pxy"
-echo -e "7.\tRun 'pxy' - If You don't do anything, I will run PXY"
+echo -e "7.\tpxyrun - If You don't do anything, I will run PXY"
 echo -e "8.\tExit - Or You may simply exit"
 
 # Get user input
