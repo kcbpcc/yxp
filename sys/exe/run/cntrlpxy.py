@@ -239,7 +239,7 @@ try:
 
     ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
     bmtimpxy = (ctimpxy/10)
-    #smtimpxy = float((timpxy* -0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*-0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*-0.4)) * 0.5)
+    smtimpxy = bmtimpxy - (bmtimpxy*2)
     
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
@@ -501,7 +501,7 @@ try:
         print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
-        print(left_aligned_format.format(f"bmtimpxy:{BRIGHT_YELLOW}{round(bmtimpxy, 2)}{RESET}"), end="")
+        print(left_aligned_format.format(f"smtimpxy:{BRIGHT_YELLOW}{round(smtimpxy, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"bmtimpxy:{BRIGHT_YELLOW}{round(bmtimpxy, 2)}{RESET}"))
 
         
