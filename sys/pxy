@@ -1,31 +1,70 @@
-from rich import print
-from rich.table import Table
-import textwrap
+#!/bin/bash
+# ANSI color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-# Copyright Notice
-copyright_notice = (
-    "The PXY® trading tool and its content are protected by copyright laws and international treaties."
-    " All rights reserved by PXY® and Unauthorized use, reproduction, and distribution are strictly prohibited."
-    " Infringement may lead to legal action and financial penalties. PXY® is committed to protecting its intellectual property."
-)
+# Display menu
+echo -e "${YELLOW}PXY® ${YELLOW}PreciseXceleratedYield ${YELLOW}Pvt Ltd™:${NC}"
+echo "pxyUpdate              -Update pxy"
+echo "pxyRun                 -Run PXY"
+echo "pxyEnv                 -Get on Env"
+echo "pxyBuy                 -Night Buy"
+echo "tpxyKill               -SquireOff-ALL"
+echo "pxyKillBuy             -Sell all Buy"
+echo "pxyKillSell            -Buy all Sell"
+echo "Exit                   -Or Simply exit"
+echo -e "${YELLOW}PXY® ${YELLOW}PreciseXceleratedYield ${YELLOW}Pvt Ltd™:${NC}"
+# Get user input
+read -t 10 -p "Enter your choice: " choice
 
-# Set the desired width
-width = 41
-
-# Use textwrap to format the text with a fixed width
-wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False)
-
-# Create a table
-table = Table()
-
-# Add the column header "PXY® PreciseXceleratedYield Pvt Ltd™"
-table.add_column("PXY® PreciseXceleratedYield Pvt Ltd™")
-
-# Add the row with the wrapped notice
-table.add_row(wrapped_notice)
-
-# Display the table without extra space
-print(table)
+# Perform actions based on user input
+case $choice in
+    b)
+        echo "Executing pxybuy - Night Buy"
+        pxybuy
+        ;;
+    e)
+        echo "Executing pxyenv - Get on Environment"
+        pxyenv
+        ;;
+    k)
+        echo "Executing pxykill - SquireOff all Positions"
+        pxykill
+        ;;
+    kb)
+        echo "Executing pxykillbuy - Sell all Buy Positions"
+        pxykillbuy
+        ;;
+    ks)
+        echo "Executing pxykillsell - Rename sys/exe/pxykillsell to sys/pxykillsell"
+        pxykillsell
+        ;;
+    u)
+        echo "Executing pxyupdate - Update pxyupdate"
+        pxyupdate
+        ;;
+    r)
+        echo "Waiting for 5 seconds..."
+        sleep 5
+        echo "Running 'pxy'"
+        runpxy
+        ;;
+    e)
+        echo "Exiting the script. Goodbye!"
+        exit 0
+        ;;
+    "")
+        # Empty input (user didn't make a choice in 5 seconds)
+        echo "No input received in the last 5 seconds. Running 'pxy'"
+        pxyrun
+        ;;
+    *)
+        # Invalid choice
+        echo "Invalid choice. Please enter a number between 1 and 8."
+        ;;
+esac
 
 
 
