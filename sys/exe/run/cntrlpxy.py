@@ -396,7 +396,7 @@ try:
                         row['source'] == 'holdings' and
                         row['product'] == 'CNC' and
                         row['PnL%'] > 1.4 and 
-                        (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])
+                        (row['PnL%'] < row['pxy'] and row['PnL%_H'] > row['pxy'])
                     ):
                         # Print the row before placing the order
                         print(row)
@@ -420,7 +420,7 @@ try:
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['PnL%'] > 0.4 and 
-                        row['PnL%'] > row['PXY']
+                        row['PnL%'] > row['pxy']
                     ):
                         # Print the row before placing the order
                         print(row)
@@ -444,7 +444,7 @@ try:
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['PnL%'] < 0.4 and 
-                        row['PnL%'] < row['YXP']
+                        row['PnL%'] < row['yxp']
                     ):
                         # Print the row before placing the order
                         print(row)
