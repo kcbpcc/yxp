@@ -236,7 +236,12 @@ try:
     lambda row: min(-1, row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else -1)), 
     axis=1
     )
-   
+
+    ctimpxy = timpxy if mktpxy in ["Buy", "Bull"] else (timpxy * 0.7 if mktpxy == "Sell" else timpxy * 0.5)
+    #mtimpxy = timpxy if mktpxy in ["Buy", "Bull"] else (timpxy * 0.7 if mktpxy == "Sell" else timpxy * 0.5)
+
+
+    
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
