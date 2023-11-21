@@ -361,7 +361,6 @@ try:
                         row['qty'] > 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
-                        #row['PnL%'] > 0.4 and 
                         ((row['PnL%'] > 0) or (row['PnL%'] < 0) or (row['PnL%'] == 0))
                     ):
                         # Print the row before placing the order
@@ -384,7 +383,6 @@ try:
                         row['qty'] < 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
-                        #row['PnL%'] < 0.4 and 
                         ((row['PnL%'] > 0) or (row['PnL%'] < 0) or (row['PnL%'] == 0))
                     ):
                         # Print the row before placing the order
