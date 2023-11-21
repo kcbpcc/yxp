@@ -109,16 +109,16 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
             order_id = broker.order_place(
                 tradingsymbol=dct['tradingsymbol'],
                 exchange='NSE',
-                transaction_type='MARKET',
+                transaction_type='SELL',
                 quantity = int(float(dct['QTY'].replace(',', ''))),
-                order_type='LIMIT',
+                order_type='MARKET',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(ltp, +0.1)
             )
             if order_id:
                 logging.info(
-                    f"BUY {order_id} placed for {dct['tradingsymbol']} successfully")
+                    f"SELL {order_id} placed for {dct['tradingsymbol']} successfully")
             else:
                 print(traceback.format_exc())
                 logging.error(f"unable to place order for {dct['tradingsymbol']}")
