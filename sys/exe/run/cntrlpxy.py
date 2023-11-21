@@ -205,8 +205,8 @@ try:
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
 
-    combined_df['bpower'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
-    combined_df['powerb'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
+    combined_df['bpower'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)*10
+    combined_df['powerb'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)*10
     
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
