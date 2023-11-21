@@ -34,7 +34,7 @@ def process_csv(csv_file_path):
             # Iterate over each row in the CSV file and add it to the table
             for row in csvreader:
                 # Adjust column names to match your CSV file structure
-                product, source, key, qty, avg, ltp, pnl_percentage_H, dpnl_percentage, pxy, yxp, pnl_percentage, pnl = row
+                product, source, key, pxy, yxp, pnl_percentage, pnl = row
 
                 # Remove "NSE:" or "BSE:" prefix from the "Key" column
                 key = key.replace("NSE:", "").replace("BSE:", "")
@@ -69,7 +69,5 @@ total_profit_main = process_csv(csv_file_path)
 
 # Now you can use total_profit_main in your main code
 # print("Total Profit in Main:", total_profit_main)
-
-
 
 
