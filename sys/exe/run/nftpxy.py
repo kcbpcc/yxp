@@ -37,4 +37,8 @@ def get_nse_action():
 
 # Call the get_nse_action function
 nse_action = get_nse_action()
-print(f"Today's Market is {nse_action}")
+
+color = "RED" if nse_action == "NIFTYBEAR" else "GREEN" if nse_action == "NIFTYBULL" else "UNKNOWN"
+
+print(f"Today's Market is {nse_action} and the color is {color}")
+
