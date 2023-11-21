@@ -238,10 +238,8 @@ try:
     )
 
     ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
-    #mtimpxy = timpxy if mktpxy in ["Buy", "Bull"] else (timpxy * 0.75 if mktpxy == "Sell" else timpxy * 0.5)
+    mtimpxy = float((timpxy*0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*0.4)) * 0.5)
 
-
-    
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
@@ -502,8 +500,9 @@ try:
         print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
-        #print(left_aligned_format.format(f"tPnnnL%:{BRIGHT_GREEN if timpxy >= 0 else BRIGHT_RED}{round(timpxy, 2)}{RESET}"), end="")
-        #print(right_aligned_format.format(f"timpxy:{BRIGHT_GREEN if timpxy > 0 else BRIGHT_RED}{round(timpxy)}{RESET}"))
+        print(left_aligned_format.format(f"mtimpxy:{BRIGHT_YELLOW}{round(mtimpxy, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"ctimpxy:{BRIGHT_YELLOW}{round(ctimpxy, 2)}{RESET}"))
+
         
         subprocess.run(['python3', 'mktpxy.py'])
 
