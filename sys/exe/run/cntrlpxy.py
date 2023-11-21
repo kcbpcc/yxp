@@ -146,8 +146,8 @@ try:
     import math
     #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
-    csv_file_path = "filePnL.csv"
-    total_profit_main = process_csv(csv_file_path)
+    #csv_file_path = "filePnL.csv"
+    #total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
@@ -466,7 +466,7 @@ try:
         print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Funds: {BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
+        #print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
 
         subprocess.run(['python3', 'mktpxy.py'])
 
