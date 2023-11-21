@@ -2,14 +2,14 @@
 
 # Display menu
 echo "PXY® PreciseXceleratedYield Pvt Ltd™:"
-echo -e "1.\tpxybuy     - Night Buy"
-echo -e "2.\tpxyenv     - Get on Environment"
-echo -e "3.\tpxykill    - SquireOff all Positions"
-echo -e "4.\tpxykillbuy - Sell all Buy Positions"
-echo -e "5.\tpxykillsell- Buy all Sell Positions"
-echo -e "6.\tpxyupdate  - Update pxy"
-echo -e "7.\tpxyrun     - If You don't do anything, I will run PXY"
-echo -e "8.\tExit       - Or You may simply exit"
+echo "1.\tpxybuy     - Night Buy"
+echo "2.\tpxyenv     - Get on Environment"
+echo "3.\tpxykill    - SquireOff all Positions"
+echo "4.\tpxykillbuy - Sell all Buy Positions"
+echo "5.\tpxykillsell- Buy all Sell Positions"
+echo "6.\tpxyupdate  - Update pxy"
+echo "7.\tpxyrun     - If You don't do anything, I will run PXY"
+echo "8.\tExit       - Or You may simply exit"
 
 # Get user input
 read -t 5 -p "Enter your choice (1-8): " choice
