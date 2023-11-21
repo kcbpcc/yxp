@@ -11,8 +11,6 @@ def process_csv(csv_file_path):
     table.add_column("CM")
     table.add_column("PH")
     table.add_column("Key")
-    table.add_column("PXY")
-    table.add_column("YXP")
     table.add_column("PnL%")
     table.add_column("PnL")
 
@@ -28,26 +26,22 @@ def process_csv(csv_file_path):
             # Skip the header row
             header_row = next(csvreader)
 
-            # Rename the columns in the table
-            table.field_names = ["CM", "PH", "Key", "PXY", "YXP", "PnL%", "PnL"]
-
             # Iterate over each row in the CSV file and add it to the table
             for row in csvreader:
                 # Adjust column names to match your CSV file structure
-                product, source, key, pxy, yxp, pnl_percentage, pnl = row
+                cm, ph, key, qty, avg, pxy, yxp, ltp, pnl_h, dpnl, pxy2, yxp2, pnl_percentage, pnl = row
 
                 # Remove "NSE:" or "BSE:" prefix from the "Key" column
                 key = key.replace("NSE:", "").replace("BSE:", "")
 
                 # Convert numerical values to strings and round them to two decimal places
-                pxy = str(round(float(pxy), 1))
                 pnl_percentage = str(round(float(pnl_percentage)))
 
                 # Accumulate the total profit
                 total_profit += float(pnl)
 
                 # Add the row to the table
-                table.add_row(CM, HP, key, pxy, yxp, pnl_percentage, pnl)
+                table.add_row(cm, ph, key, pnl_percentage, pnl)
 
     except FileNotFoundError:
         print("File not found!")
@@ -69,5 +63,6 @@ total_profit_main = process_csv(csv_file_path)
 
 # Now you can use total_profit_main in your main code
 # print("Total Profit in Main:", total_profit_main)
+
 
 
