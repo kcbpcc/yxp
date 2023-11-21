@@ -396,7 +396,7 @@ try:
                         row['source'] == 'holdings' and
                         row['product'] == 'CNC' and
                         row['PnL%'] > 1.4 and 
-                        ((row['PnL%'] < row['pxy'] and row['PnL%_H'] > row['pxy']) or (row['PnL%'] > timpxy]))
+                        ((row['PnL%'] < row['pxy'] and row['PnL%_H'] > row['pxy']) or (row['PnL%'] > timpxy))
 
 
                          
