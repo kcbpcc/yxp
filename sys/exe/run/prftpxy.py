@@ -8,8 +8,8 @@ def process_csv(csv_file_path):
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
-    table.add_column("Product")
-    table.add_column("Source")
+    table.add_column("CM")
+    table.add_column("PH")
     table.add_column("Key")
     table.add_column("PXY")
     table.add_column("YXP")
@@ -29,7 +29,7 @@ def process_csv(csv_file_path):
             header_row = next(csvreader)
 
             # Rename the columns in the table
-            table.field_names = ["Product", "Source", "Key", "PXY", "YXP", "PnL%", "PnL"]
+            table.field_names = ["CM", "PH", "Key", "PXY", "YXP", "PnL%", "PnL"]
 
             # Iterate over each row in the CSV file and add it to the table
             for row in csvreader:
