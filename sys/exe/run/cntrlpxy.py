@@ -206,16 +206,25 @@ try:
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
     epsilon = 1e-10
     
+    import numpy as np
+    
     combined_df['strength'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
     combined_df['weakness'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
     combined_df['pr'] = max(0.1, round((0.0 + (combined_df['strength'] * 1.0)).max(), 2))
     combined_df['xl'] = round(max(1.4, 1 + (combined_df['pr'] * 2)), 2) 
     combined_df['yi'] = round(max(1.4, 1 + (combined_df['pr'] * 3)), 2) 
-    combined_df['pxy'] = combined_df['yi'] if mktcombined_df['pxy'] in ["Buy", "Bull"] else (combined_df['xl'] if mktcombined_df['pxy'] == "Sell" else 1)    
+    
+    # Use numpy.where to handle conditions
+    combined_df['pxy'] = np.where(mktcombined_df['pxy'].isin(["Buy", "Bull"]), combined_df['yi'],
+                                  np.where(mktcombined_df['pxy'] == "Sell", combined_df['xl'], 1))
+    
     combined_df['_pr'] = min(-0.1, round((0.0 + (combined_df['weakness'] * 1.0)).min(), 2) - epsilon)
     combined_df['_xl'] = round(min(-1.4, -1 + (combined_df['_pr'] * 2)), 2) 
     combined_df['_yi'] = round(min(-1.4, -1 + (combined_df['_pr'] * 3)), 2) 
-    combined_df['yep'] = combined_df['_yi'] if mktcombined_df['pxy'] in ["Sell", "Bear"] else (combined_df['_xl'] if mktcombined_df['pxy'] == "Buy" else -1)
+    
+    # Use numpy.where for the 'yep' column
+    combined_df['yep'] = np.where(mktcombined_df['pxy'].isin(["Sell", "Bear"]), combined_df['_yi'],
+                                   np.where(mktcombined_df['pxy'] == "Buy", combined_df['_xl'], -1))
 
 
     
