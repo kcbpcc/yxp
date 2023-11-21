@@ -356,30 +356,8 @@ try:
                     (row['ltp'] > 0 and
                      row['avg'] > 0) 
                 ):
-                    if (
-                        row['qty'] > 0 and
-                        row['source'] == 'holdings' and
-                        row['product'] == 'CNC' and
-                        row['PnL%'] > 1.4 and 
-                        (row['PnL%'] < row['PXY'] and row['PnL%_H'] > row['PXY'])
-                    ):
-                        # Print the row before placing the order
-                        print(row)   
-                        try:
-                            is_placed = order_place(key, row)
-                            if is_placed:
-                                # Write the row to the CSV file here
-                                with open(csv_file_path, 'a', newline='') as csvfile:
-                                    csvwriter = csv.writer(csvfile)
-                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                        except InputException as e:
-                            # Handle the specific exception and print only the error message
-                            print(f"An error occurred while placing an order for key {key}: {e}")
-                        except Exception as e:
-                            # Handle any other exceptions that may occur during order placement
-                            print(f"An unexpected error occurred while placing an order for key {key}: {e}")
 
-                    elif (
+                    if (
                         row['qty'] > 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
@@ -430,38 +408,6 @@ try:
         except Exception as e:
             # Handle any other exceptions that may occur during the loop
             print(f"An unexpected error occurred: {e}")
-
-
-        
-        print(f"{BRIGHT_YELLOW}📉🔀Trades Overview & Market Dynamics 📈🔄 {RESET}")
-        # ANSI escape codes for text coloring
-        RESET = "\033[0m"
-        BRIGHT_YELLOW = "\033[93m"
-        BRIGHT_RED = "\033[91m"
-        BRIGHT_GREEN = "\033[92m"
-        # Print all three sets of values in a single line with rounding to 2 decimal places
-        column_width = 30
-        left_aligned_format = "{:<" + str(column_width) + "}"
-        right_aligned_format = "{:>" + str(column_width) + "}"
-
-        
-        print(left_aligned_format.format(f"Bear Power:{BRIGHT_GREEN if (_Pr < 0.5).any() else BRIGHT_RED}{round(_Pr, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Bull Power:{BRIGHT_GREEN if (Pr > 0.5).any() else BRIGHT_RED}{round(Pr, 2)}{RESET}"))        
-        print(left_aligned_format.format(f"YXP:{BRIGHT_GREEN if (NIFTY['Open_Change_%'] < 0).any() else BRIGHT_RED}{round(YXP, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"PXY:{BRIGHT_GREEN if (NIFTY['Open_Change_%'] > 0).any() else BRIGHT_RED}{round(PXY, 2)}{RESET}"))
-        print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"dPnL {BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
-        print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'Super Bull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
-        print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
-        print(left_aligned_format.format(f"Day Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"mktpxy:{(BRIGHT_GREEN if mktpxy in ['Bull', 'Buy'] else BRIGHT_RED)}{mktpxy}{RESET}"))
-        print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
-        print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
-
-        
-        subprocess.run(['python3', 'mktpxy.py'])
 
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
