@@ -1,9 +1,10 @@
-print(f'🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛')
-import time
-import subprocess
-from nftpxy import get_nse_action
+
 
 while True:
+    print(f'🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛')
+    import time
+    import subprocess
+    from nftpxy import get_nse_action    
     from nftpxy import get_nse_action
     import yfinance as yf
     import warnings
