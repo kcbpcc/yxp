@@ -6,7 +6,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Display menu
-echo -e "${GREEN}PXY® ${YELLOW}PreciseXceleratedYield ${RED}Pvt Ltd™:${NC}"
+echo -e "${YELLOW}PXY® ${YELLOW}PreciseXceleratedYield ${YELLOW}Pvt Ltd™:${NC}"
 echo "pxyUpdate              -Update pxy"
 echo "pxyRun                 -I will run PXY"
 echo "pxyEnv                 -Get on Environment"
