@@ -274,12 +274,10 @@ try:
     score_value = NIFTY['Score'].values[0]
     # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
     # Calculate the metrics
+    
+    epsilon = 1e-10
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
-
-    epsilon = 1e-10
-    
-
     Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2))
     Xl = round(max(1.4, 1 + (Pr * 2)), 2) 
     Yi = round(max(1.4, 1 + (Pr * 3)), 2) 
