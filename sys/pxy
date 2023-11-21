@@ -8,11 +8,11 @@ echo "3.\tpxykill    - SquireOff all Positions"
 echo "4.\tpxykillbuy - Sell all Buy Positions"
 echo "5.\tpxykillsell- Buy all Sell Positions"
 echo "6.\tpxyupdate  - Update pxy"
-echo "7.\tpxyrun     - If You don't do anything, I will run PXY"
-echo "8.\tExit       - Or You may simply exit"
+echo "7.\tpxyrun     - I will run PXY"
+echo "8.\tExit       - Or Simply exit"
 
 # Get user input
-read -t 5 -p "Enter your choice (1-8): " choice
+read -t 10 -p "Enter your choice (1-8): " choice
 
 # Perform actions based on user input
 case $choice in
@@ -53,7 +53,7 @@ case $choice in
     "")
         # Empty input (user didn't make a choice in 5 seconds)
         echo "No input received in the last 5 seconds. Running 'pxy'"
-        runpxy
+        pxyrun
         ;;
     *)
         # Invalid choice
