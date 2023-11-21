@@ -2,51 +2,51 @@
 
 # Display menu
 echo "PXY® PreciseXceleratedYield Pvt Ltd™:"
-echo "1.\tpxybuy     - Night Buy"
-echo "2.\tpxyenv     - Get on Environment"
-echo "3.\tpxykill    - SquireOff all Positions"
-echo "4.\tpxykillbuy - Sell all Buy Positions"
-echo "5.\tpxykillsell- Buy all Sell Positions"
-echo "6.\tpxyupdate  - Update pxy"
-echo "7.\tpxyrun     - I will run PXY"
-echo "8.\tExit       - Or Simply exit"
+echo "b.\tpxybuy     - Night Buy"
+echo "e.\tpxyenv     - Get on Environment"
+echo "k.\tpxykill    - SquireOff all Positions"
+echo "kb.\tpxykillbuy - Sell all Buy Positions"
+echo "ks.\tpxykillsell- Buy all Sell Positions"
+echo "u.\tpxyupdate  - Update pxy"
+echo "r.\tpxyrun     - I will run PXY"
+echo "e.\tExit       - Or Simply exit"
 
 # Get user input
 read -t 10 -p "Enter your choice (1-8): " choice
 
 # Perform actions based on user input
 case $choice in
-    1)
+    b)
         echo "Executing pxybuy - Night Buy"
         pxybuy
         ;;
-    2)
+    e)
         echo "Executing pxyenv - Get on Environment"
         pxyenv
         ;;
-    3)
+    k)
         echo "Executing pxykill - SquireOff all Positions"
         pxykill
         ;;
-    4)
+    kb)
         echo "Executing pxykillbuy - Sell all Buy Positions"
         pxykillbuy
         ;;
-    5)
+    ks)
         echo "Executing pxykillsell - Rename sys/exe/pxykillsell to sys/pxykillsell"
         pxykillsell
         ;;
-    6)
+    u)
         echo "Executing pxyupdate - Update pxyupdate"
         pxyupdate
         ;;
-    7)
+    r)
         echo "Waiting for 5 seconds..."
         sleep 5
         echo "Running 'pxy'"
         runpxy
         ;;
-    8)
+    e)
         echo "Exiting the script. Goodbye!"
         exit 0
         ;;
