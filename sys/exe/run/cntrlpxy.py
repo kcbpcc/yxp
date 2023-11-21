@@ -426,7 +426,7 @@ try:
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['PnL%'] > 0.4 and 
-                        row['PnL%'] > row['pxy']
+                        (row['PnL%'] > row['pxy'] or row['PnL%'] > mtimpxy)
                     ):
                         # Print the row before placing the order
                         print(row)
