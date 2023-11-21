@@ -204,8 +204,8 @@ try:
     combined_df['dPnL'] = combined_df['value'] - combined_df['Yvalue']
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
-    combined_df['bpower'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
-    combined_df['powerb'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
+    combined_df['strength'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
+    combined_df['weakness'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
     combined_df['pr'] = max(0.1, round((0.0 + (combined_df['strength'] * 1.0)).max(), 2))
     combined_df['xl'] = round(max(1.4, 1 + (combined_df['pr'] * 2)), 2) 
     combined_df['yi'] = round(max(1.4, 1 + (combined_df['pr'] * 3)), 2) 
@@ -303,7 +303,7 @@ try:
     combined_df.to_csv(lstchk_file, index=False)
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
-    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','bpower','powerb','key','dPnL%','PnL','PnL%_H', 'PnL%']]
+    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','pxy','yxp','key','dPnL%','PnL','PnL%_H', 'PnL%']]
     
     pxy_df['Pr'] = Pr
     pxy_df['Xl'] = Xl
@@ -317,8 +317,8 @@ try:
     
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
-    EXE_df = pxy_df[['product','source', 'key', 'qty','avg','bpower','powerb','ltp','PnL%_H','dPnL%','PXY','YXP','PnL%','PnL']]
-    PRINT_df = pxy_df[['source','product','qty','key','YXP','PXY','PnL%','PnL','bpower','powerb']]
+    EXE_df = pxy_df[['product','source', 'key', 'qty','avg','pxy','yxp','ltp','PnL%_H','dPnL%','PXY','YXP','PnL%','PnL']]
+    PRINT_df = pxy_df[['source','product','qty','key','YXP','PXY','PnL%','PnL','pxy','yxp']]
     # Rename columns for display
     PRINT_df = PRINT_df.rename(columns={'source': 'HP', 'product': 'CM'})
     # Conditionally replace values in the 'HP' column
