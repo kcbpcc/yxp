@@ -237,8 +237,8 @@ try:
     axis=1
     )
 
-    ctimpxy = timpxy if mktpxy in ["Buy", "Bull"] else (timpxy * 0.7 if mktpxy == "Sell" else timpxy * 0.5)
-    #mtimpxy = timpxy if mktpxy in ["Buy", "Bull"] else (timpxy * 0.7 if mktpxy == "Sell" else timpxy * 0.5)
+    ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
+    #mtimpxy = timpxy if mktpxy in ["Buy", "Bull"] else (timpxy * 0.75 if mktpxy == "Sell" else timpxy * 0.5)
 
 
     
@@ -401,7 +401,7 @@ try:
                         row['source'] == 'holdings' and
                         row['product'] == 'CNC' and
                         row['PnL%'] > 1.4 and 
-                        ((row['PnL%'] < row['pxy'] and row['PnL%_H'] > row['pxy']) or (row['PnL%'] > timpxy))
+                        ((row['PnL%'] < row['pxy'] and row['PnL%_H'] > row['pxy']) or (row['PnL%'] > ctimpxy))
 
 
                          
