@@ -207,9 +207,24 @@ try:
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
     epsilon = 1e-10
 
-    combined_df['pxy'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
-    combined_df['yxp'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
-   
+    combined_df['strength'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
+    combined_df['weakness'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
+    
+    pr = max(0.1, round((0.0 + (combined_df['strength'] * 1.0)).max(), 2) - epsilon)
+    xl = round(max(1.4, 1 + (pr * 2)), 2) 
+    yi = round(max(1.4, 1 + (pr * 3)), 2) 
+    
+    combined_df['pxy'] = yi if mktpxy in ["Buy", "Bull"] else (xl if mktpxy == "Sell" else 1)  
+    
+    _pr = min(-0.1, round((0.0 + (combined_df['weakness'] * 1.0)).min(), 2) - epsilon)
+    _xl = round(min(-1.4, -1 + (_pr * 2)), 2) 
+    _yi = round(min(-1.4, -1 + (_pr * 3)), 2) 
+    
+    combined_df['yxp'] = _yi if mktpxy in ["Sell", "Bear"] else (_xl if mktpxy == "Buy" else -1)
+
+
+
+    
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
