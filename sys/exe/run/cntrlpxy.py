@@ -227,17 +227,16 @@ try:
     )
     
     combined_df['pxy'] = combined_df.apply(
-        lambda row: row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else 1), axis=1
+        lambda row: max(1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else 1)), 
+        axis=1
     )
+
     
     combined_df['yxp'] = combined_df.apply(
-        lambda row: row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else -1), axis=1
+    lambda row: min(-1, row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else -1)), 
+    axis=1
     )
-
-
-
-
-    
+   
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
