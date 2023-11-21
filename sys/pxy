@@ -1,8 +1,66 @@
-# Activate the virtual environment
-source ~/env/bin/activate
+#!/bin/bash
 
-# Change to the script's directory
-cd ~/pxy/sys/exe/run
+while true; do
+    # Display menu
+    echo "PXY® PreciseXceleratedYield Pvt Ltd™:"
+    echo "1. pxybuy - Night Buy"
+    echo "2. pxyenv - Get on Environment"
+    echo "3. pxykill - SquireOff all Positions"
+    echo "4. pxykillbuy - Sell all Buy Positions"
+    echo "5. pxykillsell - Buy all Sell Positions"
+    echo "6. pxyupdate - Update pxy"
+    echo "7. Run 'pxy' - If You don't do anything, I will run PXY"
+    echo "8. Exit - Or You may simply exit"
 
-# Run the Python script
-python3 pxy.py
+    # Get user input
+    read -t 30 -p "Enter your choice (1-8): " choice
+
+    # Perform actions based on user input
+    case $choice in
+        1)
+            echo "Executing pxybuy - Night Buy"
+            pxybuy
+            ;;
+        2)
+            echo "Executing pxyenv - Get on Environment"
+            pxyenv
+            ;;
+        3)
+            echo "Executing pxykill - SquireOff all Positions"
+            pxykill
+            ;;
+        4)
+            echo "Executing pxykillbuy - Sell all Buy Positions"
+            pxykillbuy
+            ;;
+        5)
+            echo "Executing pxykillsell - Rename sys/exe/pxykillsell to sys/pxykillsell"
+            pxykillsell
+            ;;
+        6)
+            echo "Executing pxyupdate - Update pxyupdate"
+            pxyupdate
+            ;;
+        7)
+            echo "Waiting for 30 seconds..."
+            sleep 30
+            echo "Running 'pxy'"
+            pxy
+            ;;
+        8)
+            echo "Exiting the script. Goodbye!"
+            exit 0
+            ;;
+        "")
+            # Empty input (user didn't make a choice in 30 seconds)
+            echo "No input received in the last 30 seconds. Running 'pxy'"
+            pxy
+            ;;
+        *)
+            # Invalid choice
+            echo "Invalid choice. Please enter a number between 1 and 8."
+            ;;
+    esac
+done
+
+
