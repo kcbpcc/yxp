@@ -1,12 +1,10 @@
 from rich import print
 from rich.table import Table
-from rich.console import Console
 import textwrap
 
 # ANSI color codes
-RED = '\033[0;31m'
-GREEN = '\033[0;32m'
-YELLOW = '\033[1;33m'
+BRIGHT_YELLOW = '\033[93m'
+BRIGHT_RED = '\033[91m'
 NC = '\033[0m'  # No Color
 
 # Copyright Notice
@@ -25,11 +23,11 @@ wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False)
 # Create a table
 table = Table()
 
-# Add the column header "${YELLOW}PXY® ${YELLOW}PreciseXceleratedYield ${YELLOW}Pvt Ltd™:${NC}"
-table.add_column("[yellow]${YELLOW}PXY® ${YELLOW}PreciseXceleratedYield ${YELLOW}Pvt Ltd™:${NC}[/yellow]")
+# Add the column header "${BRIGHT_YELLOW}PXY® ${BRIGHT_YELLOW}PreciseXceleratedYield ${BRIGHT_YELLOW}Pvt Ltd™:${NC}"
+table.add_column(f"[{BRIGHT_YELLOW}]PXY® PreciseXceleratedYield Pvt Ltd™:{NC}")
 
-# Add the row with the wrapped notice in red
-table.add_row(f"[red]{wrapped_notice}[/red]")
+# Add the row with the wrapped notice in bright red
+table.add_row(f"[{BRIGHT_RED}]{wrapped_notice}{NC}")
 
 # Display the table without extra space
 print(table)
