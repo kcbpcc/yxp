@@ -238,8 +238,9 @@ try:
     )
 
     ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
-    mtimpxy = float((timpxy*0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*0.4)) * 0.5)
-
+    bmtimpxy = float((timpxy*0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*0.4)) * 0.5)
+    #smtimpxy = float((timpxy* -0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*-0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*-0.4)) * 0.5)
+    
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
@@ -426,7 +427,7 @@ try:
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['PnL%'] > 0.4 and 
-                        (row['PnL%'] > row['pxy'] or row['PnL%'] > mtimpxy)
+                        (row['PnL%'] > row['pxy'] or row['PnL%'] > bmtimpxy)
                     ):
                         # Print the row before placing the order
                         print(row)
@@ -495,13 +496,13 @@ try:
         print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'sBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"timpxy:{BRIGHT_YELLOW}{round(timpxy, 2)}{RESET}"))
+        print(right_aligned_format.format(f"ctimpxy:{BRIGHT_YELLOW}{round(ctimpxy, 2)}{RESET}"))
         print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
-        print(left_aligned_format.format(f"mtimpxy:{BRIGHT_YELLOW}{round(mtimpxy, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"ctimpxy:{BRIGHT_YELLOW}{round(ctimpxy, 2)}{RESET}"))
+        print(left_aligned_format.format(f"bmtimpxy:{BRIGHT_YELLOW}{round(bmtimpxy, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"bmtimpxy:{BRIGHT_YELLOW}{round(bmtimpxy, 2)}{RESET}"))
 
         
         subprocess.run(['python3', 'mktpxy.py'])
