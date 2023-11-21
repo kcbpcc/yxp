@@ -4,7 +4,7 @@ from rich.table import Table
 
 def process_csv(csv_file_path):
     # Set the overall table width
-    table_width = 35
+    table_width = 41
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
