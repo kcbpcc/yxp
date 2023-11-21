@@ -2,11 +2,6 @@ from rich import print
 from rich.table import Table
 import textwrap
 
-# ANSI color codes
-BRIGHT_YELLOW = '\033[93m'
-BRIGHT_RED = '\033[91m'
-NC = '\033[0m'  # No Color
-
 # Copyright Notice
 copyright_notice = (
     "The PXY® trading tool and its content are protected by copyright laws and international treaties."
@@ -23,15 +18,14 @@ wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False)
 # Create a table
 table = Table()
 
-# Add the column header "${BRIGHT_YELLOW}PXY® ${BRIGHT_YELLOW}PreciseXceleratedYield ${BRIGHT_YELLOW}Pvt Ltd™:${NC}"
-table.add_column(f"[{BRIGHT_YELLOW}]PXY® PreciseXceleratedYield Pvt Ltd™:{NC}")
+# Add the column header "PXY® PreciseXceleratedYield Pvt Ltd™"
+table.add_column("PXY® PreciseXceleratedYield Pvt Ltd™")
 
-# Add the row with the wrapped notice in bright red
-table.add_row(f"[{BRIGHT_RED}]{wrapped_notice}{NC}")
+# Add the row with the wrapped notice
+table.add_row(wrapped_notice)
 
 # Display the table without extra space
 print(table)
-
 
 
 
