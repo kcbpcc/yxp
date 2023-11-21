@@ -47,7 +47,7 @@ def process_csv(csv_file_path):
                 total_profit += float(pnl)
 
                 # Add the row to the table
-                table.add_row(product, source, key, pxy, yxp, pnl_percentage, pnl)
+                table.add_row(CM, HP, key, pxy, yxp, pnl_percentage, pnl)
 
     except FileNotFoundError:
         print("File not found!")
