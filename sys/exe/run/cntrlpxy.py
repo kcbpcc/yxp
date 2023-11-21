@@ -497,8 +497,8 @@ try:
         print(right_aligned_format.format(f"Funds: {BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
-        print(left_aligned_format.format(f"tPnnnL%:{BRIGHT_GREEN if timpxy >= 0 else BRIGHT_RED}{round(timpxy, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"timpxy:{BRIGHT_GREEN if timpxy > 0 else BRIGHT_RED}{round(timpxy)}{RESET}"))
+        #print(left_aligned_format.format(f"tPnnnL%:{BRIGHT_GREEN if timpxy >= 0 else BRIGHT_RED}{round(timpxy, 2)}{RESET}"), end="")
+        #print(right_aligned_format.format(f"timpxy:{BRIGHT_GREEN if timpxy > 0 else BRIGHT_RED}{round(timpxy)}{RESET}"))
         
         subprocess.run(['python3', 'mktpxy.py'])
 
