@@ -135,7 +135,7 @@ try:
     from cnstpxy import sellbuff, secs, perc_col_name
     from time import sleep
     import subprocess
-    from prftpxy import total_profit
+    #from prftpxy import total_profit
     import random
     import os
     import numpy as np
@@ -466,7 +466,7 @@ try:
         print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Funds: {BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit > 0 else BRIGHT_RED}{round(total_profit)}{RESET}"))
+        #print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit > 0 else BRIGHT_RED}{round(total_profit)}{RESET}"))
 
         subprocess.run(['python3', 'mktpxy.py'])
 
