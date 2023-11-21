@@ -1,66 +1,65 @@
 #!/bin/bash
 
-while true; do
-    # Display menu
-    echo "PXY® PreciseXceleratedYield Pvt Ltd™:"
-    echo "1. pxybuy         - Night Buy"
-    echo "2. pxyenv         - Get on Environment"
-    echo "3. pxykill        - SquireOff all Positions"
-    echo "4. pxykillbuy     - Sell all Buy Positions"
-    echo "5. pxykillsell    - Buy all Sell Positions"
-    echo "6. pxyupdate      - Update pxy"
-    echo "7. Run 'pxy'      - If You don't do anything, I will run PXY"
-    echo "8. Exit           - Or You may simply exit"
+# Display menu
+echo "PXY® PreciseXceleratedYield Pvt Ltd™:"
+echo -e "1.\tpxybuy - Night Buy"
+echo -e "2.\tpxyenv - Get on Environment"
+echo -e "3.\tpxykill - SquireOff all Positions"
+echo -e "4.\tpxykillbuy - Sell all Buy Positions"
+echo -e "5.\tpxykillsell - Buy all Sell Positions"
+echo -e "6.\tpxyupdate - Update pxy"
+echo -e "7.\tRun 'pxy' - If You don't do anything, I will run PXY"
+echo -e "8.\tExit - Or You may simply exit"
 
-    # Get user input
-    read -t 5 -p "Enter your choice (1-8): " choice
+# Get user input
+read -t 5 -p "Enter your choice (1-8): " choice
 
-    # Perform actions based on user input
-    case $choice in
-        1)
-            echo "Executing pxybuy - Night Buy"
-            pxybuy
-            ;;
-        2)
-            echo "Executing pxyenv - Get on Environment"
-            pxyenv
-            ;;
-        3)
-            echo "Executing pxykill - SquireOff all Positions"
-            pxykill
-            ;;
-        4)
-            echo "Executing pxykillbuy - Sell all Buy Positions"
-            pxykillbuy
-            ;;
-        5)
-            echo "Executing pxykillsell - Rename sys/exe/pxykillsell to sys/pxykillsell"
-            pxykillsell
-            ;;
-        6)
-            echo "Executing pxyupdate - Update pxyupdate"
-            pxyupdate
-            ;;
-        7)
-            echo "Waiting for 30 seconds..."
-            sleep 30
-            echo "Running 'pxy'"
-            pxy
-            ;;
-        8)
-            echo "Exiting the script. Goodbye!"
-            exit 0
-            ;;
-        "")
-            # Empty input (user didn't make a choice in 30 seconds)
-            echo "No input received in the last 30 seconds. Running 'pxy'"
-            runpxy
-            ;;
-        *)
-            # Invalid choice
-            echo "Invalid choice. Please enter a number between 1 and 8."
-            ;;
-    esac
-done
+# Perform actions based on user input
+case $choice in
+    1)
+        echo "Executing pxybuy - Night Buy"
+        pxybuy
+        ;;
+    2)
+        echo "Executing pxyenv - Get on Environment"
+        pxyenv
+        ;;
+    3)
+        echo "Executing pxykill - SquireOff all Positions"
+        pxykill
+        ;;
+    4)
+        echo "Executing pxykillbuy - Sell all Buy Positions"
+        pxykillbuy
+        ;;
+    5)
+        echo "Executing pxykillsell - Rename sys/exe/pxykillsell to sys/pxykillsell"
+        pxykillsell
+        ;;
+    6)
+        echo "Executing pxyupdate - Update pxyupdate"
+        pxyupdate
+        ;;
+    7)
+        echo "Waiting for 5 seconds..."
+        sleep 5
+        echo "Running 'pxy'"
+        runpxy
+        ;;
+    8)
+        echo "Exiting the script. Goodbye!"
+        exit 0
+        ;;
+    "")
+        # Empty input (user didn't make a choice in 5 seconds)
+        echo "No input received in the last 5 seconds. Running 'pxy'"
+        runpxy
+        ;;
+    *)
+        # Invalid choice
+        echo "Invalid choice. Please enter a number between 1 and 8."
+        ;;
+esac
+
 
 
