@@ -15,9 +15,9 @@ echo "tpxyKill               -SquireOff all Positions"
 echo "pxyKillBuy             -Sell all Buy Positions"
 echo "pxyKillSell            -Buy all Sell Positions"
 echo "Exit                   -Or Simply exit"
-
+echo -e "${YELLOW}PXY® ${YELLOW}PreciseXceleratedYield ${YELLOW}Pvt Ltd™:${NC}"
 # Get user input
-read -t 10 -p "Enter your choice (1-8): " choice
+read -t 10 -p "Enter your choice: " choice
 
 # Perform actions based on user input
 case $choice in
