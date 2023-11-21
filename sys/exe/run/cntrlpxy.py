@@ -204,6 +204,10 @@ try:
     combined_df['dPnL'] = combined_df['value'] - combined_df['Yvalue']
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
+
+    combined_df['bpower'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))) 
+    combined_df['powerb'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01)))
+    
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
@@ -218,8 +222,7 @@ try:
     total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
     total_dPnL_percentage = (total_dPnL / combined_df_positive_qty['Invested'].sum()) * 100
 
-    combined_df['bpower'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))) 
-    combined_df['powerb'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01)))
+
     
     import pandas as pd
     # Assuming you have a list of instrument keys, e.g., ['NIFTY50', 'RELIANCE', ...]
