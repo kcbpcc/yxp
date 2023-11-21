@@ -2,14 +2,14 @@
 
 # Display menu
 echo "PXY® PreciseXceleratedYield Pvt Ltd™:"
-echo -e "1.\tpxybuy - Night Buy"
-echo -e "2.\tpxyenv - Get on Environment"
-echo -e "3.\tpxykill - SquireOff all Positions"
+echo -e "1.\tpxybuy     - Night Buy"
+echo -e "2.\tpxyenv     - Get on Environment"
+echo -e "3.\tpxykill    - SquireOff all Positions"
 echo -e "4.\tpxykillbuy - Sell all Buy Positions"
-echo -e "5.\tpxykillsell - Buy all Sell Positions"
-echo -e "6.\tpxyupdate - Update pxy"
-echo -e "7.\tpxyrun - If You don't do anything, I will run PXY"
-echo -e "8.\tExit - Or You may simply exit"
+echo -e "5.\tpxykillsell- Buy all Sell Positions"
+echo -e "6.\tpxyupdate  - Update pxy"
+echo -e "7.\tpxyrun     - If You don't do anything, I will run PXY"
+echo -e "8.\tExit       - Or You may simply exit"
 
 # Get user input
 read -t 5 -p "Enter your choice (1-8): " choice
@@ -53,13 +53,14 @@ case $choice in
     "")
         # Empty input (user didn't make a choice in 5 seconds)
         echo "No input received in the last 5 seconds. Running 'pxy'"
-        pxyrun
+        runpxy
         ;;
     *)
         # Invalid choice
         echo "Invalid choice. Please enter a number between 1 and 8."
         ;;
 esac
+
 
 
 
