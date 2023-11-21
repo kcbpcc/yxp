@@ -204,6 +204,7 @@ try:
     combined_df['dPnL'] = combined_df['value'] - combined_df['Yvalue']
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
+    epsilon = 1e-10
     combined_df['strength'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
     combined_df['weakness'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
     combined_df['pr'] = max(0.1, round((0.0 + (combined_df['strength'] * 1.0)).max(), 2))
