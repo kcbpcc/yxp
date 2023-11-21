@@ -54,7 +54,7 @@ while true; do
         "")
             # Empty input (user didn't make a choice in 30 seconds)
             echo "No input received in the last 30 seconds. Running 'pxy'"
-            pxy
+            runpxy
             ;;
         *)
             # Invalid choice
