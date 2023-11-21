@@ -111,7 +111,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull']:
                 exchange='NSE',
                 transaction_type='BUY',
                 quantity = int(float(dct['QTY'].replace(',', ''))),
-                order_type='LIMIT',
+                order_type='MARKET',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(ltp, +0.1)
