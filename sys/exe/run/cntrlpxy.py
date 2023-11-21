@@ -135,7 +135,7 @@ try:
     from cnstpxy import sellbuff, secs, perc_col_name
     from time import sleep
     import subprocess
-    from prftpxy import process_csv
+    #from prftpxy import process_csv
     import random
     import os
     import numpy as np
