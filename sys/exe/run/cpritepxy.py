@@ -12,13 +12,16 @@ copyright_notice = (
 # Set the desired width
 width = 41
 
-# Use textwrap to format the text with a fixed width and center-align
-wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False).center(width)
+# Use textwrap to format the text with a fixed width
+wrapped_notice = textwrap.fill(copyright_notice, width, break_long_words=False)
 
 # Create a table
 table = Table()
 
-# Add a single row with the wrapped notice
+# Add the column header "ABC"
+table.add_column("ABC")
+
+# Add the row with the wrapped notice
 table.add_row(wrapped_notice)
 
 # Display the table without extra space
