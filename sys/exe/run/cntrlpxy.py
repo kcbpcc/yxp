@@ -205,32 +205,10 @@ try:
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
     epsilon = 1e-10
-    
-    import numpy as np
 
-    combined_df['strength'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
-    combined_df['weakness'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
-    combined_df['pr'] = max(0.1, round((0.0 + (combined_df['strength'] * 1.0)).max(), 2))
-    
-    # Apply the modification to all relevant statements
-    combined_df['xl'] = (1.4 + (combined_df['pr'] * 2)).clip(lower=1.4).round(2)
-    combined_df['yi'] = (1.4 + (combined_df['pr'] * 3)).clip(lower=1.4).round(2)
-    
-    combined_df['pxy'] = np.where(combined_df['pxy'].isin(["Buy", "Bull"]), combined_df['yi'],
-                                  np.where(combined_df['pxy'] == "Sell", combined_df['xl'], 1))
-    
-    epsilon = 0.01  # Define epsilon if not already defined
-    combined_df['_pr'] = min(-0.1, round((0.0 + (combined_df['weakness'] * 1.0)).min(), 2) - epsilon)
-    combined_df['_xl'] = (combined_df['_pr'] * 2 - 1).clip(upper=-1.4).round(2)
-    combined_df['_yi'] = (combined_df['_pr'] * 3 - 1).clip(upper=-1.4).round(2)
-    
-    combined_df['yep'] = np.where(combined_df['pxy'].isin(["Sell", "Bear"]), combined_df['_yi'],
-                                   np.where(combined_df['pxy'] == "Buy", combined_df['_xl'], -1))
-
-    
-
-
-    
+    combined_df['pxy'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
+    combined_df['yxp'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
+   
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
