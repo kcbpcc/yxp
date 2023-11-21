@@ -205,6 +205,7 @@ try:
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
     epsilon = 1e-10
+    
     combined_df['strength'] = ((combined_df['ltp'] - (combined_df['low'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
     combined_df['weakness'] = ((combined_df['ltp'] - (combined_df['high'] - 0.01)) / (abs(combined_df['high'] + 0.01) - abs(combined_df['low'] - 0.01))).round(2)
     combined_df['pr'] = max(0.1, round((0.0 + (combined_df['strength'] * 1.0)).max(), 2))
@@ -214,7 +215,7 @@ try:
     combined_df['_pr'] = min(-0.1, round((0.0 + (combined_df['weakness'] * 1.0)).min(), 2) - epsilon)
     combined_df['_xl'] = round(min(-1.4, -1 + (combined_df['_pr'] * 2)), 2) 
     combined_df['_yi'] = round(min(-1.4, -1 + (combined_df['_pr'] * 3)), 2) 
-    combined_df['yep'] = combined_df['_yi'] if mktcombined_df['pxy'] in ["Sell", "Bear"] else (combined_df['_xl'] if mktcombined_df['pxy'] == "Buy" else -1) 
+    combined_df['yep'] = combined_df['_yi'] if mktcombined_df['pxy'] in ["Sell", "Bear"] else (combined_df['_xl'] if mktcombined_df['pxy'] == "Buy" else -1)
 
 
     
