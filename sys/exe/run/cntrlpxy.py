@@ -218,10 +218,11 @@ try:
         lambda row: pd.Series({
             'pr': max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon),
             'xl': round(max(1.4, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 2), 2),
-            'yi': round(max(1.4, 1 + (max(0.1, round((0.0 + (row['strength'] * 1.0)).max(), 2) - epsilon) * 3)), 2),
-            '_pr': min(-0.1, round((0.0 + (row['weakness'] * 1.0)).min(), 2) - epsilon),
-            '_xl': round(min(-1.4, -1 + (min(-0.1, round((0.0 + (row['weakness'] * 1.0)).min(), 2) - epsilon) * 2)), 2),
-            '_yi': round(min(-1.4, -1 + (min(-0.1, round((0.0 + (row['weakness'] * 1.0)).min(), 2) - epsilon) * 3)), 2)
+            'yi': round(max(1.4, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 3), 2),
+            '_pr': min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon),
+            '_xl': round(min(-1.4, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 2), 2),
+            '_yi': round(min(-1.4, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 3), 2)
+
         }), axis=1
     )
     
