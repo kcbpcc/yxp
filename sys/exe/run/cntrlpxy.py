@@ -215,6 +215,11 @@ try:
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
     epsilon = 1e-10
 
+    ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
+    bmtimpxy = (ctimpxy/10)
+    _smtimpxy = ((timpxy)*(-1))/10
+    smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
+    
     combined_df[['strength', 'weakness']] = combined_df.apply(
         lambda row: pd.Series({
             'strength': round((row['ltp'] - (row['low'] - 0.01)) / (abs(row['high'] + 0.01) - abs(row['low'] - 0.01)), 2),
@@ -225,11 +230,11 @@ try:
     combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
         lambda row: pd.Series({
             'pr': max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon),
-            'xl': round(max(1, max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.2), 2),
-            'yi': round(max(1.4, max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.5), 2),
+            'xl': 1
+            'yi': 1.4
             '_pr': min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon),
-            '_xl': round(min(-1,  min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.2), 2),
-            '_yi': round(min(-1.4, min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.5), 2)
+            '_xl': -1
+            '_yi': -1.4
 
         }), axis=1
     )
@@ -245,10 +250,7 @@ try:
     axis=1
     )
 
-    ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
-    bmtimpxy = (ctimpxy/10)
-    _smtimpxy = ((timpxy)*(-1))/10
-    smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
+
     
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
