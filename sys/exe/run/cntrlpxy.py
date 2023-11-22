@@ -239,10 +239,13 @@ try:
         }), axis=1
     )
     
-    combined_df['pxy'] = 5
+    combined_df['pxy'] = = combined_df.apply(
+    lambda row: max(0.1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
+    axis=1
+    )
     
     combined_df['yxp'] = combined_df.apply(
-    lambda row: min(-1, row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else row['_pr'])), 
+    lambda row: min(-0.1, row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else row['_pr'])), 
     axis=1
     )
 
