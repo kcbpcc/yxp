@@ -1,7 +1,7 @@
 
 
 while True:
-    print(f'🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛')
+    print(f'🏛 🏛 🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛 🏛 🏛')
     import time
     import subprocess
     from nftpxy import get_nse_action    
