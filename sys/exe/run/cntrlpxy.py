@@ -247,7 +247,7 @@ try:
 
     ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
     bmtimpxy = float((timpxy*0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*0.4)) * 0.5)
-    #smtimpxy = float((timpxy* -0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*-0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*-0.4)) * 0.5)
+    smtimpxy = float((timpxy* -0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*-0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*-0.4)) * 0.5)
 
 
     
