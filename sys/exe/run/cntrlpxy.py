@@ -213,13 +213,8 @@ try:
     combined_df['dPnL'] = combined_df['value'] - combined_df['Yvalue']
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
-    epsilon = 1e-10
+       epsilon = 1e-10
 
-    ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
-    bmtimpxy = (ctimpxy/10)
-    _smtimpxy = ((timpxy)*(-1))/10
-    smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
-    
     combined_df[['strength', 'weakness']] = combined_df.apply(
         lambda row: pd.Series({
             'strength': round((row['ltp'] - (row['low'] - 0.01)) / (abs(row['high'] + 0.01) - abs(row['low'] - 0.01)), 2),
@@ -229,12 +224,12 @@ try:
 
     combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
         lambda row: pd.Series({
-            'pr': row['strength'],
-            'xl': 1.4  * row['strength'],
-            'yi': 1.9 * row['strength'],
-            '_pr': row['weakness'],
-            '_xl': 1.4 * row['weakness'],
-            '_yi': 1.9 * row['weakness'],
+            'pr': max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon),
+            'xl': round(max(1.0, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 2), 2),
+            'yi': round(max(1.4, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 3), 2),
+            '_pr': min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon),
+            '_xl': round(min(-1.0, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 2), 2),
+            '_yi': round(min(-1.4, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 3), 2)
 
         }), axis=1
     )
@@ -243,11 +238,16 @@ try:
     lambda row: max(0.1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
     axis=1
     )
+
     
     combined_df['yxp'] = combined_df.apply(
     lambda row: min(-0.1, row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else row['_pr'])), 
     axis=1
     )
+
+    ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
+    bmtimpxy = float((timpxy*0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*0.4)) * 0.5)
+    #smtimpxy = float((timpxy* -0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*-0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*-0.4)) * 0.5)
 
 
     
