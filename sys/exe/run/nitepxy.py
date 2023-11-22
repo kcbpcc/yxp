@@ -7,6 +7,7 @@ class Trendlyne:
 
     base_url = "https://trendlyne.com/"
     entry_url = base_url + "fundamentals/v1/stock-screener/425413/cncpluspxy/all/all/"
+    
     #https://trendlyne.com/fundamentals/v1/stock-screener/425413/cncpluspxy/all/all/
 
     def __init__(self):
