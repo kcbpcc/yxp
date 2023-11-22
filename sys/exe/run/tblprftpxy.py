@@ -12,12 +12,12 @@ def process_csv(csv_file_path):
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
-    table.add_column("CM")
-    table.add_column("PH")
+    table.add_column("CM", alias="C")
+    table.add_column("PH", alias="P")
     table.add_column("Key")
     table.add_column("Pxy")
     table.add_column("Yxp")
-    table.add_column("PnL%")
+    table.add_column("PnL%", alias="P%")
     table.add_column("PnL")
 
     # Initialize the total profit variable
@@ -75,6 +75,7 @@ total_profit_main = process_csv(csv_file_path)
 
 # Now you can use total_profit_main in your main code
 # print("Total Profit in Main:", total_profit_main)
+
 
 
 
