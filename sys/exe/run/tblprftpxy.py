@@ -11,7 +11,7 @@ def process_csv(csv_file_path):
     table.add_column("Product", width=3)
     table.add_column("Source", width=3)
     table.add_column("Key", width=10)
-    table.add_column("PnL%_H")
+    table.add_column("PnL%")
     table.add_column("PnL")
 
     # Initialize the total profit variable
