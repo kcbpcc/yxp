@@ -225,18 +225,18 @@ try:
     combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
         lambda row: pd.Series({
             'pr': max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon),
-            'xl': round(max(1.0, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 2), 2),
-            'yi': round(max(1.4, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 3), 2),
+            'xl': round(max(1, max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.2), 2),
+            'yi': round(max(1.4, max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.5), 2),
             '_pr': min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon),
-            '_xl': round(min(-1.0, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 2), 2),
-            '_yi': round(min(-1.4, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 3), 2)
+            '_xl': round(min(-1,  min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.2), 2),
+            '_yi': round(min(-1.4, min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.5), 2)
 
         }), axis=1
     )
     
     combined_df['pxy'] = combined_df.apply(
-    lambda row: max(0.1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
-    axis=1
+        lambda row: max(0.1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
+        axis=1
     )
 
     
@@ -246,9 +246,9 @@ try:
     )
 
     ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
-    bmtimpxy = float((timpxy*0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*0.4)) * 0.5)
-    smtimpxy = float((timpxy* -0.4)) if mktpxy in ["Buy", "Bull"] else (float((timpxy*-0.4)) * 0.75 if mktpxy == "Sell" else float((timpxy*-0.4)) * 0.5)
-
+    bmtimpxy = (ctimpxy/10)
+    _smtimpxy = ((timpxy)*(-1))/10
+    smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
 
     
     # Round all numeric columns to 2 decimal places
