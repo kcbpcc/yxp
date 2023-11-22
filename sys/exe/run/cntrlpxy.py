@@ -260,6 +260,8 @@ try:
     # Calculate and print the sum of 'PnL' values and its total 'PnL%' for rows where 'qty' is greater than 0
     total_PnL = round(combined_df_positive_qty['PnL'].sum())
     total_PnL_percentage = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100
+    total_PnL_percentage_mis_buy = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100 if product == "MIS" and combined_df_positive_qty['Quantity'].sum() > 0 else None
+    total_PnL_percentage_mis_sell = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100 if product == "MIS" and combined_df_positive_qty['Quantity'].sum() < 0 else None
     # Calculate and print the sum of 'dPnL' values and its total 'dPnL%' for rows where 'qty' is greater than 0
     #total_dPnL = combined_df_positive_qty['dPnL'].sum()
     total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
@@ -511,7 +513,8 @@ try:
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if result > 0 else BRIGHT_RED}{round(result)}{RESET}"))
         print(left_aligned_format.format(f"smtimpxy:{BRIGHT_YELLOW}{round(smtimpxy, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"bmtimpxy:{BRIGHT_YELLOW}{round(bmtimpxy, 2)}{RESET}"))
-
+        print(left_aligned_format.format(f"MISBUY:{BRIGHT_YELLOW}{round(total_PnL_percentage_mis_buy, 0)}{RESET}"), end="")
+        print(right_aligned_format.format(f"MISSELL:{BRIGHT_YELLOW}{round(total_PnL_percentage_mis_buy, 0)}{RESET}"))
         
         subprocess.run(['python3', 'mktpxy.py'])
 
