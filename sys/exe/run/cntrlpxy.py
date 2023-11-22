@@ -239,7 +239,7 @@ try:
         }), axis=1
     )
     
-    combined_df['pxy'] = = combined_df.apply(
+    combined_df['pxy'] = combined_df.apply(
     lambda row: max(0.1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
     axis=1
     )
