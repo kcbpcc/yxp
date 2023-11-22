@@ -1,79 +1,23 @@
 #!/bin/bash
-
 # ANSI color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Define functions or source other scripts here
-pxybuy() {
-    # Your implementation for pxybuy
-    echo "pxybuy function"
-    pxybuy
-}
-
-pxyenv() {
-    # Your implementation for pxyenv
-    echo "pxyenv function"
-    pxyenv
-}
-
-pxykill() {
-    # Your implementation for pxykill
-    echo "pxykill function"
-    pxykill
-}
-
-pxykillbuy() {
-    # Your implementation for pxykillbuy
-    echo "pxykillbuy function"
-    pxykillbuy
-}
-
-pxykillsell() {
-    # Your implementation for pxykillsell
-    echo "pxykillsell function"
-    pxykillsel
-}
-
-pxyupdate() {
-    # Your implementation for pxyupdate
-    echo "pxyupdate function"
-    pxyupdate
-}
-
-pxyrun() {
-    # Your implementation for pxyrun
-    echo "pxyrun function"
-    pxyrun
-}
-
-pxytprft() {
-    # Your implementation for pxytprft
-    echo "pxytprft function"
-    pxytprft
-}    
-
-pxytblprft() {
-    # Your implementation for pxytblprft
-    echo "pxytblprft function"
-    pxytblprft
-}
-
 # Display menu
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 
-echo "       pxyUpdate           u-Update pxy"
-echo "       Run                 r-Run PXY"
-echo "       Env                 e-Get on Env"
-echo "       Buy                 n-Night Buy"
-echo "       Kill-all            a-SquireOff-ALL"
-echo "       Kill-buy            b-SquireOff-buy"
-echo "       Kill-sell           s-SquireOff-sell"
-echo "       Profit              p-Show me prifit"
-echo "       Profit-Table        t-Show prifit Table"
-echo "       Exit                0-Or Simply exit"
+echo "       pxyUpdate      -Update pxy"
+echo "       pxyRun         -Run PXY"
+echo "       pxyEnv         -Get on Env"
+echo "       pxyBuy         -Night Buy"
+echo "       pxyKill        -SquireOff-ALL"
+echo "       pxyKilu        -Sell all Buy"
+echo "       pxyKl          -Buy all Sell"
+echo "       pxytprft       -Show me prifit"
+echo "       pxytblprft     -Show prifit Table"
+echo "       Exit           -Or Simply exit"
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 # Get user input
@@ -81,7 +25,7 @@ read -t 10 -p "Enter your choice: " choice
 
 # Perform actions based on user input
 case $choice in
-    n)
+    b)
         echo "Executing pxybuy - Night Buy"
         pxybuy
         ;;
@@ -89,15 +33,15 @@ case $choice in
         echo "Executing pxyenv - Get on Environment"
         pxyenv
         ;;
-    a)
+    k)
         echo "Executing pxykill - SquireOff all Positions"
         pxykill
         ;;
-    b)
+    kb)
         echo "Executing pxykillbuy - Sell all Buy Positions"
         pxykillbuy
         ;;
-    s)
+    ks)
         echo "Executing pxykillsell - Rename sys/exe/pxykillsell to sys/pxykillsell"
         pxykillsell
         ;;
@@ -111,7 +55,7 @@ case $choice in
         echo "Running 'pxy'"
         pxyrun
         ;;
-    0)
+    e)
         echo "Exiting the script. Goodbye!"
         exit 0
         ;;
@@ -121,10 +65,11 @@ case $choice in
         pxytprft
         ;;
 
-    t)
+    tp)
         echo "Profit Table"
         pxytblprft
         ;;
+
 
     "")
         # Empty input (user didn't make a choice in 5 seconds)
