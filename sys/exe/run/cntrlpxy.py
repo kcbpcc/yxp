@@ -260,8 +260,8 @@ try:
     # Calculate and print the sum of 'PnL' values and its total 'PnL%' for rows where 'qty' is greater than 0
     total_PnL = round(combined_df_positive_qty['PnL'].sum())
     total_PnL_percentage = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100
-    total_PnL_percentage_mis_buy = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100 if product == "MIS" and combined_df_positive_qty['Quantity'].sum() > 0 else None
-    total_PnL_percentage_mis_sell = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100 if product == "MIS" and combined_df_positive_qty['Quantity'].sum() < 0 else None
+    total_PnL_percentage_mis_buy = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100 if combined_df['product'] == "MIS" and combined_df_positive_qty['Quantity'].sum() > 0 else None
+    total_PnL_percentage_mis_sell = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100 if combined_df['product'] == "MIS" and combined_df_positive_qty['Quantity'].sum() < 0 else None
     # Calculate and print the sum of 'dPnL' values and its total 'dPnL%' for rows where 'qty' is greater than 0
     #total_dPnL = combined_df_positive_qty['dPnL'].sum()
     total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
