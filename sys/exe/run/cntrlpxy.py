@@ -144,6 +144,14 @@ try:
     from nftpxy import get_nse_action
     from timpxy import calculate_timpxy
     import math
+
+    from csv_sum import sum_last_numerical_value_in_each_row
+    
+    # Replace 'filePnL.csv' with the path to your actual CSV file
+    file_path = 'filePnL.csv'
+    result = sum_last_numerical_value_in_each_row(file_path)
+
+    
     #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
     csv_file_path = "filePnL.csv"
@@ -501,7 +509,7 @@ try:
         print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if total_profit_main > 0 else BRIGHT_RED}{round(total_profit_main)}{RESET}"))
+        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if result > 0 else BRIGHT_RED}{round(result)}{RESET}"))
         print(left_aligned_format.format(f"smtimpxy:{BRIGHT_YELLOW}{round(smtimpxy, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"bmtimpxy:{BRIGHT_YELLOW}{round(bmtimpxy, 2)}{RESET}"))
 
