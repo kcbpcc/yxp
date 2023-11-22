@@ -65,8 +65,8 @@ case $choice in
         pxytprft
         ;;
 
-    pd)
-        echo "Profit"
+    tp)
+        echo "Profit Table"
         pxytblprft
         ;;
 
