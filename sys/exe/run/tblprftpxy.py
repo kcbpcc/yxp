@@ -8,9 +8,9 @@ def process_csv(csv_file_path):
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
-    table.add_column("Product")
-    table.add_column("Source")
-    table.add_column("Key")
+    table.add_column("Product", width=5)
+    table.add_column("Source", width=5)
+    table.add_column("Key", width=15)
     table.add_column("PnL%_H")
     table.add_column("PnL")
 
