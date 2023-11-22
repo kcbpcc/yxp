@@ -21,7 +21,7 @@ while True:
     subprocess.run(['python3', 'cpritepxy.py'])
     subprocess.run(['python3', 'clnpxy.py'])
     subprocess.run(['python3', 'dshpxy.py'])
-    #subprocess.run(['python3', 'cndlpxy.py'])
+    subprocess.run(['python3', 'tblprftpxy.py'])
 
     # Set the python3IOENCODING environment variable to 'utf-8'
     sys.stdout.reconfigure(encoding='utf-8')
