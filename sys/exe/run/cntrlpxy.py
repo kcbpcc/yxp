@@ -410,7 +410,7 @@ try:
                         row['source'] == 'holdings' and
                         row['product'] == 'CNC' and
                         row['PnL%'] > 1.4 and 
-                        ((row['PnL%'] < ((row['pxy'])*3) and row['PnL%_H'] > ((row['pxy'])*3)) or (row['PnL%'] > ctimpxy))
+                        ((row['PnL%'] < ((row['pxy'])*1) and row['PnL%_H'] > ((row['pxy'])*1)) or (row['PnL%'] > ctimpxy))
                    
                     ):
                         # Print the row before placing the order
