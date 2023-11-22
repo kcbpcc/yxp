@@ -29,7 +29,8 @@ def process_csv(csv_file_path):
             # Iterate over each row in the CSV file and add it to the table
             for row in csvreader:
                 # Adjust column names to match your CSV file structure
-                cm, ph, key, qty, avg, pxy, yxp, ltp, pnl_h, dpnl, pxy2, yxp2, pnl_percentage, pnl = row
+                qty, avg, close, qty, ltp, open, high, low, pnl_h, dpnl, CM ,PH, key, pnl_percentage, pnl = row
+
 
                 # Remove "NSE:" or "BSE:" prefix from the "Key" column
                 key = key.replace("NSE:", "").replace("BSE:", "")
