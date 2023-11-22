@@ -7,14 +7,14 @@ NC='\033[0m' # No Color
 
 # Display menu
 echo -e "    ${YELLOW}PXY® ${YELLOW}PreciseXceleratedYield ${YELLOW}Pvt Ltd™:${NC}"
-echo "          pxyUpdate              -Update pxy"
-echo "          pxyRun                 -Run PXY"
-echo "          pxyEnv                 -Get on Env"
-echo "          pxyBuy                 -Night Buy"
-echo "          pxyKill               -SquireOff-ALL"
-echo "          pxyKillBuy             -Sell all Buy"
-echo "          pxyKillSell            -Buy all Sell"
-echo "          Exit                   -Or Simply exit"
+echo "         pxyUpdate              -Update pxy"
+echo "         pxyRun                 -Run PXY"
+echo "         pxyEnv                 -Get on Env"
+echo "         pxyBuy                 -Night Buy"
+echo "         pxyKill                -SquireOff-ALL"
+echo "         pxyKillBuy             -Sell all Buy"
+echo "         pxyKillSell            -Buy all Sell"
+echo "         Exit                   -Or Simply exit"
 echo -e "    ${YELLOW}PXY® ${YELLOW}PreciseXceleratedYield ${YELLOW}Pvt Ltd™:${NC}"
 # Get user input
 read -t 10 -p "Enter your choice: " choice
