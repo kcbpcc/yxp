@@ -6,6 +6,52 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+# Define functions or source other scripts here
+pxybuy() {
+    # Your implementation for pxybuy
+    echo "pxybuy function"
+}
+
+pxyenv() {
+    # Your implementation for pxyenv
+    echo "pxyenv function"
+}
+
+pxykill() {
+    # Your implementation for pxykill
+    echo "pxykill function"
+}
+
+pxykillbuy() {
+    # Your implementation for pxykillbuy
+    echo "pxykillbuy function"
+}
+
+pxykillsell() {
+    # Your implementation for pxykillsell
+    echo "pxykillsell function"
+}
+
+pxyupdate() {
+    # Your implementation for pxyupdate
+    echo "pxyupdate function"
+}
+
+pxyrun() {
+    # Your implementation for pxyrun
+    echo "pxyrun function"
+}
+
+pxytprft() {
+    # Your implementation for pxytprft
+    echo "pxytprft function"
+}
+
+pxytblprft() {
+    # Your implementation for pxytblprft
+    echo "pxytblprft function"
+}
+
 # Display menu
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 
@@ -81,7 +127,6 @@ case $choice in
         echo "Invalid choice. Please enter a number between 1 and 8."
         ;;
 esac
-
 
 
 
