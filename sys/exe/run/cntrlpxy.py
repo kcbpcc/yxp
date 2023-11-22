@@ -12,7 +12,7 @@ from colorama import Fore, Style
 SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
 RESET = "\033[0m"
-print(f'{SILVER}{UNDERLINE}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛{RESET}')
+
 
 logging = Logger(30, dir_path + "main.log")
 try:
