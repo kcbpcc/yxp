@@ -15,7 +15,11 @@ echo "       pxyKill        -SquireOff-ALL"
 echo "       pxyKilu        -Sell all Buy"
 echo "       pxyKl          -Buy all Sell"
 echo "       pxytprft       -Show me prifit"
+echo "       pxytblprft     -Show prifit Table"
 echo "       Exit           -Or Simply exit"
+
+
+
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 # Get user input
