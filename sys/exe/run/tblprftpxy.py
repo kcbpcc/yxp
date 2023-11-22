@@ -4,7 +4,7 @@ from rich.table import Table
 
 def process_dataframe(exe_df):
     # Set the overall table width
-    table_width = 80
+    table_width = 41
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
@@ -13,9 +13,6 @@ def process_dataframe(exe_df):
     table.add_column("Key", width=10)
     table.add_column("PnL%")
     table.add_column("PnL")
-
-    # Initialize the total profit variable
-    total_profit = 0
 
     try:
         # Iterate over each row in the data frame and add it to the table
@@ -48,9 +45,6 @@ def process_dataframe(exe_df):
             pnl_percentage = str(round(float(pnl_percentage), 2))
             pnl = str(round(float(pnl), 2))
 
-            # Accumulate the total profit
-            total_profit += float(pnl)
-
             # Add the row to the table
             table.add_row(cm, ph, key, pnl_percentage, pnl)
 
@@ -60,19 +54,10 @@ def process_dataframe(exe_df):
     # Print the table with the updated column names
     print(table)
 
-    # Print the total profit in INR (₹) format rounded to two decimal places
-    total_profit = round(total_profit, 2)
-    print(f"Total Profit: ₹{total_profit:.2f}")
-
-    # Return the total_profit value
-    return total_profit
-
 # Assuming EXE_df is your data frame
-# Call the function and get the total_profit value
-total_profit_main = process_dataframe(EXE_df)
+# Call the function to display the table
+process_dataframe(EXE_df)
 
-# Now you can use total_profit_main in your main code
-# print("Total Profit in Main:", total_profit_main)
 
 
 
