@@ -2,6 +2,10 @@ import csv
 from rich import print
 from rich.table import Table
 
+def shorten_value(value, mapping):
+    # Map the value to its shortened version
+    return mapping.get(value, value)
+
 def process_csv(csv_file_path):
     # Set the overall table width
     table_width = 41
@@ -19,6 +23,10 @@ def process_csv(csv_file_path):
     # Initialize the total profit variable
     total_profit = 0
 
+    # Mapping for shortening values in "CM" and "PH" columns
+    cm_mapping = {"CNC": "C", "MIS": "M"}
+    ph_mapping = {"Positions": "P", "Holdings": "H"}
+
     try:
         # Open the CSV file for reading
         with open(csv_file_path, newline='') as csvfile:
@@ -31,17 +39,21 @@ def process_csv(csv_file_path):
             # Iterate over each row in the CSV file and add it to the table
             for row in csvreader:
                 # Adjust column names to match your DataFrame structure
-                qty, avg, close, ltp, open_price, high, low, pnl_h, dpnl, product, source, key, pxy, yxp, pnl_percentage, pnl = row
+                qty, avg, close, ltp, open_price, high, low, pnl_h, dpnl, product, source, key, cm, ph, pnl_percentage, pnl = row
 
                 # Convert numerical values to strings and round them to two decimal places
                 pnl_percentage = str(round(float(pnl_percentage), 2))
                 pnl = str(round(float(pnl), 2))
 
+                # Shorten the values in "CM" and "PH" columns
+                cm_shortened = shorten_value(cm, cm_mapping)
+                ph_shortened = shorten_value(ph, ph_mapping)
+
                 # Accumulate the total profit
                 total_profit += float(pnl)
 
                 # Add the row to the table
-                table.add_row(product, source, key, pxy, yxp, pnl_percentage, pnl)
+                table.add_row(product, source, key, cm_shortened, ph_shortened, pnl_percentage, pnl)
 
     except FileNotFoundError:
         print("File not found!")
