@@ -8,9 +8,9 @@ def process_dataframe(exe_df):
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
-    table.add_column("CM", width=10)  # Set a fixed width for 'CM'
-    table.add_column("PH", width=10)  # Set a fixed width for 'PH'
-    table.add_column("Key")
+    table.add_column("CM")  
+    table.add_column("PH")  
+    table.add_column("Key", width=10)
     table.add_column("PnL%")
     table.add_column("PnL")
 
