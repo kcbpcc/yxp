@@ -25,7 +25,7 @@ read -t 10 -p "Enter your choice: " choice
 
 # Perform actions based on user input
 case $choice in
-    b)
+    nb)
         echo "Executing pxybuy - Night Buy"
         pxybuy
         ;;
