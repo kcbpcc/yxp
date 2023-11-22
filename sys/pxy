@@ -59,7 +59,7 @@ case $choice in
         ;;
 
     p)
-        echo "Exiting the script. Goodbye!"
+        echo "Profit"
         pxytprft
         ;;
 
