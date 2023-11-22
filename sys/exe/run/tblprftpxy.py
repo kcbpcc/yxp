@@ -37,6 +37,9 @@ def process_dataframe(EXE_df):
                 # Add the row to the table
                 table.add_row(product, source, key, pxy, yxp, pnl_percentage, pnl)
         else:
+            # If DataFrame is empty, add an empty row with headers
+            table.add_row("", "", "", "", "", "", "")
+
             print("DataFrame is empty!")
 
     except FileNotFoundError:
