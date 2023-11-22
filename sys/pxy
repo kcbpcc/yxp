@@ -40,12 +40,13 @@ pxyupdate() {
 pxyrun() {
     # Your implementation for pxyrun
     echo "pxyrun function"
+    pxyrun
 }
 
 pxytprft() {
     # Your implementation for pxytprft
     echo "pxytprft function"
-}
+}    
 
 pxytblprft() {
     # Your implementation for pxytblprft
