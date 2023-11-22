@@ -10,31 +10,37 @@ NC='\033[0m' # No Color
 pxybuy() {
     # Your implementation for pxybuy
     echo "pxybuy function"
+    pxybuy
 }
 
 pxyenv() {
     # Your implementation for pxyenv
     echo "pxyenv function"
+    pxyenv
 }
 
 pxykill() {
     # Your implementation for pxykill
     echo "pxykill function"
+    pxykill
 }
 
 pxykillbuy() {
     # Your implementation for pxykillbuy
     echo "pxykillbuy function"
+    pxykillbuy
 }
 
 pxykillsell() {
     # Your implementation for pxykillsell
     echo "pxykillsell function"
+    pxykillsel
 }
 
 pxyupdate() {
     # Your implementation for pxyupdate
     echo "pxyupdate function"
+    pxyupdate
 }
 
 pxyrun() {
@@ -46,11 +52,13 @@ pxyrun() {
 pxytprft() {
     # Your implementation for pxytprft
     echo "pxytprft function"
+    pxytprft
 }    
 
 pxytblprft() {
     # Your implementation for pxytblprft
     echo "pxytblprft function"
+    pxytblprft
 }
 
 # Display menu
