@@ -12,7 +12,8 @@ from colorama import Fore, Style
 SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
 RESET = "\033[0m"
-print(f'{SILVER}{UNDERLINE}"PXY® PreciseXceleratedYield Pvt Ltd™"{RESET}')
+
+
 logging = Logger(30, dir_path + "main.log")
 try:
     sys.stdout = open('output.txt', 'w')
@@ -134,7 +135,7 @@ try:
     from cnstpxy import sellbuff, secs, perc_col_name
     from time import sleep
     import subprocess
-    from prftpxy import process_csv
+    #from prftpxy import process_csv
     import random
     import os
     import numpy as np
@@ -143,10 +144,18 @@ try:
     from nftpxy import get_nse_action
     from timpxy import calculate_timpxy
     import math
+
+    from tprftpxy import sum_last_numerical_value_in_each_row
+    
+    # Replace 'filePnL.csv' with the path to your actual CSV file
+    file_path = 'filePnL.csv'
+    result = sum_last_numerical_value_in_each_row(file_path)
+
+    
     #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
-    csv_file_path = "filePnL.csv"
-    total_profit_main = process_csv(csv_file_path)
+    #csv_file_path = "filePnL.csv"
+    #total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
@@ -191,7 +200,7 @@ try:
     combined_df['value'] = combined_df['qty'] * combined_df['ltp']
     combined_df['value_H'] = combined_df['qty'] * combined_df['high']
     # Calculate 'PnL' column as 'value' - 'Invested'
-    combined_df['PnL'] = combined_df['value'] - combined_df['Invested']
+    combined_df['PnL'] = (combined_df['value'] - combined_df['Invested']).astype(int)
     combined_df['PnL_H'] = combined_df['value_H'] - combined_df['Invested']
     # Calculate 'PnL%' column as ('PnL' / 'Invested') * 100
     combined_df['PnL%'] = (combined_df['PnL'] / combined_df['Invested']) * 100
@@ -204,6 +213,43 @@ try:
     combined_df['dPnL'] = combined_df['value'] - combined_df['Yvalue']
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
+    epsilon = 1e-10
+
+    combined_df[['strength', 'weakness']] = combined_df.apply(
+        lambda row: pd.Series({
+            'strength': round((row['ltp'] - (row['low'] - 0.01)) / (abs(row['high'] + 0.01) - abs(row['low'] - 0.01)), 2),
+            'weakness': round((row['ltp'] - (row['high'] - 0.01)) / (abs(row['high'] + 0.01) - abs(row['low'] - 0.01)), 2)
+        }), axis=1
+    )
+
+    combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
+        lambda row: pd.Series({
+            'pr': max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon),
+            'xl': round(max(1, max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.2), 2),
+            'yi': round(max(1.4, max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.5), 2),
+            '_pr': min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon),
+            '_xl': round(min(-1,  min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.2), 2),
+            '_yi': round(min(-1.4, min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.5), 2)
+
+        }), axis=1
+    )
+    
+    combined_df['pxy'] = combined_df.apply(
+        lambda row: max(1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else 1)), 
+        axis=1
+    )
+
+    
+    combined_df['yxp'] = combined_df.apply(
+    lambda row: min(-1, row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else -1)), 
+    axis=1
+    )
+
+    ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
+    bmtimpxy = (ctimpxy/10)
+    _smtimpxy = ((timpxy)*(-1))/10
+    smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
+    
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
@@ -217,6 +263,9 @@ try:
     #total_dPnL = combined_df_positive_qty['dPnL'].sum()
     total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
     total_dPnL_percentage = (total_dPnL / combined_df_positive_qty['Invested'].sum()) * 100
+
+
+    
     import pandas as pd
     # Assuming you have a list of instrument keys, e.g., ['NIFTY50', 'RELIANCE', ...]
     # Replace this with your actual list of keys
@@ -253,33 +302,31 @@ try:
         (NIFTY['Day_Change_%'] < 0) & (NIFTY['Open_Change_%'] < 0),
         (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] < 0)
     ]
-    choices = ['Super Bull', 'Bull', 'Danger Bear', 'Bear']
+    choices = ['sBull', 'Bull', 'sBear', 'Bear']
     NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
     status_factors = {
-        'Super Bull': 2.8,
-        'Bull': 1.4,
-        'Bear': 0.7,
-        'Danger Bear': 0
+        'sBull': +1,
+        'Bull': 0,
+        'Bear': 0,
+        'sBear': -1
     }
     # Calculate 'Score' for each row based on 'Day Status' and 'status_factors'
     NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
     score_value = NIFTY['Score'].values[0]
     # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
     # Calculate the metrics
+    
+    epsilon = 1e-10
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
-
-    epsilon = 1e-10
-    
-    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2) + epsilon)    
-    Xl = round(max(1.4, 1 + (Pr * 2)), 2)
-    Yi = round(max(1.4, 1 + (Pr * 3)), 2)
-    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else (1))
-    
-    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)    
-    _Xl = Xl = round(min(-1.4, -1 + (_Pr * 2)), 2)
-    _Yi = Xl = round(min(-1.4, -1 + (_Pr * 3)), 2)
-    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else (-1))
+    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2))
+    Xl = round(max(1.4, 1 + (Pr * 2)), 2) 
+    Yi = round(max(1.4, 1 + (Pr * 3)), 2) 
+    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else 1) + score_value    
+    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)
+    _Xl = round(min(-1.4, -1 + (_Pr * 2)), 2) 
+    _Yi = round(min(-1.4, -1 + (_Pr * 3)), 2) 
+    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else -1) + score_value
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
@@ -287,7 +334,7 @@ try:
     combined_df.to_csv(lstchk_file, index=False)
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
-    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','key','dPnL%','PnL','PnL%_H', 'PnL%']]
+    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','pxy','yxp','key','dPnL%','PnL','PnL%_H', 'PnL%']]
     
     pxy_df['Pr'] = Pr
     pxy_df['Xl'] = Xl
@@ -301,8 +348,8 @@ try:
     
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
-    EXE_df = pxy_df[['product','source', 'key', 'qty','avg','ltp','PnL%_H','dPnL%','PXY','YXP','PnL%','PnL']]
-    PRINT_df = pxy_df[['source','product','qty','key','_Pr','Pr','YXP','PXY','PnL%','PnL']]
+    EXE_df = pxy_df[['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%', 'PnL']]
+    PRINT_df = pxy_df[['source','product','qty','key','yxp','pxy','PnL%','PnL']]
     # Rename columns for display
     PRINT_df = PRINT_df.rename(columns={'source': 'HP', 'product': 'CM'})
     # Conditionally replace values in the 'HP' column
@@ -316,8 +363,8 @@ try:
     # Assuming you have a DataFrame named PRINT_df
 
     PRINT_df_sorted = PRINT_df[
-        ((PRINT_df['qty'] > 0) & (PRINT_df['PnL%'] > pxy_df['Pr'])) |
-        ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < pxy_df['_Pr']))
+        ((PRINT_df['qty'] > 0) & (PRINT_df['PnL%'] > 0)) |
+        ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < 0))
     ]
     
     
@@ -336,12 +383,13 @@ try:
     BRIGHT_RED = "\033[91m"
     BRIGHT_GREEN = "\033[92m"
     import pandas as pd
+
  
     # Always print "Table" in bright yellow
     print(f"{BRIGHT_YELLOW}Table– Stocks above @Pr and might reach @Yi {RESET}")
 
-    # Display the modified DataFrame
-    print(PRINT_df_sorted.drop(columns=['qty', '_Pr', 'Pr']).to_string(index=False))
+    # Print EXE_df_sorted without color
+    print(PRINT_df_sorted.to_string(index=False))
 
     # Define the CSV file path
     csv_file_path = "filePnL.csv"
@@ -356,19 +404,51 @@ try:
                     (row['ltp'] > 0 and
                      row['avg'] > 0) 
                 ):
-
                     if (
                         row['qty'] > 0 and
-                        row['source'] == 'positions' and
-                        row['product'] == 'MIS' and
-                        #((row['PnL%'] > 0) or (row['PnL%'] < 0) or 
-                        (row['PnL%'] == 0)
+                        row['source'] == 'holdings' and
+                        row['product'] == 'CNC' and
+                        row['PnL%'] > 1.4 and 
+                        ((row['PnL%'] < row['pxy'] and row['PnL%_H'] > row['pxy']) or (row['PnL%'] > ctimpxy))
+
+
+                         
                     ):
                         # Print the row before placing the order
                         print(row)
+
+                        try:
+                            is_placed = order_place(key, row)
+                            if is_placed:
+                                # Write the row to the CSV file here
+                                with open(csv_file_path, 'a', newline='') as csvfile:
+                                    csvwriter = csv.writer(csvfile)
+                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
+                        except InputException as e:
+                            # Handle the specific exception and print only the error message
+                            print(f"An error occurred while placing an order for key {key}: {e}")
+                        except Exception as e:
+                            # Handle any other exceptions that may occur during order placement
+                            print(f"An unexpected error occurred while placing an order for key {key}: {e}")
+
+                    elif (
+                        row['qty'] > 0 and
+                        row['source'] == 'positions' and
+                        row['product'] == 'MIS' and
+                        row['PnL%'] > 0.3 and 
+                        #(row['PnL%'] > row['pxy'] or row['PnL%'] > bmtimpxy)
+                        row['PnL%'] = 0 or row['PnL%'] < 0 or row['PnL%'] > 0   
+                    ):
+                        # Print the row before placing the order
+                        print(row)
+
                         try:
                             is_placed = mis_order_sell(key, row)
-
+                            if is_placed:
+                                # Write the row to the CSV file here
+                                with open(csv_file_path, 'a', newline='') as csvfile:
+                                    csvwriter = csv.writer(csvfile)
+                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
@@ -380,15 +460,20 @@ try:
                         row['qty'] < 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
-                        #((row['PnL%'] > 0) or (row['PnL%'] < 0) or 
-                        (row['PnL%'] == 0)
+                        row['PnL%'] < 0.3 and 
+                        #(row['PnL%'] < row['yxp'] or row['PnL%'] < smtimpxy)
+                        row['PnL%'] = 0 or row['PnL%'] < 0 or row['PnL%'] > 0                    
                     ):
                         # Print the row before placing the order
                         print(row)
-    
+
                         try:
                             is_placed = mis_order_buy(key, row)
-
+                            if is_placed:
+                                # Write the row to the CSV file here
+                                with open(csv_file_path, 'a', newline='') as csvfile:
+                                    csvwriter = csv.writer(csvfile)
+                                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                         except InputException as e:
                             # Handle the specific exception and print only the error message
                             print(f"An error occurred while placing an order for key {key}: {e}")
@@ -402,7 +487,38 @@ try:
             print(f"An unexpected error occurred: {e}")
 
 
-        print(f'{SILVER}{UNDERLINE}🏛🏛🏛PXY® PreciseXceleratedYield Pvt Ltd™🏛🏛🏛{RESET}')
+        
+        print(f"{BRIGHT_YELLOW}📉🔀Trades Overview & Market Dynamics 📈🔄 {RESET}")
+        # ANSI escape codes for text coloring
+        RESET = "\033[0m"
+        BRIGHT_YELLOW = "\033[93m"
+        BRIGHT_RED = "\033[91m"
+        BRIGHT_GREEN = "\033[92m"
+        # Print all three sets of values in a single line with rounding to 2 decimal places
+        column_width = 30
+        left_aligned_format = "{:<" + str(column_width) + "}"
+        right_aligned_format = "{:>" + str(column_width) + "}"
+        
+        
+        print(left_aligned_format.format(f"Bear Power:{BRIGHT_GREEN if (_Pr > 0.5) and isinstance(_Pr, (int, float)) else BRIGHT_RED}{'---' if not isinstance(_Pr, (int, float)) else round(_Pr, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Bull Power:{BRIGHT_GREEN if (Pr > 0.5) and isinstance(Pr, (int, float)) else BRIGHT_RED}{'---' if not isinstance(Pr, (int, float)) else round(Pr, 2)}{RESET}"))
+        print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
+        print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'sBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
+        print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
+        print(left_aligned_format.format(f"Day Open%:{BRIGHT_GREEN if NIFTY['Open_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Open_Change_%'][0], 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"ctimpxy:{BRIGHT_YELLOW}{round(ctimpxy, 2)}{RESET}"))
+        print(left_aligned_format.format(f"tPnL:{BRIGHT_GREEN if total_PnL >= 0 else BRIGHT_RED}{round(total_PnL, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
+        print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if result > 0 else BRIGHT_RED}{round(result)}{RESET}"))
+        print(left_aligned_format.format(f"smtimpxy:{BRIGHT_YELLOW}{round(smtimpxy, 2)}{RESET}"), end="")
+        print(right_aligned_format.format(f"bmtimpxy:{BRIGHT_YELLOW}{round(bmtimpxy, 2)}{RESET}"))
+
+        
+        subprocess.run(['python3', 'mktpxy.py'])
+
+        print(f'{SILVER}{UNDERLINE}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛{RESET}')
 
 except Exception as e:
     remove_token(dir_path)
