@@ -230,11 +230,11 @@ try:
     combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
         lambda row: pd.Series({
             'pr': row['strength'],
-            'xl': 1,
-            'yi': 1.4,
+            'xl': 1.4  * row['strength'],
+            'yi': 1.9 * row['strength'],
             '_pr': row['weakness'],
-            '_xl': -1,
-            '_yi': -1.4,
+            '_xl': 1.4 * row['weakness'],
+            '_yi': 1.9 * row['weakness'],
 
         }), axis=1
     )
