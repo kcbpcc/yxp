@@ -135,7 +135,7 @@ try:
     from cnstpxy import sellbuff, secs, perc_col_name
     from time import sleep
     import subprocess
-    from prftpxy import process_csv
+    #from prftpxy import process_csv
     import random
     import os
     import numpy as np
@@ -154,8 +154,8 @@ try:
     
     #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
-    csv_file_path = "filePnL.csv"
-    total_profit_main = process_csv(csv_file_path)
+    #csv_file_path = "filePnL.csv"
+    #total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
