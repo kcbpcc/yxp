@@ -33,7 +33,7 @@ case $choice in
         echo "Executing pxyenv - Get on Environment"
         pxyenv
         ;;
-    k)
+    ka)
         echo "Executing pxykill - SquireOff all Positions"
         pxykill
         ;;
