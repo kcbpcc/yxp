@@ -23,9 +23,9 @@ def process_dataframe(EXE_df):
         # Check if the DataFrame is not empty
         if not EXE_df.empty:
             # Iterate over each row in the DataFrame and add it to the table
-            for _, row in EXE_df.iterrows():
+            for index, row in EXE_df.iterrows():
                 # Extract the last 7 columns
-                product, source, key, pxy, yxp, pnl_percentage, pnl = row[-7:]
+                product, source, key, pxy, yxp, pnl_percentage, pnl = row.iloc[-7:]
 
                 # Convert numerical values to strings and round them to two decimal places
                 pnl_percentage = str(round(float(pnl_percentage), 2))
@@ -59,6 +59,7 @@ total_profit_main = process_dataframe(EXE_df)
 
 # Now you can use total_profit_main in your main code
 # print("Total Profit in Main:", total_profit_main)
+
 
 
 
