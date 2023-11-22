@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # ANSI color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -12,9 +13,9 @@ echo "       pxyUpdate           u-Update pxy"
 echo "       Run                 r-Run PXY"
 echo "       Env                 e-Get on Env"
 echo "       Buy                 n-Night Buy"
-echo "       Kill-all            a-SquireOff-ALL
-echo "       Kill-buy            b-SquireOff-buy
-echo "       Kill-sell           s-SquireOff-sell
+echo "       Kill-all            a-SquireOff-ALL"
+echo "       Kill-buy            b-SquireOff-buy"
+echo "       Kill-sell           s-SquireOff-sell"
 echo "       Profit              p-Show me prifit"
 echo "       Profit-Table        t-Show prifit Table"
 echo "       Exit                0-Or Simply exit"
@@ -70,7 +71,6 @@ case $choice in
         pxytblprft
         ;;
 
-
     "")
         # Empty input (user didn't make a choice in 5 seconds)
         echo "No input received in the last 5 seconds. Running 'pxy'"
@@ -81,7 +81,6 @@ case $choice in
         echo "Invalid choice. Please enter a number between 1 and 8."
         ;;
 esac
-
 
 
 
