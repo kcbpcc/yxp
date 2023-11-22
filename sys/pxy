@@ -14,7 +14,9 @@ echo "       pxyBuy         -Night Buy"
 echo "       pxyKill        -SquireOff-ALL"
 echo "       pxyKilu        -Sell all Buy"
 echo "       pxyKl          -Buy all Sell"
+echo "       pxytprft       -Show me prifit"
 echo "       Exit           -Or Simply exit"
+
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 # Get user input
 read -t 10 -p "Enter your choice: " choice
@@ -55,6 +57,12 @@ case $choice in
         echo "Exiting the script. Goodbye!"
         exit 0
         ;;
+
+    p)
+        echo "Exiting the script. Goodbye!"
+        pxytprft
+        ;;
+
     "")
         # Empty input (user didn't make a choice in 5 seconds)
         echo "No input received in the last 5 seconds. Running 'pxy'"
