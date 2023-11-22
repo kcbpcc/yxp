@@ -12,8 +12,8 @@ def process_csv(csv_file_path):
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
-    table.add_column("Product")
-    table.add_column("Source")
+    table.add_column("CM")
+    table.add_column("PH")
     table.add_column("Key")
     table.add_column("Pxy")
     table.add_column("Yxp")
@@ -39,7 +39,7 @@ def process_csv(csv_file_path):
             # Iterate over each row in the CSV file and add it to the table
             for row in csvreader:
                 # Adjust column names to match your DataFrame structure
-                qty, avg, close, ltp, open_price, high, low, pnl_h, dpnl, product, source, key, cm, ph, pnl_percentage, pnl = row
+                qty, avg, close, ltp, open_price, high, low, pnl_h, dpnl, CM, PH, key, cm, ph, pnl_percentage, pnl = row
 
                 # Convert numerical values to strings and round them to two decimal places
                 pnl_percentage = str(round(float(pnl_percentage), 2))
@@ -53,7 +53,7 @@ def process_csv(csv_file_path):
                 total_profit += float(pnl)
 
                 # Add the row to the table
-                table.add_row(product, source, key, cm_shortened, ph_shortened, pnl_percentage, pnl)
+                table.add_row(CM, PH, key, cm_shortened, ph_shortened, pnl_percentage, pnl)
 
     except FileNotFoundError:
         print("File not found!")
