@@ -30,9 +30,9 @@ git --version
 
 git clone https://github.com/kcbpcc/pxy.git
 
-sudo cp ~/pxy/sys/*xy /usr/local/bin/
+sudo cp ~/pxy/sys/pxy* /usr/local/bin/
 
-sudo chmod +x /usr/local/bin/*xy
+sudo chmod +x /usr/local/bin/pxy*
 
 cd ~/pxy/sys/exe
 
