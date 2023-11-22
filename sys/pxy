@@ -71,7 +71,7 @@ case $choice in
         ;;
 
 
-    "")
+    r)
         # Empty input (user didn't make a choice in 5 seconds)
         echo "No input received in the last 5 seconds. Running 'pxy'"
         pxyrun
