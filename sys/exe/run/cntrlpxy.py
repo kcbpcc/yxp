@@ -411,9 +411,7 @@ try:
                         row['product'] == 'CNC' and
                         row['PnL%'] > 1.4 and 
                         ((row['PnL%'] < row['pxy'] and row['PnL%_H'] > row['pxy']) or (row['PnL%'] > ctimpxy))
-
-
-                         
+                   
                     ):
                         # Print the row before placing the order
                         print(row)
@@ -437,7 +435,7 @@ try:
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['PnL%'] > 0.3 and 
-                        (row['PnL%'] > row['pxy'] or row['PnL%'] > bmtimpxy)
+                        row['PnL%'] > row['pxy']
                     ):
                         # Print the row before placing the order
                         print(row)
@@ -461,7 +459,7 @@ try:
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
                         row['PnL%'] < 0.3 and 
-                        (row['PnL%'] < row['yxp'] or row['PnL%'] < smtimpxy)
+                        row['PnL%'] < row['yxp'] 
                     ):
                         # Print the row before placing the order
                         print(row)
