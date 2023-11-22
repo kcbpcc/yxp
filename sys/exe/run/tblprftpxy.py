@@ -20,20 +20,24 @@ def process_dataframe(EXE_df):
     total_profit = 0
 
     try:
-        # Iterate over each row in the DataFrame and add it to the table
-        for _, row in EXE_df.iterrows():
-            # Extract the last 7 columns
-            product, source, key, pxy, yxp, pnl_percentage, pnl = row[-7:]
+        # Check if the DataFrame is not empty
+        if not EXE_df.empty:
+            # Iterate over each row in the DataFrame and add it to the table
+            for _, row in EXE_df.iterrows():
+                # Extract the last 7 columns
+                product, source, key, pxy, yxp, pnl_percentage, pnl = row[-7:]
 
-            # Convert numerical values to strings and round them to two decimal places
-            pnl_percentage = str(round(float(pnl_percentage), 2))
-            pnl = str(round(float(pnl), 2))
+                # Convert numerical values to strings and round them to two decimal places
+                pnl_percentage = str(round(float(pnl_percentage), 2))
+                pnl = str(round(float(pnl), 2))
 
-            # Accumulate the total profit
-            total_profit += float(pnl)
+                # Accumulate the total profit
+                total_profit += float(pnl)
 
-            # Add the row to the table
-            table.add_row(product, source, key, pxy, yxp, pnl_percentage, pnl)
+                # Add the row to the table
+                table.add_row(product, source, key, pxy, yxp, pnl_percentage, pnl)
+        else:
+            print("DataFrame is empty!")
 
     except FileNotFoundError:
         print("File not found!")
@@ -55,6 +59,7 @@ total_profit_main = process_dataframe(EXE_df)
 
 # Now you can use total_profit_main in your main code
 # print("Total Profit in Main:", total_profit_main)
+
 
 
 
