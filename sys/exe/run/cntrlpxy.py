@@ -213,7 +213,7 @@ try:
     combined_df['dPnL'] = combined_df['value'] - combined_df['Yvalue']
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
-       epsilon = 1e-10
+    epsilon = 1e-10
 
     combined_df[['strength', 'weakness']] = combined_df.apply(
         lambda row: pd.Series({
