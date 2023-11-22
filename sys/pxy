@@ -25,7 +25,7 @@ read -t 10 -p "Enter your choice: " choice
 
 # Perform actions based on user input
 case $choice in
-    b)
+    n)
         echo "Executing pxybuy - Night Buy"
         pxybuy
         ;;
@@ -33,15 +33,15 @@ case $choice in
         echo "Executing pxyenv - Get on Environment"
         pxyenv
         ;;
-    k)
+    a)
         echo "Executing pxykill - SquireOff all Positions"
         pxykill
         ;;
-    kb)
+    b)
         echo "Executing pxykillbuy - Sell all Buy Positions"
         pxykillbuy
         ;;
-    ks)
+    s)
         echo "Executing pxykillsell - Rename sys/exe/pxykillsell to sys/pxykillsell"
         pxykillsell
         ;;
@@ -55,7 +55,7 @@ case $choice in
         echo "Running 'pxy'"
         pxyrun
         ;;
-    e)
+    0)
         echo "Exiting the script. Goodbye!"
         exit 0
         ;;
@@ -65,7 +65,7 @@ case $choice in
         pxytprft
         ;;
 
-    tp)
+    t)
         echo "Profit Table"
         pxytblprft
         ;;
