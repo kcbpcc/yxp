@@ -225,10 +225,10 @@ try:
     combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
         lambda row: pd.Series({
             'pr': max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon),
-            'xl': round(max(1.4, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.2), 2),
+            'xl': round(max(1, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.2), 2),
             'yi': round(max(1.4, 1 + max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon) * 1.5), 2),
             '_pr': min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon),
-            '_xl': round(min(-1.4, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.2), 2),
+            '_xl': round(min(-1, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.2), 2),
             '_yi': round(min(-1.4, -1 + min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon) * 1.5), 2)
 
         }), axis=1
