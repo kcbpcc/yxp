@@ -145,7 +145,7 @@ try:
     from timpxy import calculate_timpxy
     import math
 
-    from csv_sum import sum_last_numerical_value_in_each_row
+    from tprftpxy import sum_last_numerical_value_in_each_row
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
