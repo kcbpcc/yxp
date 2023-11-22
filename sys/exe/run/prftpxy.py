@@ -2,15 +2,17 @@ import csv
 from rich import print
 from rich.table import Table
 
-def process_csv(csv_file_path):
+def process_dataframe(EXE_df):
     # Set the overall table width
     table_width = 41
 
     # Create a table to display the selected columns with custom headers
     table = Table(show_header=True, header_style="bold cyan", min_width=table_width)
-    table.add_column("CM")
-    table.add_column("PH")
+    table.add_column("Product")
+    table.add_column("Source")
     table.add_column("Key")
+    table.add_column("Pxy")
+    table.add_column("Yxp")
     table.add_column("PnL%")
     table.add_column("PnL")
 
@@ -18,30 +20,20 @@ def process_csv(csv_file_path):
     total_profit = 0
 
     try:
-        # Open the CSV file for reading
-        with open(csv_file_path, newline='') as csvfile:
-            # Create a CSV reader
-            csvreader = csv.reader(csvfile)
+        # Iterate over each row in the DataFrame and add it to the table
+        for _, row in EXE_df.iterrows():
+            # Extract the last 7 columns
+            product, source, key, pxy, yxp, pnl_percentage, pnl = row[-7:]
 
-            # Skip the header row
-            header_row = next(csvreader)
+            # Convert numerical values to strings and round them to two decimal places
+            pnl_percentage = str(round(float(pnl_percentage), 2))
+            pnl = str(round(float(pnl), 2))
 
-            # Iterate over each row in the CSV file and add it to the table
-            for row in csvreader:
-                # Adjust column names to match your CSV file structure
-                cm, ph, key, qty, avg, pxy, yxp, ltp, pnl_h, dpnl, pxy2, yxp2, pnl_percentage, pnl = row
+            # Accumulate the total profit
+            total_profit += float(pnl)
 
-                # Remove "NSE:" or "BSE:" prefix from the "Key" column
-                key = key.replace("NSE:", "").replace("BSE:", "")
-
-                # Convert numerical values to strings and round them to two decimal places
-                pnl_percentage = str(round(float(pnl_percentage)))
-
-                # Accumulate the total profit
-                total_profit += float(pnl)
-
-                # Add the row to the table
-                table.add_row(cm, ph, key, pnl_percentage, pnl)
+            # Add the row to the table
+            table.add_row(product, source, key, pxy, yxp, pnl_percentage, pnl)
 
     except FileNotFoundError:
         print("File not found!")
@@ -56,13 +48,14 @@ def process_csv(csv_file_path):
     # Return the total_profit value
     return total_profit
 
-# Replace "filePnL.csv" with your actual CSV file path
-csv_file_path = "filePnL.csv"
+# Assuming you have a DataFrame named EXE_df
+# EXE_df = pxy_df[['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%', 'PnL']]
 # Call the function and get the total_profit value
-total_profit_main = process_csv(csv_file_path)
+total_profit_main = process_dataframe(EXE_df)
 
 # Now you can use total_profit_main in your main code
 # print("Total Profit in Main:", total_profit_main)
+
 
 
 
