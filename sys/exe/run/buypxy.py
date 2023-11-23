@@ -93,6 +93,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull']:
         return max(resistance, target)
 
     def transact(dct, broker):
+        intervals = [5]
         tradingsymbol = dct['tradingsymbol']
         symbol = tradingsymbol + ".NS"  # Append ".NS" to the tradingsymbol
         smktchk = getsmktchk(symbol, intervals[0])
