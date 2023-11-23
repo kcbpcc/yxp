@@ -73,5 +73,5 @@ with open('mktsmbl500pxy.txt', 'r') as file:
     csv_reader = csv.reader(file)
     for row in csv_reader:
         if row:  # Check if the row is not empty
-            symbol = row[0].strip('"')  # Assuming symbols are in the first column
+            symbol = row[1].strip('"')  # Assuming symbols are in the first column
             get_market_check(symbol)
