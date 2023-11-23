@@ -96,7 +96,7 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
         intervals = [5]
         tradingsymbol = dct['tradingsymbol']
         symbol = tradingsymbol + ".NS"  # Append ".NS" to the tradingsymbol
-        smktchk = getsmktchk(symbol, intervals[0])
+        smktchk = getsmktchk(symbol, intervals[5])
     
         try:
             def get_ltp():
