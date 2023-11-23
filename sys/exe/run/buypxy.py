@@ -36,9 +36,6 @@ except Exception as e:
     logging.error(f"{str(e)} unable to get holdings")
     sys.exit(1)
 
-
-
-
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
