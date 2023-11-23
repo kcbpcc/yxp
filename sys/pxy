@@ -36,6 +36,7 @@ case $choice in
     en)
         echo "Executing pxyenv - Get on Environment"
         pxyenv
+        source ~/env/bin/activate
         ;;
     ka)
         echo "Executing pxykill - SquireOff all Positions"
