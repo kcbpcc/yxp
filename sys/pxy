@@ -16,6 +16,7 @@ echo "        -Buy all Sell             ks"
 echo "        -Update pxy               up"
 echo "        -Run PXY                  mm"
 echo "        -Control pxy              ct"
+echo "        -Clean Pxy                cl"
 echo "        -Show me profit           tp"
 echo "        -Show profit Table        pl"
 echo "        -Or Simply exit           ex"
@@ -60,6 +61,11 @@ case $choice in
         echo "Profit Table"
         pxycntrl
         ;;
+    ct)
+        echo "Clear Pxy"
+        pxycln
+        ;;
+
     tp)
         echo "Profit"
         pxytprft
