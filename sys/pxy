@@ -70,7 +70,7 @@ case $choice in
         echo "Profit Table"
         pxytblprft
         ;;
-    C)
+    c)
         echo "Profit Table"
         pxycntrl
         ;;
@@ -80,11 +80,4 @@ case $choice in
         echo "No input received in the last 5 seconds. Running 'pxy'"
         pxyrun
         ;;
-    *)
-        # Invalid choice
-        echo "Invalid choice. Please enter a number between 1 and 8."
-        ;;
 esac
-
-
-
