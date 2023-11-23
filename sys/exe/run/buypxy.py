@@ -126,10 +126,10 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
                 logging.error(f"Unable to place order for {dct['tradingsymbol']}")
                 return dct['tradingsymbol']
 
-    except Exception as e:
-        print(traceback.format_exc())
-        logging.error(f"{str(e)} while placing order")
-        return dct['tradingsymbol']
+        except Exception as e:
+            print(traceback.format_exc())
+            logging.error(f"{str(e)} while placing order")
+            return dct['tradingsymbol']
 
     if any(lst_tlyne):
         new_list = []
