@@ -44,5 +44,4 @@ def check_market_sentiment_for_symbol(symbol):
     if market_sentiment is not None:
         console.print(f"{symbol}: {market_sentiment}")
 
-# Call the function with a specific symbol
-check_market_sentiment_for_symbol("AAPL.NS")  # Replace with the desired symbol
+
