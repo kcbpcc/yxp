@@ -14,12 +14,15 @@ from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
 
 
-logging = Logger(10)
-holdings = dir_path + "holdings.csv"
-black_file = dir_path + "blacklist.txt"
+logging = Logger(30)
 try:
-    sys.stdout = open('output.txt', 'w')
     broker = get_kite(api="bypass", sec_dir=dir_path)
+
+except Exception as e:
+    remove_token(dir_path)
+    print(traceback.format_exc())
+    logging.error(f"{str(e)} unable to get holdings")
+    sys.exit(1)
 ##    sys.stdout.close()
 ##    sys.stdout = sys.__stdout__
     if fileutils.is_file_not_2day(holdings):
