@@ -9,7 +9,7 @@ import pandas as pd
 import traceback
 import sys
 import os
-from mktchksmbl import get_market_sentiment
+from mktchksmbl import getsmktchk
 
 logging = Logger(10)
 holdings = dir_path + "holdings.csv"
