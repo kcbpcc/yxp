@@ -109,9 +109,9 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
     
             # Check market sentiment
             market_sentiment = smktchk(dct['tradingsymbol'], intervals[0])
-            dct['yahoo'] = dct['tradingsymbol'] + ".NS"  # Define 'yahoo_symbol' here
+            dct['yahoo'] = dct['tradingsymbol'] + ".NS"  # Define 'yahoo' here
             if market_sentiment not in ['Buy', 'Bull']:
-                logging.info(f"Skipping order for {yahoo_symbol}. Market sentiment is {market_sentiment}")
+                logging.info(f"Skipping order for {yahoo}. Market sentiment is {market_sentiment}")
                 return dct['tradingsymbol']
     
             order_id = broker.order_place(
