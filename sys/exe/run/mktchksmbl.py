@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 intervals = [5]
 
 # Function to calculate the Heikin-Ashi candle colors for the last two closed candles
-def smktchk(symbol, interval):
+def getsmktchk(symbol, interval):
     try:
         data = yf.Ticker(symbol).history(period='1mo', interval=f'{interval}m')
         ha_close = (data['Open'] + data['High'] + data['Low'] + data['Close']) / 4
@@ -24,9 +24,9 @@ def smktchk(symbol, interval):
         
         # Conditions to check and return the corresponding string
         if current_color == 'Bull' and last_closed_color == 'Bull' and second_last_closed_color == 'Bull':
-            return 'Bullish'
+            return 'Bull'
         elif current_color == 'Bear' and last_closed_color == 'Bear' and second_last_closed_color == 'Bear':
-            return 'Bearish'
+            return 'Bear'
         elif current_color == 'Bull' and last_closed_color == 'Bear':
             return 'Buy'
         elif current_color == 'Bear' and last_closed_color == 'Bull':
@@ -38,8 +38,8 @@ def smktchk(symbol, interval):
 
 # Example usage:
 def check_market_sentiment_for_symbol(symbol):
-    market_sentiment = smktchk(symbol, intervals[0])
-    return market_sentiment
+    smktchk = getsmktchk(symbol, intervals[0])
+    return smktchk
 
 
 
