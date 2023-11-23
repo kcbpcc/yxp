@@ -23,13 +23,17 @@ console = Console()
 
 # Function to calculate the Heikin-Ashi candle colors for the last three closed candles
 def calculate_last_three_heikin_ashi_colors(symbol, interval):
-    data = yf.Ticker(symbol).history(period='5d', interval=f'{interval}m')
-    ha_close = (data['Open'] + data['High'] + data['Low'] + data['Close']) / 4
-    ha_open = (data['Open'].shift(1) + data['Close'].shift(1)) / 2
-    current_color = 'Bear' if ha_close.iloc[-1] < ha_open.iloc[-1] else 'Bull'
-    last_closed_color = 'Bear' if ha_close.iloc[-2] < ha_open.iloc[-2] else 'Bull'
-    second_last_closed_color = 'Bear' if ha_close.iloc[-3] < ha_open.iloc[-3] else 'Bull'
-    return current_color, last_closed_color, second_last_closed_color
+    try:
+        data = yf.Ticker(symbol).history(period='5d', interval=f'{interval}m')
+        ha_close = (data['Open'] + data['High'] + data['Low'] + data['Close']) / 4
+        ha_open = (data['Open'].shift(1) + data['Close'].shift(1)) / 2
+        current_color = 'Bear' if ha_close.iloc[-1] < ha_open.iloc[-1] else 'Bull'
+        last_closed_color = 'Bear' if ha_close.iloc[-2] < ha_open.iloc[-2] else 'Bull'
+        second_last_closed_color = 'Bear' if ha_close.iloc[-3] < ha_open.iloc[-3] else 'Bull'
+        return current_color, last_closed_color, second_last_closed_color
+    except yf.TickerError as e:
+        console.print(f"{symbol}: No data found, symbol may be delisted. Skipping to the next one.")
+        return None, None, None
 
 # Function to determine the market check based on candle colors
 def get_market_check(symbol):
@@ -49,7 +53,9 @@ with open('mktsmbl500pxy.txt', 'r') as file:
 # Perform the market check for each symbol and print the result
 for symbol in symbols_list:
     market_sentiment = get_market_check(symbol)
-    console.print(f"{symbol}: {market_sentiment}")
+    if market_sentiment is not None:
+        console.print(f"{symbol}: {market_sentiment}")
+
 
 
 
