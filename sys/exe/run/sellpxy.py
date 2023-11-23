@@ -43,7 +43,7 @@ except Exception as e:
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Sell', 'Bear']:
+if decision == "YES" and mktpxy in ['Bull', 'Bear']:
 
 
     try:
