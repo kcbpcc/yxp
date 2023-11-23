@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
 
 # Specify the intervals in minutes
-intervals = [5]
+intervals = [5, 4, 3, 2, 1]
 
 # Function to calculate the Heikin-Ashi candle colors for the last two closed candles
 def getsmktchk(symbol, interval):
