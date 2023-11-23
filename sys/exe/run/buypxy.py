@@ -12,7 +12,7 @@ import os
 import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
-from mktchksmbl getsmktchk
+from mktchksmbl import getsmktchk
 
 
 logging = Logger(10)
