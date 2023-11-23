@@ -1,7 +1,6 @@
 import yfinance as yf
 import warnings
 from rich.console import Console
-from rich.style import Style
 import sys
 import csv
 
@@ -31,7 +30,7 @@ def calculate_last_three_heikin_ashi_colors(symbol, interval):
         last_closed_color = 'Bear' if ha_close.iloc[-2] < ha_open.iloc[-2] else 'Bull'
         second_last_closed_color = 'Bear' if ha_close.iloc[-3] < ha_open.iloc[-3] else 'Bull'
         return current_color, last_closed_color, second_last_closed_color
-    except yf.TickerNotFound as e:
+    except yf.base.YFinanceError as e:
         console.print(f"{symbol}: No data found, symbol may be delisted. Skipping to the next one.")
         return None, None, None
 
@@ -55,7 +54,3 @@ for symbol in symbols_list:
     market_sentiment = get_market_check(symbol)
     if market_sentiment is not None:
         console.print(f"{symbol}: {market_sentiment}")
-
-
-
-
