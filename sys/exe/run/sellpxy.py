@@ -4,7 +4,7 @@ from toolkit.utilities import Utilities
 from login_get_kite import get_kite
 from cnstpxy import dir_path, fileutils, buybuff, max_target
 from byhopxy import get
-from minuspxy import Trendlyne
+from pluspxy import Trendlyne
 import pandas as pd
 import traceback
 import sys
@@ -12,6 +12,7 @@ import os
 import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
+from mktchksmbl import getsmktchk
 
 
 logging = Logger(10)
@@ -91,42 +92,54 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
         target = round_to_paise(ltp, max_target)
         return max(resistance, target)
 
-    def transact(dct):
+    def transact(dct, broker):
+        intervals = [5]
+        tradingsymbol = dct['tradingsymbol']
+        symbol = tradingsymbol + ".NS"  # Append ".NS" to the tradingsymbol
+        smktchk = getsmktchk(symbol, intervals[0])
+    
         try:
             def get_ltp():
                 ltp = -1
-                key = "NSE:" + dct['tradingsymbol']
+                key = "NSE:" + tradingsymbol
                 resp = broker.kite.ltp(key)
                 if resp and isinstance(resp, dict):
                     ltp = resp[key]['last_price']
                 return ltp
-
+    
             ltp = get_ltp()
-            logging.info(f"ltp for {dct['tradingsymbol']} is {ltp}")
+            logging.info(f"ltp for {tradingsymbol} is {ltp}")
+    
             if ltp <= 0:
-                return dct['tradingsymbol']
-
+                return tradingsymbol
+    
+            # Check if the market condition is "Sell" or "Bear"
+            if smktchk not in ["Sell", "Bear"]:
+                logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk}")
+                return tradingsymbol
+    
             order_id = broker.order_place(
-                tradingsymbol=dct['tradingsymbol'],
+                tradingsymbol=tradingsymbol,
                 exchange='NSE',
                 transaction_type='SELL',
-                quantity = int(float(dct['QTY'].replace(',', ''))),
+                quantity=int(float(dct['QTY'].replace(',', ''))),
                 order_type='MARKET',
                 product='MIS',
                 variety='regular',
                 price=round_to_paise(ltp, +0.1)
             )
+    
             if order_id:
-                logging.info(
-                    f"SELL {order_id} placed for {dct['tradingsymbol']} successfully")
+                logging.info(f"SELL {order_id} placed for {tradingsymbol} successfully")
             else:
                 print(traceback.format_exc())
-                logging.error(f"unable to place order for {dct['tradingsymbol']}")
-                return dct['tradingsymbol']
+                logging.error(f"Unable to place order for {tradingsymbol}")
+                return tradingsymbol
+    
         except Exception as e:
             print(traceback.format_exc())
             logging.error(f"{str(e)} while placing order")
-            return dct['tradingsymbol']
+            return tradingsymbol
 
     if any(lst_tlyne):
         new_list = []
@@ -140,11 +153,10 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
         lst_orders = [d for d in lst_all_orders if d['tradingsymbol']
                     not in lst_failed_symbols]
         for d in lst_orders:
-            failed_symbol = transact(d)
+            failed_symbol = transact(d, broker)  # Pass the broker instance
             if failed_symbol:
                 new_list.append(failed_symbol)
             Utilities().slp_til_nxt_sec()
-
         if any(new_list):
             with open(black_file, 'w') as file:
                 for symbol in new_list:
