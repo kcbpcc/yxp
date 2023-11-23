@@ -15,7 +15,7 @@ intervals = [5]
 # Function to calculate the Heikin-Ashi candle colors for the last two closed candles
 def getsmktchk(symbol, interval):
     try:
-        data = yf.Ticker(symbol).history(period='2d', interval=f'{interval}m')
+        data = yf.Ticker(symbol).history(period='5d', interval=f'{interval}m')
         ha_close = (data['Open'] + data['High'] + data['Low'] + data['Close']) / 4
         ha_open = (data['Open'].shift(1) + data['Close'].shift(1)) / 2
         current_color = 'Bear' if ha_close.iloc[-1] < ha_open.iloc[-1] else 'Bull'
