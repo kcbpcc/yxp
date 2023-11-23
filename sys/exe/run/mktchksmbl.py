@@ -1,6 +1,5 @@
 import yfinance as yf
 import warnings
-from rich.console import Console
 import sys
 
 # Set the PYTHONIOENCODING environment variable to 'utf-8'
@@ -12,9 +11,6 @@ warnings.filterwarnings("ignore", category=UserWarning)
 
 # Specify the intervals in minutes
 intervals = [5]
-
-# Create a Console instance for rich print formatting
-console = Console()
 
 # Function to calculate the Heikin-Ashi candle colors for the last two closed candles
 def smktchk(symbol, interval):
@@ -38,14 +34,15 @@ def smktchk(symbol, interval):
         else:
             return 'Neutral'
     except Exception as e:
-        console.print(f"{symbol}: No data found, symbol may be delisted. Skipping to the next one.")
         return 'No Data'
 
 # Example usage:
-def check_market_sentiment_and_signals_for_symbol(symbol):
-    market_signal = smktchk(symbol, intervals[0])
-    console.print(f"{symbol}: {market_signal}")
+def check_market_sentiment_for_symbol(symbol):
+    market_sentiment = smktchk(symbol, intervals[0])
+    return market_sentiment
 
 # Usage example
 symbol_to_check = "TCS.NS"  # Replace with the desired stock symbol
-check_market_sentiment_and_signals_for_symbol(symbol_to_check)
+result = check_market_sentiment_for_symbol(symbol_to_check)
+print(result)
+
