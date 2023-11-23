@@ -89,7 +89,8 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
         target = round_to_paise(ltp, max_target)
         return max(resistance, target)
 
-    intervals = [5] 
+    intervals = [5]
+
     def transact(dct):
         try:
             def get_ltp():
@@ -109,7 +110,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
             # Check market sentiment
             market_sentiment = smktchk(dct['tradingsymbol'], intervals[0])
             if market_sentiment not in ['Buy', 'Bull']:
-                logging.info(f"Skipping order for {'yahoo_symbol'}. Market sentiment is {market_sentiment}")
+                logging.info(f"Skipping order for {yahoo_symbol}. Market sentiment is {market_sentiment}")
                 return dct['tradingsymbol']
     
             order_id = broker.order_place(
@@ -128,11 +129,12 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
                 print(traceback.format_exc())
                 logging.error(f"Unable to place order for {dct['tradingsymbol']}")
                 return dct['tradingsymbol']
-
+    
         except Exception as e:
             print(traceback.format_exc())
             logging.error(f"{str(e)} while placing order")
             return dct['tradingsymbol']
+
 
     if any(lst_tlyne):
         new_list = []
