@@ -8,17 +8,17 @@ NC='\033[0m' # No Color
 # Display menu
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 
-echo "         -Night Buy                nb"
-echo "         -Get on Env               en"
-echo "         -SquireOff-ALL            ka"
-echo "         -Sell all Buy             kb"
-echo "         -Buy all Sell             ks"
-echo "         -Update pxy               up"
-echo "         -Run PXY                  mm"
-echo "         -Control pxy              ct"
-echo "         -Show me profit           tp"
-echo "         -Show profit Table        pl"
-echo "         -Or Simply exit           ex"
+echo "        -Night Buy                nb"
+echo "        -Get on Env               en"
+echo "        -SquireOff-ALL            ka"
+echo "        -Sell all Buy             kb"
+echo "        -Buy all Sell             ks"
+echo "        -Update pxy               up"
+echo "        -Run PXY                  mm"
+echo "        -Control pxy              ct"
+echo "        -Show me profit           tp"
+echo "        -Show profit Table        pl"
+echo "        -Or Simply exit           ex"
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 # Get user input
