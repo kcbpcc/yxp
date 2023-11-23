@@ -93,7 +93,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
     def transact(dct):
         try:
             def get_ltp():
-                yahoo_symbol = tradingsymbol + ".NS"
+                yahoo_symbol = dct['tradingsymbol'] + ".NS"
                 ltp = -1
                 key = "NSE:" + dct['tradingsymbol']
                 resp = broker.kite.ltp(key)
