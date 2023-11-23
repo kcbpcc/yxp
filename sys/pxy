@@ -69,6 +69,11 @@ case $choice in
         echo "Profit Table"
         pxytblprft
         ;;
+    
+    cl)
+        echo "Profit Table"
+        clnpxy
+        ;;
 
     ex)
         # Empty input (user didn't make a choice in 5 seconds)
