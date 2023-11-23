@@ -94,6 +94,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
     def transact(dct):
         try:
             def get_ltp():
+                yahoo = dct['yahoo']
                 dct['yahoo'] = dct['tradingsymbol'] + ".NS"
                 ltp = -1
                 key = "NSE:" + dct['tradingsymbol']
