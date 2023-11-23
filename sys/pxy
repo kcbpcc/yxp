@@ -17,6 +17,7 @@ echo "     killbuy         -Sell all Buy"
 echo "     killsell        -Buy all Sell"
 echo "     profit          -Show me prifit"
 echo "     prft-list       -Show prifit Table"
+echo "     pxycntrl        -Control pxy
 echo "     exit            -Or Simply exit"
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
@@ -69,7 +70,10 @@ case $choice in
         echo "Profit Table"
         pxytblprft
         ;;
-
+    C)
+        echo "Profit Table"
+        pxycntrl
+        ;;
 
     r)
         # Empty input (user didn't make a choice in 5 seconds)
