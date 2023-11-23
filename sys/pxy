@@ -8,17 +8,17 @@ NC='\033[0m' # No Color
 # Display menu
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 
-echo "     update          -Update pxy"
-echo "     run             -Run PXY"
-echo "     env             -Get on Env"
-echo "     Buy             -Night Buy"
-echo "     kill            -SquireOff-ALL"
-echo "     killbuy         -Sell all Buy"
-echo "     killsell        -Buy all Sell"
-echo "     profit          -Show me prifit"
-echo "     prft-list       -Show prifit Table"
-echo "     pxycntrl        -Control pxy
-echo "     exit            -Or Simply exit"
+echo "     nb              -Night Buy"
+echo "     e               -Get on Env"
+echo "     ka              -SquireOff-ALL"
+echo "     kb              -Sell all Buy"
+echo "     ks              -Buy all Sell"
+echo "     u               -Update pxy"
+echo "     m               -Run PXY"
+echo "     c               -Control pxy"
+echo "     p               -Show me prifit"
+echo "     pl              -Show prifit Table"
+echo "     r               -Or Simply exit"
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 # Get user input
@@ -56,11 +56,10 @@ case $choice in
         echo "Running 'pxy'"
         pxyrun
         ;;
-    e)
-        echo "Exiting the script. Goodbye!"
-        exit 0
+    c)
+        echo "Profit Table"
+        pxycntrl
         ;;
-
     p)
         echo "Profit"
         pxytprft
@@ -70,14 +69,15 @@ case $choice in
         echo "Profit Table"
         pxytblprft
         ;;
-    c)
-        echo "Profit Table"
-        pxycntrl
-        ;;
 
     r)
         # Empty input (user didn't make a choice in 5 seconds)
         echo "No input received in the last 5 seconds. Running 'pxy'"
         pxyrun
         ;;
+    *)
+        echo "Exiting the script. Goodbye!"
+        exit 0
+        ;;
 esac
+
