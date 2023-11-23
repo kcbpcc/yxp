@@ -15,7 +15,7 @@ echo "        -SquireOff-ALL            ka"
 echo "        -Sell all Buy             kb"
 echo "        -Buy all Sell             ks"
 echo "        -Update pxy               up"
-echo "        -Run PXY                  mm"
+echo "        -Run PXY                  ✔️"
 echo "        -Control pxy              ct"
 echo "        -Clean Pxy                cl"
 echo "        -Show me profit           tp"
@@ -60,7 +60,7 @@ case $choice in
         pxyrun
         ;;
     ct)
-        echo "Profit Table"
+        echo "Run controle file"
         pxycntrl
         ;;
     ct)
@@ -69,17 +69,17 @@ case $choice in
         ;;
 
     tp)
-        echo "Profit"
+        echo "Profit show"
         pxytprft
         ;;
 
     pl)
-        echo "Profit Table"
+        echo "Profit Table disply"
         pxytblprft
         ;;
     
     cl)
-        echo "Profit Table"
+        echo "Clean PnL file"
         pxycln
         ;;
 
