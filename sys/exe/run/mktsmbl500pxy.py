@@ -16,6 +16,9 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # Specify the intervals in minutes
 intervals = [5]
 
+# Suffix to be added to each symbol
+suffix = ".NS"
+
 # Create a Console instance for rich print formatting
 console = Console()
 
@@ -75,7 +78,7 @@ with open('mktsmbl500pxy.txt', 'r') as file:
     csv_reader = csv.reader(file)
     for row in csv_reader:
         if len(row) > 1:  # Check if there is at least one symbol in the second column
-            symbol = row[1].strip('"')  # Assuming symbols are in the second column
+            symbol = row[1].strip('"') + suffix  # Assuming symbols are in the second column
             symbols_list.append(symbol)
 
 # Print the list of symbols
@@ -84,4 +87,5 @@ console.print(f"Symbols to Check: {', '.join(symbols_list)}")
 # Perform the market check for each symbol
 for symbol in symbols_list:
     get_market_check(symbol)
+
 
