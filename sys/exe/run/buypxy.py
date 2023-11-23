@@ -152,11 +152,10 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull']:
         lst_orders = [d for d in lst_all_orders if d['tradingsymbol']
                     not in lst_failed_symbols]
         for d in lst_orders:
-            failed_symbol = transact(d)
+            failed_symbol = transact(d, broker)  # Pass the broker instance
             if failed_symbol:
                 new_list.append(failed_symbol)
             Utilities().slp_til_nxt_sec()
-
         if any(new_list):
             with open(black_file, 'w') as file:
                 for symbol in new_list:
