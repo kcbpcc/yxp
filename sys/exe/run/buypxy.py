@@ -89,6 +89,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
         target = round_to_paise(ltp, max_target)
         return max(resistance, target)
 
+    intervals = [5] 
     def transact(dct):
         try:
             def get_ltp():
