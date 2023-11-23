@@ -12,6 +12,7 @@ import os
 import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
+from mktchksmbl import smktchk
 
 
 logging = Logger(10)
@@ -104,7 +105,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
                 return dct['tradingsymbol']
     
             # Check market sentiment
-            market_sentiment = check_market_sentiment_for_symbol(dct['tradingsymbol'])
+            market_sentiment = smktchk(dct['tradingsymbol'])
             if market_sentiment not in ['Buy', 'Bull']:
                 logging.info(f"Skipping order for {dct['tradingsymbol']}. Market sentiment is {market_sentiment}")
                 return dct['tradingsymbol']
