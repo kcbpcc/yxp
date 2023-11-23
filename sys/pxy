@@ -8,17 +8,17 @@ NC='\033[0m' # No Color
 # Display menu
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 
-echo "     nb              -Night Buy"
-echo "     e               -Get on Env"
-echo "     ka              -SquireOff-ALL"
-echo "     kb              -Sell all Buy"
-echo "     ks              -Buy all Sell"
-echo "     u               -Update pxy"
-echo "     m               -Run PXY"
-echo "     c               -Control pxy"
-echo "     p               -Show me prifit"
-echo "     pl              -Show prifit Table"
-echo "     r               -Or Simply exit"
+echo "     -Night Buy            nb"
+echo "     -Get on Env           en"
+echo "     -SquireOff-ALL        ka"
+echo "     -Sell all Buy         kb"
+echo "     -Buy all Sell         ks"
+echo "     -Update pxy           up"
+echo "     -Run PXY              mm"
+echo "     -Control pxy          ct"
+echo "     -Show me profit       tp"
+echo "     -Show profit Table    pl"
+echo "     -Or Simply exit       ex"
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 # Get user input
@@ -30,7 +30,7 @@ case $choice in
         echo "Executing pxybuy - Night Buy"
         pxybuy
         ;;
-    e)
+    en)
         echo "Executing pxyenv - Get on Environment"
         pxyenv
         ;;
@@ -46,21 +46,21 @@ case $choice in
         echo "Executing pxykillsell - Rename sys/exe/pxykillsell to sys/pxykillsell"
         pxykillsell
         ;;
-    u)
+    up)
         echo "Executing pxyupdate - Update pxyupdate"
         pxyupdate
         ;;
-    m)
+    mm)
         echo "Waiting for 5 seconds..."
         sleep 5
         echo "Running 'pxy'"
         pxyrun
         ;;
-    c)
+    ct)
         echo "Profit Table"
         pxycntrl
         ;;
-    p)
+    tp)
         echo "Profit"
         pxytprft
         ;;
@@ -70,7 +70,7 @@ case $choice in
         pxytblprft
         ;;
 
-    r)
+    ex)
         # Empty input (user didn't make a choice in 5 seconds)
         echo "No input received in the last 5 seconds. Running 'pxy'"
         pxyrun
