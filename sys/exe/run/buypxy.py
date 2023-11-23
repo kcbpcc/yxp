@@ -94,8 +94,8 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
     def transact(dct):
         try:
             def get_ltp():
-                yahoo = dct['yahoo']
-                dct['yahoo'] = dct['tradingsymbol'] + ".NS"
+                
+               
                 ltp = -1
                 key = "NSE:" + dct['tradingsymbol']
                 resp = broker.kite.ltp(key)
@@ -109,10 +109,10 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
                 return dct['tradingsymbol']
     
             # Check market sentiment
-            market_sentiment = smktchk(dct['tradingsymbol'], intervals[0])
+            market_sentiment = smktchk(dct['yahoo'], intervals[0])
             dct['yahoo'] = dct['tradingsymbol'] + ".NS"  # Define 'yahoo' here
             if market_sentiment not in ['Buy', 'Bull']:
-                logging.info(f"Skipping order for {yahoo}. Market sentiment is {market_sentiment}")
+                logging.info(f"Skipping order for {tradingsymbol}. Market sentiment is {market_sentiment}")
                 return dct['tradingsymbol']
     
             order_id = broker.order_place(
