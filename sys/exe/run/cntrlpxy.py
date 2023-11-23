@@ -144,8 +144,10 @@ try:
     from nftpxy import get_nse_action
     from timpxy import calculate_timpxy
     import math
-
+    from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
+        
+
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
@@ -194,6 +196,8 @@ try:
     combined_df['low'] = combined_df['key'].map(lambda x: dct.get(x, {}).get('low', 0))
     combined_df['close'] = combined_df['key'].map(lambda x: dct.get(x, {}).get('close_price', 0))
     combined_df['qty'] = combined_df.apply(lambda row: int(row['quantity'] + row['t1_quantity']) if row['source'] == 'holdings' else int(row['quantity']), axis=1)
+    combined_df['smktchk'] = combined_df['key'].map(lambda x: getsmktchk(x + ".NS", '5') if x in dct else None)
+
     # Calculate 'Invested' column
     combined_df['Invested'] = combined_df['qty'] * combined_df['average_price']
     # Calculate 'value' column as 'qty' * 'ltp'
