@@ -502,7 +502,7 @@ try:
         print(right_aligned_format.format(f"Bull Power:{BRIGHT_GREEN if (Pr > 0.5) and isinstance(Pr, (int, float)) else BRIGHT_RED}{'---' if not isinstance(Pr, (int, float)) else round(Pr, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
-        print(left_aligned_format.format(f"MISsellPnL:{round(total_PnL_percentage_mis_sell, 0)}") if total_PnL_percentage_mis_sell is not None else "MISsellPnL: N/A", end="")
+        print(left_aligned_format.format(f"MISsellPnL:{round(total_PnL_percentage_mis_sell, 0)}") if total_PnL_percentage_mis_sell is not None else f"MISsellPnL: N/A", end="")
         print(right_aligned_format.format(f"MISbuyPnL:{round(total_PnL_percentage_mis_buy, 0)}") if total_PnL_percentage_mis_buy is not None else f"MISbuyPnL: N/A{RESET}")
         print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'sBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
