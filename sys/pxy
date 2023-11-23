@@ -72,7 +72,7 @@ case $choice in
     
     cl)
         echo "Profit Table"
-        clnpxy
+        pxycln
         ;;
 
     ex)
