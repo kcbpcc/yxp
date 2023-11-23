@@ -106,7 +106,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
                 return dct['tradingsymbol']
     
             # Check market sentiment
-            market_sentiment = smktchk(dct['tradingsymbol'], intervals[5])
+            market_sentiment = smktchk(dct['tradingsymbol'], intervals[0])
             if market_sentiment not in ['Buy', 'Bull']:
                 logging.info(f"Skipping order for {dct['tradingsymbol']}. Market sentiment is {market_sentiment}")
                 return dct['tradingsymbol']
