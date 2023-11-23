@@ -68,10 +68,20 @@ def get_market_check(symbol):
 
     return mktpxy
 
-# Read symbols from the CSV file and apply the get_market_check function
+# Read symbols from the CSV file and list them first
+symbols_list = []
+
 with open('mktsmbl500pxy.txt', 'r') as file:
     csv_reader = csv.reader(file)
     for row in csv_reader:
-        if row:  # Check if the row is not empty
-            symbol = row[1].strip('"')  # Assuming symbols are in the first column
-            get_market_check(symbol)
+        if len(row) > 1:  # Check if there is at least one symbol in the second column
+            symbol = row[1].strip('"')  # Assuming symbols are in the second column
+            symbols_list.append(symbol)
+
+# Print the list of symbols
+console.print(f"Symbols to Check: {', '.join(symbols_list)}")
+
+# Perform the market check for each symbol
+for symbol in symbols_list:
+    get_market_check(symbol)
+
