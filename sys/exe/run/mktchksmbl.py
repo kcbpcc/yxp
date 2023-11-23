@@ -41,8 +41,5 @@ def check_market_sentiment_for_symbol(symbol):
     market_sentiment = smktchk(symbol, intervals[0])
     return market_sentiment
 
-# Usage example
-symbol_to_check = "TCS.NS"  # Replace with the desired stock symbol
-result = check_market_sentiment_for_symbol(symbol_to_check)
-print(result)
+
 
