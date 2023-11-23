@@ -93,10 +93,10 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
         return max(resistance, target)
 
     def transact(dct, broker):
-        intervals = [5]
+        
         tradingsymbol = dct['tradingsymbol']
         symbol = tradingsymbol + ".NS"  # Append ".NS" to the tradingsymbol
-        smktchk = getsmktchk(symbol, intervals[5])
+        smktchk = getsmktchk(symbol, '5')
     
         try:
             def get_ltp():
