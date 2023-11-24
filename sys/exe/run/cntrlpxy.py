@@ -241,12 +241,12 @@ try:
     )
     
     combined_df['pxy'] = combined_df.apply(
-        lambda row: row['pr'] if row['nse_action'] == "NIFTYBEAR" else max(row['pr'], row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
+        lambda row: row['pr'] if nse_action == "NIFTYBEAR" else max(row['pr'], row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
         axis=1
     )
     
     combined_df['yxp'] = combined_df.apply(
-        lambda row: row['_pr'] if row['nse_action'] == "NIFTYBULL" else min(row['_pr'], row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else row['_pr'])), 
+        lambda row: row['_pr'] if nse_action == "NIFTYBULL" else min(row['_pr'], row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else row['_pr'])), 
         axis=1
     )
 
