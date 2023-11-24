@@ -219,24 +219,23 @@ try:
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
     epsilon = 1e-10
 
+    # Assuming you have defined 'epsilon' somewhere in your code
+    
     combined_df[['strength', 'weakness']] = combined_df.apply(
         lambda row: pd.Series({
             'strength': round((row['ltp'] - (row['low'] - 0.01)) / (abs(row['high'] + 0.01) - abs(row['low'] - 0.01)), 2),
             'weakness': round((row['ltp'] - (row['high'] - 0.01)) / (abs(row['high'] + 0.01) - abs(row['low'] - 0.01)), 2)
         }), axis=1
     )
-
+    
     combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
         lambda row: pd.Series({
-            
             'pr': round(max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon), 2),
             'xl': round(max(1, round(0.0 + (row['strength'] * 1.0), 2) * 1.5 - epsilon), 2),
             'yi': round(max(1.4, round(0.0 + (row['strength'] * 1.0), 2) * 2 - epsilon), 2),
             '_pr': round(min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon), 2),
             '_xl': round(min(-1, round(0.0 + (row['weakness'] * 1.0), 2) * 1.5 - epsilon), 2),
             '_yi': round(min(-1.4, round(0.0 + (row['weakness'] * 1.0), 2) * 2 - epsilon), 2),
-                
-
         }), axis=1
     )
     
