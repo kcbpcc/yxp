@@ -13,7 +13,6 @@ SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
 RESET = "\033[0m"
 
-
 logging = Logger(30, dir_path + "main.log")
 try:
     sys.stdout = open('output.txt', 'w')
@@ -146,14 +145,9 @@ try:
     import math
     from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
-        
-
-    
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
     result = sum_last_numerical_value_in_each_row(file_path)
-
-    
     #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
     #csv_file_path = "filePnL.csv"
@@ -425,8 +419,8 @@ try:
                         row['qty'] > 0 and
                         row['source'] == 'holdings' and
                         row['product'] == 'CNC' and
-                        row['PnL%'] > 1.4 and 
-                        ((row['PnL%'] < ((row['pxy'])*1) and row['PnL%_H'] > ((row['pxy'])*1)) or (row['PnL%'] > ctimpxy))
+                        row['PnL%'] > 0.1 and 
+                        ((row['PnL%'] < ((row['pxy'])) and row['PnL%_H'] > ((row['pxy']))) or (row['PnL%'] > ctimpxy))
                    
                     ):
                         # Print the row before placing the order
@@ -493,13 +487,10 @@ try:
                         except Exception as e:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-
         
         except Exception as e:
             # Handle any other exceptions that may occur during the loop
             print(f"An unexpected error occurred: {e}")
-
-
         
         print(f"{BRIGHT_YELLOW}📉🔀Trades Overview & Market Dynamics 📈🔄 {RESET}")
         # ANSI escape codes for text coloring
@@ -526,13 +517,7 @@ try:
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if result > 0 else BRIGHT_RED}{round(result)}{RESET}"))
         print(left_aligned_format.format(f"mis-PnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_sell}{RESET}"), end="")
         print(right_aligned_format.format(f"mis+PnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_buy}{RESET}"))
-
-
-
-
-
-
-        
+       
         subprocess.run(['python3', 'mktpxy.py'])
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛{RESET}')
