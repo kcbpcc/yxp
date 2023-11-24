@@ -103,7 +103,6 @@ def mis_order_buy(index, row):
         logging.error(f"{str(e)} while placing order")
     return False
 
-
 def get_holdingsinfo(resp_list, broker):
     try:
         df = pd.DataFrame(resp_list)
@@ -258,7 +257,6 @@ try:
     bmtimpxy = (ctimpxy/10)
     _smtimpxy = ((timpxy)*(-1))/10
     smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
-
     
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
@@ -269,20 +267,14 @@ try:
     # Calculate and print the sum of 'PnL' values and its total 'PnL%' for rows where 'qty' is greater than 0
     total_PnL = round(combined_df_positive_qty['PnL'].sum())
     total_PnL_percentage = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100
-    
     # Calculate total_PnL_percentage_mis_buy
     total_PnL_percentage_mis_buy = combined_df['PnL'] if (combined_df['product'] == "MIS").all() and combined_df['qty'].sum() > 0 else None
-    
     # Calculate total_PnL_percentage_mis_sell
     total_PnL_percentage_mis_sell = combined_df['PnL'] if (combined_df['product'] == "MIS").all() and combined_df['qty'].sum() < 0 else None
-
-
     # Calculate and print the sum of 'dPnL' values and its total 'dPnL%' for rows where 'qty' is greater than 0
     #total_dPnL = combined_df_positive_qty['dPnL'].sum()
     total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
     total_dPnL_percentage = (total_dPnL / combined_df_positive_qty['Invested'].sum()) * 100
-
-
     
     import pandas as pd
     # Assuming you have a list of instrument keys, e.g., ['NIFTY50', 'RELIANCE', ...]
@@ -345,10 +337,8 @@ try:
         ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < 0))
     ]
     
-    
    # Sort the DataFrame by 'PnL' in ascending order
     PRINT_df_sorted = PRINT_df_sorted.sort_values(by='PnL', ascending=True)
-
     # Convert the 'PnL' column to integers
     PRINT_df_sorted.loc[:, 'PnL'] = PRINT_df_sorted['PnL'].astype(int)
  
