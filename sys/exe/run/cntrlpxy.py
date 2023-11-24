@@ -223,7 +223,7 @@ try:
         }), axis=1
     )
     
-    combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
+    combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi','PR', 'XL', 'YI']] = combined_df.apply(
         lambda row: pd.Series({
             'pr': round(max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon), 2),
             'xl': round(max(1, round(0.0 + (row['strength'] * 1.0), 2) * 2 - epsilon), 2),
