@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Get the current user's home directory
-USER_HOME=$(eval echo ~$USER)
-
 # Path to the virtual environment
-VENV_PATH="$USER_HOME/env"
+VENV_PATH=/home/pxy/env
 
 # Activation script path
 ACTIVATE_SCRIPT="$VENV_PATH/bin/activate"
@@ -32,5 +29,9 @@ fi
 
 # Optionally, deactivate the virtual environment when done
 # deactivate
+
+# Example command to run the rest of your script with sudo, preserving the environment
+sudo --preserve-env=PATH your_command_here
+
 
 
