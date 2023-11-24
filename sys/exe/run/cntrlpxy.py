@@ -141,7 +141,7 @@ try:
     import numpy as np
     from mktpxy import get_market_check
     import importlib
-    from nftpxy import nse_action
+    from nftpxy import get_nse_action
     from timpxy import calculate_timpxy
     import math
     from mktchksmbl import getsmktchk
@@ -159,6 +159,7 @@ try:
     #csv_file_path = "filePnL.csv"
     #total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
+    nse_action = get_nse_action()
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
