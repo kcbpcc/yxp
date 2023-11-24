@@ -476,7 +476,7 @@ try:
         print(right_aligned_format.format(f"dPnL%:{BRIGHT_GREEN if total_dPnL_percentage > 0 else BRIGHT_RED}{round(total_dPnL_percentage, 2)}{RESET}"))
         print(left_aligned_format.format(f"mis-PnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_sell}{RESET}"), end="")
         print(right_aligned_format.format(f"mis+PnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_buy}{RESET}"))
-        print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"), end="")
+        print(left_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if result > 0 else BRIGHT_RED}{round(result)}{RESET}"))
         
         
