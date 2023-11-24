@@ -55,7 +55,7 @@ case $choice in
         ;;
     mm)
         echo "Waiting for 5 seconds..."
-        sleep 5
+        sleep 500000
         echo "Running 'pxy'"
         pxyrun
         ;;
