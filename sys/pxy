@@ -24,7 +24,7 @@ echo "        -Or Simply exit           🚦 ex"
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 # Get user input
-read -t 10 -p "Enter your choice: " choice
+read -t 15 -p "Enter your choice: " choice
 
 # Perform actions based on user input
 case $choice in
@@ -55,7 +55,7 @@ case $choice in
         ;;
     mm)
         echo "Waiting for 5 seconds..."
-        sleep 500000
+        sleep 5
         echo "Running 'pxy'"
         pxyrun
         ;;
