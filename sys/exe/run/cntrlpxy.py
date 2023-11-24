@@ -141,7 +141,7 @@ try:
     import numpy as np
     from mktpxy import get_market_check
     import importlib
-    from nftpxy import get_nse_action
+    from nftpxy import nse_action
     from timpxy import calculate_timpxy
     import math
     from mktchksmbl import getsmktchk
@@ -244,7 +244,7 @@ try:
             row['yi'] if row['mktpxy'] in ["Buy", "Bull"] 
             else (row['xl'] if row['mktpxy'] == "Sell" 
                   else row['pr']) 
-            if get_nse_action() != "NIFTYBEAR" else row['pr'],
+            if nse_action == "NIFTYBULL" else row['pr'],
         axis=1
     )
     
@@ -253,10 +253,9 @@ try:
             row['_yi'] if row['mktpxy'] in ["Sell", "Bear"] 
             else (row['_xl'] if row['mktpxy'] == "Buy" 
                   else row['_pr']) 
-            if get_nse_action() != "NIFTYBULL" else row['_pr'],
+            if nse_action == "NIFTYBEAR" else row['_pr'],
         axis=1
     )
-
     
 
     ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
