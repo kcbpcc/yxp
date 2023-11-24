@@ -1,6 +1,43 @@
 #!/bin/bash
 
-cd ~/env/bin
-./activate
-cd ~/pxy/sys/exe/run
+# Path to the virtual environment in the user directory
+VENV_PATH=~/env
 
+# Activation script path
+ACTIVATE_SCRIPT="$VENV_PATH/bin/activate"
+
+# Target directory after activation
+TARGET_DIR=~/pxy/sys/exe/run
+
+# Debugging information
+echo "Activating virtual environment at: $VENV_PATH"
+
+# Check if the activation script exists
+if [ -f "$ACTIVATE_SCRIPT" ]; then
+    # Attempt to activate the virtual environment using '.'
+    if source "$ACTIVATE_SCRIPT"; then
+        echo "Virtual environment activated successfully using '.'."
+        
+        # Change to the target directory
+        if [ -d "$TARGET_DIR" ]; then
+            cd "$TARGET_DIR" || {
+                echo "Error: Unable to change to directory $TARGET_DIR"
+                exit 1
+            }
+            echo "Changed to directory: $TARGET_DIR"
+        else
+            echo "Error: Directory $TARGET_DIR not found."
+            exit 1
+        fi
+    else
+        echo "Error activating virtual environment."
+        # You can add additional error handling or exit the script if needed
+        exit 1
+    fi
+else
+    echo "Error: Activation script not found at $ACTIVATE_SCRIPT"
+    exit 1
+fi
+
+# Optionally, deactivate the virtual environment when done
+# deactivate
