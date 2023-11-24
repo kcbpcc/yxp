@@ -240,8 +240,8 @@ try:
     )
     
     combined_df['pxy'] = combined_df.apply(
-        lambda row: max(1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else 1)), 
-        axis=1
+    lambda row: max(1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else 1)), 
+    axis=1
     )
 
     
