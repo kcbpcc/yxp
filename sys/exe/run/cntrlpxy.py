@@ -351,17 +351,7 @@ try:
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','pxy','yxp','key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    
-    pxy_df['Pr'] = Pr
-    pxy_df['Xl'] = Xl
-    pxy_df['Yi'] = Yi
-    pxy_df['_Pr'] = _Pr
-    pxy_df['_Xl'] = _Xl
-    pxy_df['_Yi'] = _Yi
-    
-    pxy_df['PXY'] = PXY
-    pxy_df['YXP'] = YXP 
-    
+
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%', 'PnL']]
