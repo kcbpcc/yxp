@@ -241,15 +241,24 @@ try:
     )
     
     combined_df['pxy'] = combined_df.apply(
-    lambda row: max(0.1, row['yi'] if row['mktpxy'] in ["Buy", "Bull"] else (row['xl'] if row['mktpxy'] == "Sell" else row['pr']) if get_nse_action != "NIFTYBEAR" else row['pr'],
-    axis=1
+        lambda row: max(0.1, 
+            row['yi'] if row['mktpxy'] in ["Buy", "Bull"] 
+            else (row['xl'] if row['mktpxy'] == "Sell" 
+                  else row['pr']) 
+            if get_nse_action() != "NIFTYBEAR" else row['pr'],
+        axis=1
+    )
+    
+    combined_df['yxp'] = combined_df.apply(
+        lambda row: min(-0.1, 
+            row['_yi'] if row['mktpxy'] in ["Sell", "Bear"] 
+            else (row['_xl'] if row['mktpxy'] == "Buy" 
+                  else row['_pr']) 
+            if get_nse_action() != "NIFTYBULL" else row['_pr'],
+        axis=1
     )
 
     
-    combined_df['yxp'] = combined_df.apply(
-    combined_df['new_column'] = combined_df.apply(
-    lambda row: min(-0.1, row['_yi'] if row['mktpxy'] in ["Sell", "Bear"] else (row['_xl'] if row['mktpxy'] == "Buy" else row['_pr']) if get_nse_action != "NIFTYBULL" else row['_pr'],
-    axis=1
 
     ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
     bmtimpxy = (ctimpxy/10)
