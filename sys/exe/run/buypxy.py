@@ -75,13 +75,40 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull']:
                 x for x in lst_tlyne if x not in lst]
             logging.info(f"filtered from holdings: {lst}")
 
-            # get list from positions
-            lst_dct = broker.positions
-            if lst_dct and any(lst_dct):
-                lst = [dct['symbol'] for dct in lst_dct]
-                lst_tlyne = [
-                    x for x in lst_tlyne if x not in lst]
-                logging.info(f"filtered from positions ...{lst}")
+            # Get lists from positions, orders, and holdings
+            lst_dct_positions = broker.positions
+            lst_dct_orders = broker.orders
+            lst_dct_holdings = broker.holdings  # Replace with the actual way to get holdings
+            
+            # Extract symbols from positions
+            if lst_dct_positions and any(lst_dct_positions):
+                lst_positions = [position['symbol'] for position in lst_dct_positions]
+            else:
+                lst_positions = []
+            
+            # Extract symbols from orders
+            if lst_dct_orders and any(lst_dct_orders):
+                lst_orders = [order['symbol'] for order in lst_dct_orders]
+            else:
+                lst_orders = []
+            
+            # Extract symbols from holdings
+            if lst_dct_holdings and any(lst_dct_holdings):
+                lst_holdings = [holding['symbol'] for holding in lst_dct_holdings]
+            else:
+                lst_holdings = []
+            
+            # Combine symbols from positions, orders, and holdings
+            combined_symbols = set(lst_positions + lst_orders + lst_holdings)
+            
+            # Filter lst_tlyne based on combined symbols
+            lst_tlyne = [x for x in lst_tlyne if x not in combined_symbols]
+            
+            # Log information
+            logging.info(f"filtered from positions: {lst_positions}")
+            logging.info(f"filtered from orders: {lst_orders}")
+            logging.info(f"filtered from holdings: {lst_holdings}")
+
     except Exception as e:
         print(traceback.format_exc())
         logging.error(f"{str(e)} unable to read positions")
