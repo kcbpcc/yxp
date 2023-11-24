@@ -7,7 +7,7 @@ VENV_PATH=~
 ACTIVATE_SCRIPT="$VENV_PATH/env/bin/activate"
 
 # Target directory after activation
-TARGET_DIR="$VENV_PATH/sys/exe/run"
+TARGET_DIR="$VENV_PATH/pxy/sys/exe/run"
 
 # Debugging information
 echo "Activating virtual environment at: $VENV_PATH/env"
