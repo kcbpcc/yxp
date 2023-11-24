@@ -75,13 +75,31 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull']:
                 x for x in lst_tlyne if x not in lst]
             logging.info(f"filtered from holdings: {lst}")
 
-            # get list from positions
-            lst_dct = broker.positions
-            if lst_dct and any(lst_dct):
-                lst = [dct['symbol'] for dct in lst_dct]
-                lst_tlyne = [
-                    x for x in lst_tlyne if x not in lst]
-                logging.info(f"filtered from positions ...{lst}")
+            # get lists from positions and orders
+            lst_dct_positions = broker.positions
+            lst_dct_orders = broker.orders
+            
+            if lst_dct_positions and any(lst_dct_positions):
+                symbols_positions = [dct['symbol'] for dct in lst_dct_positions]
+            else:
+                symbols_positions = []
+            
+            if lst_dct_orders and any(lst_dct_orders):
+                symbols_orders = [dct['symbol'] for dct in lst_dct_orders]
+            else:
+                symbols_orders = []
+            
+            # Combine symbols from positions and orders
+            all_symbols = symbols_positions + symbols_orders
+            
+            # Assuming lst_tlyne is defined somewhere before this block
+            lst_tlyne = lst_tlyne if lst_tlyne else []  # Initialize lst_tlyne if not defined
+            
+            # Filter lst_tlyne based on combined symbols
+            lst_tlyne = [x for x in lst_tlyne if x not in all_symbols]
+            
+            logging.info(f"filtered from positions and orders ...{lst_tlyne}")
+
     except Exception as e:
         print(traceback.format_exc())
         logging.error(f"{str(e)} unable to read positions")
