@@ -1,37 +1,5 @@
 #!/bin/bash
-
-# Path to the virtual environment
-VENV_PATH=/home/pxy/env
-
-# Activation script path
-ACTIVATE_SCRIPT="$VENV_PATH/bin/activate"
-
-# Debugging information
-echo "Current shell: $SHELL"
-echo "Activating virtual environment at: $VENV_PATH"
-
-# Check if the activation script exists
-if [ -f "$ACTIVATE_SCRIPT" ]; then
-    # Attempt to activate the virtual environment using '.'
-    if . "$ACTIVATE_SCRIPT"; then
-        echo "Virtual environment activated successfully using '.'."
-    else
-        echo "Error activating virtual environment."
-        # You can add additional error handling or exit the script if needed
-        exit 1
-    fi
-else
-    echo "Error: Activation script not found at $ACTIVATE_SCRIPT"
-    exit 1
-fi
-
-# Rest of your script goes here
-
-# Optionally, deactivate the virtual environment when done
-# deactivate
-
-# Example command to run the rest of your script with sudo, preserving the environment
-sudo --preserve-env=PATH your_command_here
+source ~/env/bin/activate
 
 
 
