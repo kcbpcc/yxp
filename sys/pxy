@@ -30,7 +30,7 @@ read -t 15 -p "Enter your choice: " choice
 case $choice in
     nb)
         echo "Executing pxybuy - Night Buy"
-        pxybuy
+        pxynbuy
         ;;
     en)
         echo "Executing pxyenv - Get on Environment"
