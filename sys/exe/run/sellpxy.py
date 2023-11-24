@@ -76,9 +76,9 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
             logging.info(f"filtered from holdings: {lst}")
 
             # Get lists from positions, orders, and holdings
-            lst_dct_positions = broker.positions
-            lst_dct_orders = broker.orders
-            lst_dct_holdings = broker.holdings  # Replace with the actual way to get holdings
+            lst_dct_positions = broker.kite.positions()
+            lst_dct_orders = broker.kite.orders
+            lst_dct_holdings = broker.kite.holdings  # Replace with the actual way to get holdings
             
             # Extract symbols from positions
             if lst_dct_positions and any(lst_dct_positions):
