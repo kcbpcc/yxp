@@ -9,7 +9,7 @@ NC='\033[0m' # No Color
 # Display menu
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 
-echo "      -Night Buy             🛒     nb"
+echo "      -Night Buy             🛍️     nb"
 echo "      -Get on Env            💻     en"
 echo "      -SquireOff-ALL         ❌     ka"
 echo "      -Sell all Buy          🔴     kb"
