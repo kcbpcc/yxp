@@ -1,2 +1,36 @@
-# Activate the virtual environment
-source ~/env/bin/activate
+#!/bin/bash
+
+# Path to the virtual environment
+VENV_PATH=~/env
+
+# Activation script path
+ACTIVATE_SCRIPT="$VENV_PATH/bin/activate"
+
+# Debugging information
+echo "Current shell: $SHELL"
+echo "Activating virtual environment at: $VENV_PATH"
+
+# Check if the activation script exists
+if [ -f "$ACTIVATE_SCRIPT" ]; then
+    # Attempt to activate the virtual environment using 'source'
+    if source "$ACTIVATE_SCRIPT"; then
+        echo "Virtual environment activated successfully using 'source'."
+    else
+        # If 'source' fails, attempt to activate using '.'
+        if . "$ACTIVATE_SCRIPT"; then
+            echo "Virtual environment activated successfully using '.'."
+        else
+            echo "Error activating virtual environment."
+            # You can add additional error handling or exit the script if needed
+            exit 1
+        fi
+    fi
+else
+    echo "Error: Activation script not found at $ACTIVATE_SCRIPT"
+    exit 1
+fi
+
+# Rest of your script goes here
+
+# Optionally, deactivate the virtual environment when done
+# deactivate
