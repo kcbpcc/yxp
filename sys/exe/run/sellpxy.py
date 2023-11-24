@@ -16,7 +16,7 @@ from mktchksmbl import getsmktchk
 
 
 logging = Logger(10)
-holdings = "fileHPdf.csv"
+holdings = dir_path + "fileHPdf.csv"
 black_file = dir_path + "blacklist.txt"
 try:
     sys.stdout = open('output.txt', 'w')
