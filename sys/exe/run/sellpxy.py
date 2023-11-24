@@ -75,10 +75,9 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
                 x for x in lst_tlyne if x not in lst]
             logging.info(f"filtered from holdings: {lst}")
 
-            # Get lists from positions, orders, and holdings
+            # Get lists from positions and orders
             lst_dct_positions = broker.positions
             lst_dct_orders = broker.orders
-            lst_dct_holdings = broker.holdings  # Replace with the actual way to get holdings
             
             # Extract symbols from positions
             if lst_dct_positions and any(lst_dct_positions):
@@ -92,11 +91,15 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
             else:
                 lst_orders = []
             
-            # Extract symbols from holdings
-            if lst_dct_holdings and any(lst_dct_holdings):
-                lst_holdings = [holding['symbol'] for holding in lst_dct_holdings]
-            else:
-                lst_holdings = []
+            # Initialize an empty list for holdings
+            lst_holdings = []
+            
+            # Check if 'holdings' attribute is available
+            if hasattr(broker, 'holdings'):
+                lst_dct_holdings = broker.holdings
+                # Extract symbols from holdings
+                if lst_dct_holdings and any(lst_dct_holdings):
+                    lst_holdings = [holding['symbol'] for holding in lst_dct_holdings]
             
             # Combine symbols from positions, orders, and holdings
             combined_symbols = set(lst_positions + lst_orders + lst_holdings)
@@ -108,6 +111,7 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
             logging.info(f"filtered from positions: {lst_positions}")
             logging.info(f"filtered from orders: {lst_orders}")
             logging.info(f"filtered from holdings: {lst_holdings}")
+
 
     except Exception as e:
         print(traceback.format_exc())
