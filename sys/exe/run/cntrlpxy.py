@@ -231,9 +231,14 @@ try:
             '_pr': round(min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon), 2),
             '_xl': round(min(-1, round(0.0 + (row['weakness'] * 1.0), 2) * 2 - epsilon), 2),
             '_yi': round(min(-1.4, round(0.0 + (row['weakness'] * 1.0), 2) * 3 - epsilon), 2),
+
+            'PR': round(max(0.1, (round(0.0 + (row['strength'] * 1.0), 2) * 2 - epsilon)), 2),
+            'XL': round(max(1, (round(0.0 + (row['strength'] * 1.0), 2) * 3 - epsilon)), 2),
+            'YI': round(max(1.4, (round(0.0 + (row['strength'] * 1.0), 2) * 4 - epsilon)), 2),
+           
         }), axis=1
     )
-    
+
     combined_df['pxy'] = combined_df.apply(
         lambda row: row['pr'] if nse_action == "NIFTYBEAR" else max(row['pr'], row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
         axis=1
@@ -244,7 +249,10 @@ try:
         axis=1
     )
 
-    
+    combined_df['PXY'] = combined_df.apply(
+        lambda row: max(row['PR'], row['YI'] if mktpxy in ["Buy", "Bull"] else (row['XL'] if mktpxy == "Sell" else row['PR'])), 
+        axis=1
+    )
 
     ctimpxy = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
     bmtimpxy = (ctimpxy/10)
@@ -306,37 +314,6 @@ try:
     NIFTY['close_price'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('close_price', 0))
     NIFTY['Day_Change_%'] = round(((NIFTY['ltp'] - NIFTY['close_price']) / NIFTY['close_price']) * 100, 2)
     NIFTY['Open_Change_%'] = round(((NIFTY['ltp'] - NIFTY['open']) / NIFTY['open']) * 100, 2)
-    NIFTYconditions = [
-        (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] > 0),
-        (NIFTY['Open_Change_%'] > 0) & (NIFTY['Day_Change_%'] < 0),
-        (NIFTY['Day_Change_%'] < 0) & (NIFTY['Open_Change_%'] < 0),
-        (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] < 0)
-    ]
-    choices = ['sBull', 'Bull', 'sBear', 'Bear']
-    NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
-    status_factors = {
-        'sBull': +1,
-        'Bull': 0,
-        'Bear': 0,
-        'sBear': -1
-    }
-    # Calculate 'Score' for each row based on 'Day Status' and 'status_factors'
-    NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
-    score_value = NIFTY['Score'].values[0]
-    # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
-    # Calculate the metrics
-    
-    epsilon = 1e-10
-    NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
-    NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
-    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2))
-    Xl = round(max(1.4, 1 + (Pr * 2)), 2) 
-    Yi = round(max(1.4, 1 + (Pr * 3)), 2) 
-    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else 1) + score_value    
-    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)
-    _Xl = round(min(-1.4, -1 + (_Pr * 2)), 2) 
-    _Yi = round(min(-1.4, -1 + (_Pr * 3)), 2) 
-    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else -1) + score_value
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
@@ -345,17 +322,7 @@ try:
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','pxy','yxp','key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    
-    pxy_df['Pr'] = Pr
-    pxy_df['Xl'] = Xl
-    pxy_df['Yi'] = Yi
-    pxy_df['_Pr'] = _Pr
-    pxy_df['_Xl'] = _Xl
-    pxy_df['_Yi'] = _Yi
-    
-    pxy_df['PXY'] = PXY
-    pxy_df['YXP'] = YXP 
-    
+   
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%', 'PnL']]
