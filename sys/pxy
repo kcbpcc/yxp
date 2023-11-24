@@ -88,9 +88,11 @@ case $choice in
         echo "No input received in the last 5 seconds. Running 'pxy'"
         pxyrun
         ;;
+
     ex)
         echo "Exiting the script. Goodbye!"
         exit 0
         ;;
+
 esac
 
