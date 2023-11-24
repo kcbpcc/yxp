@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Get the current user's home directory
+USER_HOME=$(eval echo ~$USER)
+
 # Path to the virtual environment
-VENV_PATH=/home/pxy/env
+VENV_PATH="$USER_HOME/env"
 
 # Activation script path
 ACTIVATE_SCRIPT="$VENV_PATH/bin/activate"
@@ -29,4 +32,5 @@ fi
 
 # Optionally, deactivate the virtual environment when done
 # deactivate
+
 
