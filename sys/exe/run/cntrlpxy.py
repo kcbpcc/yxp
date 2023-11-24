@@ -351,7 +351,6 @@ try:
     BRIGHT_RED = "\033[91m"
     BRIGHT_GREEN = "\033[92m"
     import pandas as pd
-
  
     # Always print "Table" in bright yellow
     print(f"{BRIGHT_YELLOW}Table– Stocks above @Pr and might reach @Yi {RESET}")
@@ -468,10 +467,6 @@ try:
         print(right_aligned_format.format(f"mis+PnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_buy}{RESET}"))
         print(left_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if result > 0 else BRIGHT_RED}{round(result)}{RESET}"))
-        
-        
-
-       
         subprocess.run(['python3', 'mktpxy.py'])
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛{RESET}')
