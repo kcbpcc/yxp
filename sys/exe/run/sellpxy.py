@@ -16,8 +16,6 @@ from mktchksmbl import getsmktchk
 from swchpxy import analyze_stock
 from nftpxy import nse_action
 
-
-
 logging = Logger(10)
 holdings = dir_path + "holdings.csv"
 black_file = dir_path + "blacklist.txt"
@@ -40,14 +38,10 @@ except Exception as e:
     logging.error(f"{str(e)} unable to get holdings")
     sys.exit(1)
 
-
-
-
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
 if decision == "YES" and mktpxy in ['Sell', 'Bear']:
-
 
     try:
         lst = []
@@ -135,10 +129,10 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
                 return tradingsymbol
     
             # Check if the market condition is "Sell" or "Bear"
-            if smktchk not in ["Buy", "Bull"] and analyze_stock('symbol') == 'no':
+            if smktchk not in ["Buy", "Bull",'Bear'] and analyze_stock('symbol') == 'no':
                 logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk} and switch {analyze_stock('symbol')}")
                 return tradingsymbol
-    
+   
             order_id = broker.order_place(
                 tradingsymbol=tradingsymbol,
                 exchange='NSE',
