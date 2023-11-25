@@ -13,7 +13,6 @@ import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
 
-
 logging = Logger(10)
 holdings = dir_path + "holdings.csv"
 black_file = dir_path + "blacklist.txt"
@@ -36,15 +35,10 @@ except Exception as e:
     logging.error(f"{str(e)} unable to get holdings")
     sys.exit(1)
 
-
-
-
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
-
-
+if decision == "YES":
     try:
         lst = []
         file_size_in_bytes = os.path.getsize(holdings)
@@ -118,12 +112,10 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
                 if resp and isinstance(resp, dict):
                     ltp = resp[key]['last_price']
                 return ltp
-
             ltp = get_ltp()
             logging.info(f"ltp for {dct['tradingsymbol']} is {ltp}")
             if ltp <= 0:
                 return dct['tradingsymbol']
-
             order_id = broker.order_place(
                 tradingsymbol=dct['tradingsymbol'],
                 exchange='NSE',
@@ -145,7 +137,6 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
             print(traceback.format_exc())
             logging.error(f"{str(e)} while placing order")
             return dct['tradingsymbol']
-
     if any(lst_tlyne):
         new_list = []
         # Filter the original list based on the subset of 'tradingsymbol' values
@@ -162,7 +153,6 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear','Sell']:
             if failed_symbol:
                 new_list.append(failed_symbol)
             Utilities().slp_til_nxt_sec()
-
         if any(new_list):
             with open(black_file, 'w') as file:
                 for symbol in new_list:
