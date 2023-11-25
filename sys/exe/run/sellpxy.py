@@ -46,7 +46,7 @@ except Exception as e:
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Sell', 'Bear'] and nse_action in ['SuperBear', 'Bear'] and analyze_stock('^NSEI') == 'Yes':
+if decision == "YES" and mktpxy in ['Sell', 'Bear']:
 
 
     try:
