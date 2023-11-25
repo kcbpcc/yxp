@@ -486,7 +486,10 @@ try:
         left_aligned_format = "{:<" + str(column_width) + "}"
         right_aligned_format = "{:>" + str(column_width) + "}"
         
-        print(left_aligned_format.format(f"Bear Power:{BRIGHT_GREEN if (NIFTY['strength'] > 0.5) and isinstance(NIFTY['strength'], (int, float)) else BRIGHT_RED}{'---' if not isinstance(NIFTY['strength'], (int, float)) else round(NIFTY['strength'], 2)}{RESET}"), end="")
+        print(left_aligned_format.format(
+            f"Bear Power: {BRIGHT_GREEN if (NIFTY['strength'] > 0.5).any() and isinstance(NIFTY['strength'], (int, float)) else BRIGHT_RED}"
+            f"{'---' if not isinstance(NIFTY['strength'], (int, float)) else round(NIFTY['strength'], 2)}{RESET}"
+        ), end="")
         print(right_aligned_format.format(f"Power:{BRIGHT_GREEN if (NIFTY['strength'] > 0.5) and isinstance(NIFTY['strength'], (int, float)) else BRIGHT_RED}{'---' if not isinstance(NIFTY['strength'], (int, float)) else round(NIFTY['strength'], 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
