@@ -136,7 +136,7 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
     
             # Check if the market condition is "Sell" or "Bear"
             if smktchk not in ["Buy", "Bull"] and analyze_stock('symbol') == 'no':
-                logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk}")
+                logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk} and switch {analyze_stock('symbol')}")
                 return tradingsymbol
     
             order_id = broker.order_place(
