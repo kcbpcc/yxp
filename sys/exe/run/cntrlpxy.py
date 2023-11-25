@@ -330,8 +330,9 @@ try:
     # Calculate the metrics
     
     epsilon = 1e-10
-    Power = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
+    NIFTY['strength']= ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
+    NIFTY['power'] = NIFTY['strength'].astype(float).round(2)
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
