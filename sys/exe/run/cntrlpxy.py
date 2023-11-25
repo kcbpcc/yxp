@@ -404,7 +404,7 @@ try:
                         row['qty'] > 0 and
                         row['source'] == 'holdings' and
                         row['product'] == 'CNC' and
-                        row['PnL%'] > 1.4 and 
+                        row['PnL%'] > row['pr'] and 
                         ((row['PnL%'] < ((row['pxy'])) and row['PnL%_H'] > ((row['pxy']))) or (row['PnL%'] > TIMPXY))
                    
                     ):
@@ -429,7 +429,7 @@ try:
                         row['qty'] > 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
-                        row['PnL%'] > 0.1 and 
+                        row['PnL%'] > row['pr'] and 
                         row['PnL%'] > row['pxy']
                     ):
                         # Print the row before placing the order
@@ -453,7 +453,7 @@ try:
                         row['qty'] < 0 and
                         row['source'] == 'positions' and
                         row['product'] == 'MIS' and
-                        row['PnL%'] < 0.1 and 
+                        row['PnL%'] < row['_pr'] and 
                         row['PnL%'] < row['yxp'] 
                     ):
                         # Print the row before placing the order
