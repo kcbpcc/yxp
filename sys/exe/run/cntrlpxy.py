@@ -154,7 +154,7 @@ try:
     #csv_file_path = "filePnL.csv"
     #total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
-    nse_action = get_nse_action()
+    nse_action, nse_power = get_nse_action()
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
@@ -489,7 +489,7 @@ try:
         right_aligned_format = "{:>" + str(column_width) + "}"
         
         print(left_aligned_format.format(f"Bear Power:{BRIGHT_GREEN if (pd.to_numeric(NIFTY['strength'], errors='coerce') > 0.5).any() else BRIGHT_RED}{'---' if not (pd.to_numeric(NIFTY['strength'], errors='coerce') > 0.5).any() else round(NIFTY['strength'].iloc[0], 2)}{RESET}"), end="")
-        print(right_aligned_format.format(f"Bull Power:{BRIGHT_GREEN if (pd.to_numeric(NIFTY['strength'], errors='coerce') > 0.5).any() and isinstance(NIFTY['strength'].iloc[0], (int, float)) else BRIGHT_RED}{'---' if not (isinstance(NIFTY['strength'].iloc[0], (int, float)) and (pd.to_numeric(NIFTY['strength'], errors='coerce') > 0.5)).any() else round(NIFTY['strength'].iloc[0], 2)}{RESET}"))
+        print(right_aligned_format.format(f"Power:{BRIGHT_GREEN if nse_power > 0.5 else BRIGHT_RED}{RESET}"))
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
         print(left_aligned_format.format(f"Day Status:{BRIGHT_GREEN if NIFTY['Day Status'][0] in ('Bull', 'sBull') else BRIGHT_RED}{NIFTY['Day Status'][0]}{RESET}"), end="")
