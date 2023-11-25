@@ -13,7 +13,6 @@ while True:
     from rich import print
     from luppxy import loop_duration
     
-    nse_action = get_nse_action()
     ############################################"PXY® PreciseXceleratedYield Pvt Ltd™############################################
     subprocess.run(['python3', 'cpritepxy.py'])
     subprocess.run(['python3', 'clnpxy.py'])
