@@ -16,7 +16,6 @@ from mktchksmbl import getsmktchk
 from swchpxy import analyze_stock
 from nftpxy import nse_action
 
-
 logging = Logger(10)
 holdings = dir_path + "holdings.txt"
 black_file = dir_path + "blacklist.txt"
@@ -42,7 +41,7 @@ except Exception as e:
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear'] and nse_action in ['SuperBull', 'Bull'] and analyze_stock('^NSEI') == 'Yes':
+if decision == "YES":
 
     try:
         lst = []
@@ -128,9 +127,8 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear'] and nse_action in ['Su
     
             if ltp <= 0:
                 return tradingsymbol
-    
-            # Check if the market condition is "Buy" or "Bull"
-            if smktchk not in ["Buy", "Bull"] and analyze_stock('symbol') == 'no':
+
+            if smktchk not in ['Sell','Bear']:
                 logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk}")
                 return tradingsymbol
     
@@ -142,7 +140,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear'] and nse_action in ['Su
                 order_type='MARKET',
                 product='MIS',
                 variety='regular',
-                price=round_to_paise(ltp, +0.1)
+                price=round_to_paise(ltp, 0)
             )
     
             if order_id:
