@@ -332,14 +332,6 @@ try:
     epsilon = 1e-10
     NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
-    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2))
-    Xl = round(max(1.4, 1 + (Pr * 2)), 2) 
-    Yi = round(max(1.4, 1 + (Pr * 3)), 2) 
-    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else 1) + score_value    
-    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)
-    _Xl = round(min(-1.4, -1 + (_Pr * 2)), 2) 
-    _Yi = round(min(-1.4, -1 + (_Pr * 3)), 2) 
-    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else -1) + score_value
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
@@ -348,17 +340,7 @@ try:
     print(f"DataFrame has been saved to {lstchk_file}")
     # Create a copy of 'filtered_df' and select specific columns
     pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','pxy','yxp','key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    
-    pxy_df['Pr'] = Pr
-    pxy_df['Xl'] = Xl
-    pxy_df['Yi'] = Yi
-    pxy_df['_Pr'] = _Pr
-    pxy_df['_Xl'] = _Xl
-    pxy_df['_Yi'] = _Yi
-    
-    pxy_df['PXY'] = PXY
-    pxy_df['YXP'] = YXP 
-    
+  
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
     EXE_df = pxy_df[['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%', 'PnL']]
