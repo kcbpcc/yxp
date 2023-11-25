@@ -39,14 +39,10 @@ except Exception as e:
     logging.error(f"{str(e)} unable to get holdings")
     sys.exit(1)
 
-
-
-
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Buy', 'Bull'] and nse_action in ['SuperBull', 'Bull']:
-
+if decision == "YES" and mktpxy in ['Buy', 'Bull'] and nse_action in ['SuperBull', 'Bull'] and analyze_stock('^NSEI') == 'Yes':
 
     try:
         lst = []
@@ -134,7 +130,7 @@ if decision == "YES" and mktpxy in ['Buy', 'Bull'] and nse_action in ['SuperBull
                 return tradingsymbol
     
             # Check if the market condition is "Buy" or "Bull"
-            if smktchk not in ["Buy", "Bull"]:
+            if smktchk not in ["Buy", "Bull"] and analyze_stock('symbol') == 'no':
                 logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk}")
                 return tradingsymbol
     
