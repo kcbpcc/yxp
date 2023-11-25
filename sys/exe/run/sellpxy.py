@@ -129,7 +129,7 @@ if decision == "YES":
                 return tradingsymbol
     
             if smktchk not in ['Buy','Bull']:
-                logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk} and switch {analyze_stock('symbol')}")
+                logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk}")
                 return tradingsymbol
    
             order_id = broker.order_place(
