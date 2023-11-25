@@ -13,32 +13,42 @@ def get_nse_action():
         # Download today's data
         data = yf.download(stock_symbol, period="1d")
     except Exception as e:
-        print(f"Error: {e}")
-        return "Error"
-
+        print(f"Error during data download: {e}")
+        return "Error", None
     finally:
         # Restore standard output
         sys.stdout.close()
         sys.stdout = sys.__stdout__
 
-    # Extract today's open and current price
+    # Extract today's open, yesterday's close, and current price
     today_open = data['Open'].iloc[0]
+    today_high = data['High'].iloc[0]
+    today_low = data['Low'].iloc[0]
+    yesterday_close = data['Close'].iloc[0]
     current_price = data['Close'].iloc[-1]
 
-    # Determine the market condition based on the relationship between open and current price
-    if current_price > today_open:
-        nse_action = "NIFTYBULL"
-    elif current_price < today_open:
-        nse_action = "NIFTYBEAR"
+    # Calculate nse_power
+    nse_power = round((current_price - (today_low - 0.01)) / (abs(today_high + 0.01) - abs(today_low - 0.01)), 2)
+
+    # Initialize Day Action as an empty string
+    nse_action = ""
+
+    # Determine the candlestick condition for today
+    if current_price > today_open and current_price > yesterday_close:
+        nse_action = "SuperBull"
+    elif current_price < today_open and current_price < yesterday_close:
+        nse_action = "DangerBear"
+    elif current_price > today_open:
+        nse_action = "Bull"
+    elif current_price < yesterday_close:
+        nse_action = "Bear"
     else:
         nse_action = "Neutral"
 
-    return nse_action
+    return nse_action, nse_power
 
 # Call the get_nse_action function
-nse_action = get_nse_action()
+nse_action, nse_power = get_nse_action()
+print(f"Today's Market is {nse_action} with nse_power {nse_power}")
 
-color = "\x1b[31m" if nse_action == "NIFTYBEAR" else "\x1b[32m" if nse_action == "NIFTYBULL" else "\x1b[0m"
-
-print(f"Today's Market is {color}{nse_action}\x1b[0m")
 
