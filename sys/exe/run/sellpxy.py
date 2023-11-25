@@ -13,6 +13,9 @@ import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
 from mktchksmbl import getsmktchk
+from swchpxy import analyze_stock
+from nftpxy import nse_action
+
 
 
 logging = Logger(10)
@@ -43,7 +46,7 @@ except Exception as e:
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Sell', 'Bear']:
+if decision == "YES" and mktpxy in ['Sell', 'Bear'] and nse_action in ['SuperBear', 'Bear'] and analyze_stock('^NSEI') == 'Yes':
 
 
     try:
@@ -132,7 +135,7 @@ if decision == "YES" and mktpxy in ['Sell', 'Bear']:
                 return tradingsymbol
     
             # Check if the market condition is "Sell" or "Bear"
-            if smktchk not in ["Sell", "Bear"]:
+            if smktchk not in ["Buy", "Bull"] and analyze_stock('symbol') == 'no':
                 logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk}")
                 return tradingsymbol
     
