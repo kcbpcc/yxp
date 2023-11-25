@@ -1,5 +1,4 @@
 #!/bin/bash
 # Print a message indicating that the directory is being changed
-echo "Changing directory to ~/pxy/sys/exe/run..."
-cd ~/pxy/sys/exe/run
+echo "cd ~/pxy/sys/exe/run"
 echo "source ~/env/bin/activate"
