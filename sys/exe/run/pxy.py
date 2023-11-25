@@ -2,8 +2,7 @@ while True:
     
     import time
     import subprocess
-    from nftpxy import get_nse_action    
-    from nftpxy import get_nse_action
+    from nftpxy import nse_action
     import yfinance as yf
     import warnings
     from rich import print
@@ -87,7 +86,7 @@ while True:
         elif current_color == 'Bear' and last_closed_color == 'Bull':
             mktpxy = 'Sell'
             console.print("🛒🔴🛬⤵️ [bold]Time to sell![/bold] 📉💰", style=sell_style) 
-            subprocess.run(['python3', 'sellpxy.py']) #if nse_action in ["SuperBear", "Bear"] else None
+            subprocess.run(['python3', 'sellpxy.py']) if nse_action in ["SuperBear", "Bear"] else None
             subprocess.run(['python3', 'cntrlpxy.py'])
         elif current_color == 'Bull' and last_closed_color == 'Bear':
             mktpxy = 'Buy'
