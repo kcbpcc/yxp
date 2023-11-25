@@ -154,7 +154,6 @@ try:
     #csv_file_path = "filePnL.csv"
     #total_profit_main = process_csv(csv_file_path)
     mktpxy, pktpxy = get_market_check('^NSEI')
-    nse_action, nse_power = get_nse_action()
     SILVER = "\033[97m"
     UNDERLINE = "\033[4m"
     RESET = "\033[0m"
