@@ -128,7 +128,7 @@ if decision == "YES":
             if ltp <= 0:
                 return tradingsymbol
 
-            if smktchk not in ['Buy','Bull']:
+            if smktchk not in ['Buy']:
                 logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk}")
                 return tradingsymbol
     
