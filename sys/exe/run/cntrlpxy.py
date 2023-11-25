@@ -148,7 +148,7 @@ try:
     import math
     from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
-    from swchpxy import analyze_stock(symbol)
+    from swchpxy import analyze_stock
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
@@ -331,7 +331,7 @@ try:
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
     power = NIFTY['strength'].astype(float).round(2).values[0]
 
-    switch = analyze_stock(^NSEI)
+    switch = analyze_stock('^NSEI')
     
 ###########################################################################################################################################################################################################
 
