@@ -13,6 +13,7 @@ import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
 from mktchksmbl import getsmktchk
+from swchpxy import analyze_stock
 
 
 logging = Logger(10)
