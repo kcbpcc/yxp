@@ -17,12 +17,4 @@ def analyze_stock(symbol):
     else:
         return 'no'
 
-if __name__ == "__main__":
-    # Replace 'AAPL' with the stock symbol you're interested in
-    stock_symbol = 'AAPL'
 
-    # Analyze stock data for today
-    result = analyze_stock(stock_symbol)
-
-    # Display the result
-    print(result)
