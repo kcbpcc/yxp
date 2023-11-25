@@ -37,7 +37,7 @@ def get_nse_action():
     if current_price > today_open and current_price > yesterday_close:
         nse_action = "SuperBull"
     elif current_price < today_open and current_price < yesterday_close:
-        nse_action = "DangerBear"
+        nse_action = "SuperBear"
     elif current_price > today_open:
         nse_action = "Bull"
     elif current_price < yesterday_close:
