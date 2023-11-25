@@ -214,7 +214,7 @@ try:
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
     epsilon = 1e-10
-
+    nse_action = get_nse_action()
     combined_df[['strength', 'weakness']] = combined_df.apply(
         lambda row: pd.Series({
             'strength': round((row['ltp'] - (row['low'] - 0.01)) / (abs(row['high'] + 0.01) - abs(row['low'] - 0.01)), 2),
