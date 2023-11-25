@@ -14,6 +14,7 @@ from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
 from mktchksmbl import getsmktchk
 from swchpxy import analyze_stock
+from nftpxy import nse_action
 
 
 logging = Logger(10)
@@ -44,7 +45,7 @@ except Exception as e:
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Buy', 'Bull']:
+if decision == "YES" and mktpxy in ['Buy', 'Bull'] and nse_action in ['SuperBull', 'Bull']:
 
 
     try:
