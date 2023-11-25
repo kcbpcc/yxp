@@ -1,4 +1,0 @@
-#!/bin/bash
-# Print a message indicating that the directory is being changed
-echo "cd ~/pxy/sys/exe/run"
-echo "source ~/env/bin/activate"
