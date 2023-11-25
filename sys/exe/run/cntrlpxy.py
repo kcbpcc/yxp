@@ -139,7 +139,7 @@ try:
     import numpy as np
     from mktpxy import get_market_check
     import importlib
-    from nftpxy import get_nse_action
+    from nftpxy import nse_action, nse_power
     from timpxy import calculate_timpxy
     import math
     from mktchksmbl import getsmktchk
