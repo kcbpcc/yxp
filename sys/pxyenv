@@ -1,2 +1,12 @@
 #!/bin/bash
+
+# Print a message indicating that the virtual environment is being activated
+echo "Activating virtual environment..."
 source ~/env/bin/activate
+
+# Print a message indicating that the directory is being changed
+echo "Changing directory to ~/pxy/sys/exe/run..."
+cd ~/pxy/sys/exe/run
+
+echo "source ~/env/bin/activate"
+echo "cd ~/pxy/sys/exe/run"
