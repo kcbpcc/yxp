@@ -333,6 +333,7 @@ try:
     NIFTY['strength']= ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
     NIFTY['power'] = NIFTY['strength'].astype(float).round(2)
+
     
     # Define the file path for the CSV file
     lstchk_file = "fileHPdf.csv"
@@ -487,8 +488,8 @@ try:
         left_aligned_format = "{:<" + str(column_width) + "}"
         right_aligned_format = "{:>" + str(column_width) + "}"
         
-        print(left_aligned_format.format(f"Power:{NIFTY['power'] }{RESET}"), end="")
-        print(right_aligned_format.format(f"Power:{NIFTY['power'] }{RESET}"))      
+        print(left_aligned_format.format(f"Power: {NIFTY['power'].values[0]}" }{RESET}"), end="")
+        print(right_aligned_format.format(f"Power: {NIFTY['power'].values[0]}" }{RESET}"))      
         
         print(left_aligned_format.format(f"Day Change%:{BRIGHT_GREEN if NIFTY['Day_Change_%'][0] >= 0 else BRIGHT_RED}{round(NIFTY['Day_Change_%'][0], 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"dPnL:{BRIGHT_GREEN if total_dPnL > 0 else BRIGHT_RED}{round(total_dPnL, 2)}{RESET}"))
