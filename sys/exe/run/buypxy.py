@@ -42,7 +42,7 @@ except Exception as e:
 # Call the calculate_decision function to get the decision
 decision = calculate_decision()
 
-if decision == "YES" and mktpxy in ['Buy', 'Bull'] and nse_action in ['SuperBull', 'Bull'] and analyze_stock('^NSEI') == 'Yes':
+if decision == "YES" and mktpxy in ['Buy', 'Bull','Bear'] and nse_action in ['SuperBull', 'Bull'] and analyze_stock('^NSEI') == 'Yes':
 
     try:
         lst = []
