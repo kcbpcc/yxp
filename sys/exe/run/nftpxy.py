@@ -49,6 +49,6 @@ def get_nse_action():
 
 # Call the get_nse_action function
 nse_action, nse_power = get_nse_action()
-print(f"Today's Market is {nse_action} with nse_power {nse_power}")
+print(f"Today's Market is {nse_action} with power {nse_power}")
 
 
