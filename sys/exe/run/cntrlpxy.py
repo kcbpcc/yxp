@@ -1,3 +1,5 @@
+ 
+##########################################################################################################################################################################
 from toolkit.logger import Logger
 from toolkit.currency import round_to_paise
 from login_get_kite import get_kite, remove_token
@@ -13,7 +15,7 @@ SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
 RESET = "\033[0m"
 
-
+##########################################################################################################################################################################
 logging = Logger(30, dir_path + "main.log")
 try:
     sys.stdout = open('output.txt', 'w')
@@ -23,6 +25,8 @@ except Exception as e:
     print(traceback.format_exc())
     logging.error(f"{str(e)} unable to get holdings")
     sys.exit(1)
+
+##########################################################################################################################################################################
 def order_place(index, row):
     try:
         exchsym = str(index).split(":")
@@ -50,6 +54,7 @@ def order_place(index, row):
         logging.error(f"{str(e)} while placing order")
     return False
 
+##########################################################################################################################################################################
 def mis_order_sell(index, row):
     try:
         exchsym = str(index).split(":")
@@ -77,6 +82,7 @@ def mis_order_sell(index, row):
         logging.error(f"{str(e)} while placing order")
     return False
 
+##########################################################################################################################################################################
 def mis_order_buy(index, row):
     try:
         exchsym = str(index).split(":")
@@ -104,7 +110,7 @@ def mis_order_buy(index, row):
         logging.error(f"{str(e)} while placing order")
     return False
 
-
+##########################################################################################################################################################################
 def get_holdingsinfo(resp_list, broker):
     try:
         df = pd.DataFrame(resp_list)
@@ -113,6 +119,8 @@ def get_holdingsinfo(resp_list, broker):
     except Exception as e:
         print(f"An error occurred in holdings: {e}")
         return None
+
+##########################################################################################################################################################################
 def get_positionsinfo(resp_list, broker):
     try:
         df = pd.DataFrame(resp_list)
@@ -121,6 +129,9 @@ def get_positionsinfo(resp_list, broker):
     except Exception as e:
         print(f"An error occurred in positions: {e}")
         return None
+
+##########################################################################################################################################################################
+
 try:
     import sys
     import traceback
@@ -135,18 +146,103 @@ try:
     from cnstpxy import sellbuff, secs, perc_col_name
     from time import sleep
     import subprocess
-    #from prftpxy import process_csv
     import random
     import os
     import numpy as np
-    from mktpxy import get_market_check
+    import math
     import importlib
+
+##########################################################################################################################################################################
+
+    import pandas as pd
+    # Assuming you have a list of instrument keys,
+    # Replace this with your actual list of keys
+    instrument_keys = ['NSE:NIFTY 50']
+    # Create an empty DataFrame named NIFTY
+    NIFTY = pd.DataFrame()
+    # Get OHLC data for the list of keys
+    resp = broker.kite.ohlc("NSE:NIFTY 50")
+    # Create a dictionary from the response for easier mapping
+    dct = {
+        k: {
+            'ltp': v['ohlc'].get('ltp', v['last_price']),
+            'open': v['ohlc']['open'],
+            'high': v['ohlc']['high'],
+            'low': v['ohlc']['low'],
+            'close_price': v['ohlc']['close'],
+        }
+        for k, v in resp.items()
+    }
+    # Set the 'key' column to the instrument keys from your list
+    NIFTY['key'] = instrument_keys
+    # Populate other columns based on the dct dictionary
+    NIFTY['ltp'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('ltp', 0))
+    NIFTY['timestamp'] = pd.to_datetime('now').strftime('%H:%M:%S')
+    NIFTY['open'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('open', 0))
+    NIFTY['high'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('high', 0))
+    NIFTY['low'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('low', 0))
+    NIFTY['close_price'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('close_price', 0))
+    NIFTY['Day_Change_%'] = round(((NIFTY['ltp'] - NIFTY['close_price']) / NIFTY['close_price']) * 100, 2)
+    NIFTY['Open_Change_%'] = round(((NIFTY['ltp'] - NIFTY['open']) / NIFTY['open']) * 100, 2)
+    NIFTYconditions = [
+        (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] > 0),
+        (NIFTY['Open_Change_%'] > 0) & (NIFTY['Day_Change_%'] < 0),
+        (NIFTY['Day_Change_%'] < 0) & (NIFTY['Open_Change_%'] < 0),
+        (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] < 0)
+    ]
+    choices = ['sBull', 'Bull', 'sBear', 'Bear']
+    NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
+    status_factors = {
+        'sBull': +1,
+        'Bull': 0,
+        'Bear': 0,
+        'sBear': -1
+    }
+    # Calculate 'Score' for each row based on 'Day Status' and 'status_factors'
+    NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
+    score_value = NIFTY['Score'].values[0]
+    # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
+    # Calculate the metrics
+    
+    epsilon = 1e-10
+    NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
+    NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
+    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2))
+    Xl = round(max(1.4, 1 + (Pr * 2)), 2) 
+    Yi = round(max(1.4, 1 + (Pr * 3)), 2) 
+    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else 1) + score_value    
+    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)
+    _Xl = round(min(-1.4, -1 + (_Pr * 2)), 2) 
+    _Yi = round(min(-1.4, -1 + (_Pr * 3)), 2) 
+    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else -1) + score_value
+    
+    # Define the file path for the CSV file
+    lstchk_file = "fileHPdf.csv"
+    # Dump the DataFrame to the CSV file, overwriting any existing file
+    combined_df.to_csv(lstchk_file, index=False)
+    print(f"DataFrame has been saved to {lstchk_file}")
+    # Create a copy of 'filtered_df' and select specific columns
+    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','pxy','yxp','key','dPnL%','PnL','PnL%_H', 'PnL%']]
+    
+    pxy_df['Pr'] = Pr
+    pxy_df['Xl'] = Xl
+    pxy_df['Yi'] = Yi
+    pxy_df['_Pr'] = _Pr
+    pxy_df['_Xl'] = _Xl
+    pxy_df['_Yi'] = _Yi
+    
+    pxy_df['PXY'] = PXY
+    pxy_df['YXP'] = YXP 
+
+
+##########################################################################################################################################################################
+    
     from nftpxy import get_nse_action
     from timpxy import calculate_timpxy
-    import math
+    
     from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
-        
+    from mktpxy import get_market_check    
 
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
@@ -281,85 +377,7 @@ try:
 
 
     
-    import pandas as pd
-    # Assuming you have a list of instrument keys, e.g., ['NIFTY50', 'RELIANCE', ...]
-    # Replace this with your actual list of keys
-    instrument_keys = ['NSE:NIFTY 50']
-    # Create an empty DataFrame named NIFTY
-    NIFTY = pd.DataFrame()
-    # Get OHLC data for the list of keys
-    resp = broker.kite.ohlc("NSE:NIFTY 50")
-    # Create a dictionary from the response for easier mapping
-    dct = {
-        k: {
-            'ltp': v['ohlc'].get('ltp', v['last_price']),
-            'open': v['ohlc']['open'],
-            'high': v['ohlc']['high'],
-            'low': v['ohlc']['low'],
-            'close_price': v['ohlc']['close'],
-        }
-        for k, v in resp.items()
-    }
-    # Set the 'key' column to the instrument keys from your list
-    NIFTY['key'] = instrument_keys
-    # Populate other columns based on the dct dictionary
-    NIFTY['ltp'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('ltp', 0))
-    NIFTY['timestamp'] = pd.to_datetime('now').strftime('%H:%M:%S')
-    NIFTY['open'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('open', 0))
-    NIFTY['high'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('high', 0))
-    NIFTY['low'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('low', 0))
-    NIFTY['close_price'] = NIFTY['key'].map(lambda x: dct.get(x, {}).get('close_price', 0))
-    NIFTY['Day_Change_%'] = round(((NIFTY['ltp'] - NIFTY['close_price']) / NIFTY['close_price']) * 100, 2)
-    NIFTY['Open_Change_%'] = round(((NIFTY['ltp'] - NIFTY['open']) / NIFTY['open']) * 100, 2)
-    NIFTYconditions = [
-        (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] > 0),
-        (NIFTY['Open_Change_%'] > 0) & (NIFTY['Day_Change_%'] < 0),
-        (NIFTY['Day_Change_%'] < 0) & (NIFTY['Open_Change_%'] < 0),
-        (NIFTY['Day_Change_%'] > 0) & (NIFTY['Open_Change_%'] < 0)
-    ]
-    choices = ['sBull', 'Bull', 'sBear', 'Bear']
-    NIFTY['Day Status'] = np.select(NIFTYconditions, choices, default='Bear')
-    status_factors = {
-        'sBull': +1,
-        'Bull': 0,
-        'Bear': 0,
-        'sBear': -1
-    }
-    # Calculate 'Score' for each row based on 'Day Status' and 'status_factors'
-    NIFTY['Score'] = NIFTY['Day Status'].map(status_factors).fillna(0)
-    score_value = NIFTY['Score'].values[0]
-    # Assuming you have a DataFrame named "NIFTY" with columns 'ltp', 'low', 'high', 'close'
-    # Calculate the metrics
-    
-    epsilon = 1e-10
-    NIFTY['strength'] = ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
-    NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
-    Pr = max(0.1, round((0.0 + (NIFTY['strength'] * 1.0)).max(), 2))
-    Xl = round(max(1.4, 1 + (Pr * 2)), 2) 
-    Yi = round(max(1.4, 1 + (Pr * 3)), 2) 
-    PXY = Yi if mktpxy in ["Buy", "Bull"] else (Xl if mktpxy == "Sell" else 1) + score_value    
-    _Pr = min(-0.1, round((0.0 + (NIFTY['weakness'] * 1.0)).min(), 2) - epsilon)
-    _Xl = round(min(-1.4, -1 + (_Pr * 2)), 2) 
-    _Yi = round(min(-1.4, -1 + (_Pr * 3)), 2) 
-    YXP = _Yi if mktpxy in ["Sell", "Bear"] else (_Xl if mktpxy == "Buy" else -1) + score_value
-    
-    # Define the file path for the CSV file
-    lstchk_file = "fileHPdf.csv"
-    # Dump the DataFrame to the CSV file, overwriting any existing file
-    combined_df.to_csv(lstchk_file, index=False)
-    print(f"DataFrame has been saved to {lstchk_file}")
-    # Create a copy of 'filtered_df' and select specific columns
-    pxy_df = filtered_df.copy()[['source','product', 'qty','average_price', 'close', 'ltp', 'open', 'high','low','pxy','yxp','key','dPnL%','PnL','PnL%_H', 'PnL%']]
-    
-    pxy_df['Pr'] = Pr
-    pxy_df['Xl'] = Xl
-    pxy_df['Yi'] = Yi
-    pxy_df['_Pr'] = _Pr
-    pxy_df['_Xl'] = _Xl
-    pxy_df['_Yi'] = _Yi
-    
-    pxy_df['PXY'] = PXY
-    pxy_df['YXP'] = YXP 
+
     
     pxy_df['avg'] =filtered_df['average_price']
     # Create a copy for just printing 'filtered_df' and select specific columns
