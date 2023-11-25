@@ -23,8 +23,11 @@ def get_nse_action():
 
     # Extract today's open, yesterday's close, and current price
     today_open = data['Open'].iloc[0]
+    today_high = data['high'].iloc[0]
+    today_low = data['low'].iloc[0]
     yesterday_close = data['Close'].iloc[0]
     current_price = data['Close'].iloc[-1]
+    
 
     # Initialize Day Action as an empty string
     nse_action = ""
@@ -32,20 +35,20 @@ def get_nse_action():
 
     # Determine the candlestick condition for today
     if current_price > today_open and current_price > yesterday_close:
-        nse_action = "🟩Bull"
-        nse_factor = "Super🟩"
+        nse_action = "SuperBull"
+        nse_factor = "SuperBull"
     elif current_price < today_open and current_price < yesterday_close:
-        nse_action = "🟥Bear"
-        nse_factor = "Danger🟥"
+        nse_action = "DangerBear"
+        nse_factor = "DangerBear"
     elif current_price > today_open:
-        nse_action = "🟩Bull"
-        nse_factor = "Normal🟨"
+        nse_action = "Bull"
+        nse_factor = "Normal  
     elif current_price < yesterday_close:
-        nse_action = "🟥Bear"
-        nse_factor = "Normal🟨"
+        nse_action = "Bear"
+        nse_factor = "Normal"
     else:
-        nse_action = "🟩🟨🟥"
-        nse_factor = "🟥🟨🟩"
+        nse_action = "Neutral"
+        nse_factor = "Neutral"
 
     return nse_action, nse_factor
 
