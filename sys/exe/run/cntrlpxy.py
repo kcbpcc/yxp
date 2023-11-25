@@ -266,10 +266,11 @@ try:
     total_PnL_percentage = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100
     
     # Calculate total_PnL_percentage_mis_buy
-    total_PnL_percentage_mis_buy = combined_df['PnL'] if (combined_df['product'] == "MIS").all() and combined_df['qty'].sum() > 0 else None
+    total_PnL_percentage_mis_buy = round(combined_df.loc[(combined_df['product'] == "MIS") & (combined_df['qty'] > 0), 'PnL'].sum()) if (combined_df['product'] == "MIS").any() and (combined_df['qty'] > 0).any() else None
     
     # Calculate total_PnL_percentage_mis_sell
-    total_PnL_percentage_mis_sell = combined_df['PnL'] if (combined_df['product'] == "MIS").all() and combined_df['qty'].sum() < 0 else None
+    total_PnL_percentage_mis_sell = round(combined_df.loc[(combined_df['product'] == "MIS") & (combined_df['qty'] < 0), 'PnL'].sum()) if (combined_df['product'] == "MIS").any() and (combined_df['qty'] < 0).any() else None
+
 
     # Calculate and print the sum of 'dPnL' values and its total 'dPnL%' for rows where 'qty' is greater than 0
     #total_dPnL = combined_df_positive_qty['dPnL'].sum()
@@ -507,8 +508,8 @@ try:
         print(right_aligned_format.format(f"Funds:{BRIGHT_GREEN if available_cash > 12000 else BRIGHT_YELLOW}{available_cash:.0f}{RESET}"))
         print(left_aligned_format.format(f"tPnL%:{BRIGHT_GREEN if total_PnL_percentage >= 0 else BRIGHT_RED}{round(total_PnL_percentage, 2)}{RESET}"), end="")
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if result > 0 else BRIGHT_RED}{round(result)}{RESET}"))
-        print(left_aligned_format.format(f"MISsellPnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_sell}{RESET}"), end="")
-        print(right_aligned_format.format(f"MISbuyPnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_buy}{RESET}"))
+        print(left_aligned_format.format(f"intraSellPnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_sell}{RESET}"), end="")
+        print(right_aligned_format.format(f"intraBuyPnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_buy}{RESET}"))
        
         subprocess.run(['python3', 'mktpxy.py'])
 
