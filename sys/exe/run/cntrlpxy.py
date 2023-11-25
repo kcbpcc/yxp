@@ -8,11 +8,10 @@ import os
 import subprocess
 from cnstpxy import dir_path
 from colorama import Fore, Style
-
+###########################################################################################################################################################################################################
 SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
 RESET = "\033[0m"
-
 
 logging = Logger(30, dir_path + "main.log")
 try:
@@ -23,6 +22,8 @@ except Exception as e:
     print(traceback.format_exc())
     logging.error(f"{str(e)} unable to get holdings")
     sys.exit(1)
+
+###########################################################################################################################################################################################################
 def order_place(index, row):
     try:
         exchsym = str(index).split(":")
@@ -49,7 +50,7 @@ def order_place(index, row):
         print(traceback.format_exc())
         logging.error(f"{str(e)} while placing order")
     return False
-
+###########################################################################################################################################################################################################
 def mis_order_sell(index, row):
     try:
         exchsym = str(index).split(":")
@@ -76,7 +77,7 @@ def mis_order_sell(index, row):
         print(traceback.format_exc())
         logging.error(f"{str(e)} while placing order")
     return False
-
+###########################################################################################################################################################################################################
 def mis_order_buy(index, row):
     try:
         exchsym = str(index).split(":")
@@ -104,7 +105,7 @@ def mis_order_buy(index, row):
         logging.error(f"{str(e)} while placing order")
     return False
 
-
+###########################################################################################################################################################################################################
 def get_holdingsinfo(resp_list, broker):
     try:
         df = pd.DataFrame(resp_list)
@@ -121,6 +122,7 @@ def get_positionsinfo(resp_list, broker):
     except Exception as e:
         print(f"An error occurred in positions: {e}")
         return None
+###########################################################################################################################################################################################################
 try:
     import sys
     import traceback
@@ -213,6 +215,8 @@ try:
     combined_df['dPnL'] = combined_df['value'] - combined_df['Yvalue']
     # Calculate 'dPnL%' column as ('dPnL' / 'Invested') * 100
     combined_df['dPnL%'] = (combined_df['dPnL'] / combined_df['Yvalue']) * 100
+
+###########################################################################################################################################################################################################
     epsilon = 1e-10
     
     combined_df[['strength', 'weakness']] = combined_df.apply(
@@ -252,12 +256,12 @@ try:
         lambda row: max(row['PR'], row['YI'] if mktpxy in ["Buy", "Bull"] else (row['XL'] if mktpxy == "Sell" else row['PR'])), 
         axis=1
     )
-
+###########################################################################################################################################################################################################
     TIMPXY = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
     bmtimpxy = (TIMPXY/10)
     _smtimpxy = ((TIMPXY)*(-1))/10
     smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
-    
+###########################################################################################################################################################################################################    
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
     combined_df[numeric_columns] = combined_df[numeric_columns].round(1)        # Filter combined_df
@@ -278,10 +282,10 @@ try:
     #total_dPnL = combined_df_positive_qty['dPnL'].sum()
     total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
     total_dPnL_percentage = (total_dPnL / combined_df_positive_qty['Invested'].sum()) * 100
+###########################################################################################################################################################################################################
     
     import pandas as pd
     # Assuming you have a list of instrument keys, e.g., ['NIFTY50', 'RELIANCE', ...]
-    # Replace this with your actual list of keys
     instrument_keys = ['NSE:NIFTY 50']
     # Create an empty DataFrame named NIFTY
     NIFTY = pd.DataFrame()
@@ -333,6 +337,7 @@ try:
     NIFTY['strength']= ((NIFTY['ltp'] - (NIFTY['low'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))    
     NIFTY['weakness'] = ((NIFTY['ltp'] - (NIFTY['high'] - 0.01)) / (abs(NIFTY['high'] + 0.01) - abs(NIFTY['low'] - 0.01)))
     power = NIFTY['strength'].astype(float).round(2).values[0]
+###########################################################################################################################################################################################################
 
     
     # Define the file path for the CSV file
@@ -386,6 +391,7 @@ try:
 
     # Print EXE_df_sorted without color
     print(PRINT_df_sorted.to_string(index=False))
+###########################################################################################################################################################################################################
 
     # Define the CSV file path
     csv_file_path = "filePnL.csv"
@@ -476,6 +482,7 @@ try:
         except Exception as e:
             # Handle any other exceptions that may occur during the loop
             print(f"An unexpected error occurred: {e}")
+###########################################################################################################################################################################################################
         
         print(f"{BRIGHT_YELLOW}📉🔀Trades Overview & Market Dynamics 📈🔄 {RESET}")
         # ANSI escape codes for text coloring
@@ -512,6 +519,7 @@ except Exception as e:
     print(traceback.format_exc())
     logging.error(f"{str(e)} in the main loop")
 
+###########################################################################################################################################################################################################
 
 
 
