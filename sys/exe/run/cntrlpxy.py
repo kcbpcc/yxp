@@ -226,7 +226,7 @@ try:
         }), axis=1
     )
     
-    combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi','PR', 'XL', 'YI']] = combined_df.apply(
+    combined_df[['pr', 'xl', 'yi', '_pr', '_xl', '_yi']] = combined_df.apply(
         lambda row: pd.Series({
             'pr': round(max(0.1, round(0.0 + (row['strength'] * 1.0), 2) - epsilon), 2),
             'xl': round(max(1, round(0.0 + (row['strength'] * 1.0), 2) * 2 - epsilon), 2),
@@ -234,10 +234,6 @@ try:
             '_pr': round(min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon), 2),
             '_xl': round(min(-1, round(0.0 + (row['weakness'] * 1.0), 2) * 2 - epsilon), 2),
             '_yi': round(min(-1.4, round(0.0 + (row['weakness'] * 1.0), 2) * 3 - epsilon), 2),
-
-            'PR': round(max(0.1, (round(0.0 + (row['strength'] * 1.0), 2) * 2 - epsilon)), 2),
-            'XL': round(max(1, (round(0.0 + (row['strength'] * 1.0), 2) * 3 - epsilon)), 2),
-            'YI': round(max(1.4, (round(0.0 + (row['strength'] * 1.0), 2) * 4 - epsilon)), 2),
            
         }), axis=1
     )
@@ -252,10 +248,6 @@ try:
         axis=1
     )
 
-    combined_df['PXY'] = combined_df.apply(
-        lambda row: max(row['PR'], row['YI'] if mktpxy in ["Buy", "Bull"] else (row['XL'] if mktpxy == "Sell" else row['PR'])), 
-        axis=1
-    )
 ###########################################################################################################################################################################################################
     TIMPXY = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
     bmtimpxy = (TIMPXY/10)
@@ -413,7 +405,7 @@ try:
                         row['source'] == 'holdings' and
                         row['product'] == 'CNC' and
                         row['PnL%'] > 1.4 and 
-                        ((row['PnL%'] < ((row['PXY'])) and row['PnL%_H'] > ((row['PXY']))) or (row['PnL%'] > TIMPXY))
+                        ((row['PnL%'] < ((row['pxy'])) and row['PnL%_H'] > ((row['pxy']))) or (row['PnL%'] > TIMPXY))
                    
                     ):
                         # Print the row before placing the order
