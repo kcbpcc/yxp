@@ -146,14 +146,11 @@ try:
     import math
     from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
-        
-
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
     result = sum_last_numerical_value_in_each_row(file_path)
-
-    
+  
     #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
     #csv_file_path = "filePnL.csv"
@@ -197,7 +194,6 @@ try:
     combined_df['close'] = combined_df['key'].map(lambda x: dct.get(x, {}).get('close_price', 0))
     combined_df['qty'] = combined_df.apply(lambda row: int(row['quantity'] + row['t1_quantity']) if row['source'] == 'holdings' else int(row['quantity']), axis=1)
     #combined_df['smktchk'] = combined_df['key'].map(lambda x: getsmktchk(x.split(':')[-1] + ".NS", '5') if ':' in x else None)
-
     # Calculate 'Invested' column
     combined_df['Invested'] = combined_df['qty'] * combined_df['average_price']
     # Calculate 'value' column as 'qty' * 'ltp'
@@ -235,7 +231,6 @@ try:
             '_pr': round(min(-0.1, round(0.0 + (row['weakness'] * 1.0), 2) - epsilon), 2),
             '_xl': round(min(-1, round(0.0 + (row['weakness'] * 1.0), 2) * 1.5 - epsilon), 2),
             '_yi': round(min(-1.4, round(0.0 + (row['weakness'] * 1.0), 2) * 2 - epsilon), 2),
-                
 
         }), axis=1
     )
@@ -244,7 +239,6 @@ try:
         lambda row: max(0.1, row['yi'] if mktpxy in ["Buy", "Bull"] else (row['xl'] if mktpxy == "Sell" else row['pr'])), 
         axis=1
     )
-
     
     combined_df['yxp'] = combined_df.apply(
     lambda row: min(-0.1, row['_yi'] if mktpxy in ["Sell", "Bear"] else (row['_xl'] if mktpxy == "Buy" else row['_pr'])), 
@@ -255,7 +249,6 @@ try:
     bmtimpxy = (ctimpxy/10)
     _smtimpxy = ((timpxy)*(-1))/10
     smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
-
     
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
@@ -273,13 +266,10 @@ try:
     # Calculate total_PnL_percentage_mis_sell
     total_PnL_percentage_mis_sell = combined_df['PnL'] if (combined_df['product'] == "MIS").all() and combined_df['qty'].sum() < 0 else None
 
-
     # Calculate and print the sum of 'dPnL' values and its total 'dPnL%' for rows where 'qty' is greater than 0
     #total_dPnL = combined_df_positive_qty['dPnL'].sum()
     total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
     total_dPnL_percentage = (total_dPnL / combined_df_positive_qty['Invested'].sum()) * 100
-
-
     
     import pandas as pd
     # Assuming you have a list of instrument keys, e.g., ['NIFTY50', 'RELIANCE', ...]
@@ -382,9 +372,8 @@ try:
         ((PRINT_df['qty'] > 0) & (PRINT_df['PnL%'] > 0)) |
         ((PRINT_df['qty'] < 0) & (PRINT_df['PnL%'] < 0))
     ]
-    
-    
-   # Sort the DataFrame by 'PnL' in ascending order
+
+    # Sort the DataFrame by 'PnL' in ascending order
     PRINT_df_sorted = PRINT_df_sorted.sort_values(by='PnL', ascending=True)
 
     # Convert the 'PnL' column to integers
@@ -400,7 +389,6 @@ try:
     BRIGHT_GREEN = "\033[92m"
     import pandas as pd
 
- 
     # Always print "Table" in bright yellow
     print(f"{BRIGHT_YELLOW}Table– Stocks above @Pr and might reach @Yi {RESET}")
 
@@ -492,13 +480,10 @@ try:
                         except Exception as e:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-
-        
+       
         except Exception as e:
             # Handle any other exceptions that may occur during the loop
             print(f"An unexpected error occurred: {e}")
-
-
         
         print(f"{BRIGHT_YELLOW}📉🔀Trades Overview & Market Dynamics 📈🔄 {RESET}")
         # ANSI escape codes for text coloring
@@ -525,13 +510,7 @@ try:
         print(right_aligned_format.format(f"Booked:{BRIGHT_GREEN if result > 0 else BRIGHT_RED}{round(result)}{RESET}"))
         print(left_aligned_format.format(f"MISsellPnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_sell}{RESET}"), end="")
         print(right_aligned_format.format(f"MISbuyPnL:{BRIGHT_YELLOW}{total_PnL_percentage_mis_buy}{RESET}"))
-
-
-
-
-
-
-        
+       
         subprocess.run(['python3', 'mktpxy.py'])
 
         print(f'{SILVER}{UNDERLINE}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛{RESET}')
