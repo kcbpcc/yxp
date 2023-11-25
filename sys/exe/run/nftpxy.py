@@ -21,10 +21,10 @@ def get_nse_action():
         sys.stdout = sys.__stdout__
 
     # Extract today's open, yesterday's close, and current price
-    today_open = data['Open'].iloc[0]
-    today_high = data['High'].iloc[0]
-    today_low = data['Low'].iloc[0]
-    yesterday_close = data['Close'].iloc[0]
+    today_open = data['Open'].iloc[-1]
+    today_high = data['High'].iloc[-1]
+    today_low = data['Low'].iloc[-1]
+    yesterday_close = data['Close'].iloc[-2]
     current_price = data['Close'].iloc[-1]
 
     # Calculate nse_power
