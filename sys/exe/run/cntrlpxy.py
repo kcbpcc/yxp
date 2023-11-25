@@ -250,9 +250,9 @@ try:
 
 ###########################################################################################################################################################################################################
     TIMPXY = float(timpxy) if mktpxy in ["Buy", "Bull"] else (float(timpxy) * 0.75 if mktpxy == "Sell" else float(timpxy) * 0.5)
-    bmtimpxy = (TIMPXY/10)
-    _smtimpxy = ((TIMPXY)*(-1))/10
-    smtimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
+    mistimpxy = (TIMPXY/4)
+    _smtimpxy = ((TIMPXY)*(-1))/4
+    _mistimpxy = float(_smtimpxy) if mktpxy in ["Sell", "Bear"] else (float(_smtimpxy) * 0.75 if mktpxy == "Buy" else float(_smtimpxy) * 0.5)
 ###########################################################################################################################################################################################################    
     # Round all numeric columns to 2 decimal places
     numeric_columns = ['qty', 'average_price', 'Invested','Yvalue', 'ltp','close', 'open', 'high', 'low','value', 'PnL', 'PnL%','PnL%_H', 'dPnL', 'dPnL%']
