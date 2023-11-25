@@ -4,7 +4,7 @@ from toolkit.utilities import Utilities
 from login_get_kite import get_kite
 from cnstpxy import dir_path, fileutils, buybuff, max_target
 from byhopxy import get
-from pluspxy import Trendlyne
+from minuspxy import Trendlyne
 import pandas as pd
 import traceback
 import sys
@@ -128,8 +128,7 @@ if decision == "YES":
             if ltp <= 0:
                 return tradingsymbol
     
-            # Check if the market condition is "Sell" or "Bear"
-            if smktchk not in ["Buy", "Bull",'Bear'] and analyze_stock('symbol') == 'no':
+            if smktchk not in ['Buy','Bull']:
                 logging.info(f"Not placing order for {tradingsymbol} because market condition is {smktchk} and switch {analyze_stock('symbol')}")
                 return tradingsymbol
    
@@ -141,7 +140,7 @@ if decision == "YES":
                 order_type='MARKET',
                 product='MIS',
                 variety='regular',
-                price=round_to_paise(ltp, +0.1)
+                price=round_to_paise(ltp, 0)
             )
     
             if order_id:
