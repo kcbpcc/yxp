@@ -406,6 +406,8 @@ try:
                     (row['ltp'] > 0 and
                      row['avg'] > 0) 
                 ):
+                    
+###########################################################################################################################################################################################################                    
                     if (
                         row['qty'] > 0 and
                         row['source'] == 'holdings' and
@@ -430,7 +432,7 @@ try:
                         except Exception as e:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-
+###########################################################################################################################################################################################################
                     elif (
                         row['qty'] > 0 and
                         row['source'] == 'positions' and
@@ -454,7 +456,7 @@ try:
                         except Exception as e:
                             # Handle any other exceptions that may occur during order placement
                             print(f"An unexpected error occurred while placing an order for key {key}: {e}")
-
+###########################################################################################################################################################################################################
                     elif (
                         row['qty'] < 0 and
                         row['source'] == 'positions' and
