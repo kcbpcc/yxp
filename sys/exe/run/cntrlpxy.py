@@ -8,7 +8,6 @@ import os
 import subprocess
 from cnstpxy import dir_path
 from colorama import Fore, Style
-
 import csv
 ###########################################################################################################################################################################################################
 SILVER = "\033[97m"
@@ -48,17 +47,14 @@ def order_place(index, row):
                 with open(csv_file_path, 'a', newline='') as csvfile:
                     csvwriter = csv.writer(csvfile)
                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                return True
-                
+                return True                
             else:
                 logging.error("Order placement failed")
-
         else:
             logging.error("Invalid format for 'index'")
     except Exception as e:
         print(traceback.format_exc())
-        logging.error(f"{str(e)} while placing order")
-  
+        logging.error(f"{str(e)} while placing order")  
     return False
 ###########################################################################################################################################################################################################
 def mis_order_sell(index, row):
@@ -83,8 +79,7 @@ def mis_order_sell(index, row):
                 with open(csv_file_path, 'a', newline='') as csvfile:
                     csvwriter = csv.writer(csvfile)
                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                return True
-                
+                return True                
             else:
                 logging.error("Order placement failed")
         else:
@@ -111,13 +106,11 @@ def mis_order_buy(index, row):
             )
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
-
                 # Write the row to the CSV file here
                 with open(csv_file_path, 'a', newline='') as csvfile:
                     csvwriter = csv.writer(csvfile)
                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-                return True
-                
+                return True                
             else:
                 logging.error("Order placement failed")
         else:
@@ -171,12 +164,10 @@ try:
     from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
     from swchpxy import analyze_stock
-
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
-    result = sum_last_numerical_value_in_each_row(file_path)
-  
+    result = sum_last_numerical_value_in_each_row(file_path)  
     #from telpxy import send_telegram_message
     timpxy = calculate_timpxy()
     #csv_file_path = "filePnL.csv"
@@ -286,21 +277,16 @@ try:
     combined_df_positive_qty = combined_df[(combined_df['qty'] > 0) & (combined_df['source'] == 'holdings')]
     # Calculate and print the sum of 'PnL' values and its total 'PnL%' for rows where 'qty' is greater than 0
     total_PnL = round(combined_df_positive_qty['PnL'].sum())
-    total_PnL_percentage = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100
-    
+    total_PnL_percentage = (total_PnL / combined_df_positive_qty['Invested'].sum()) * 100    
     # Calculate total_PnL_percentage_mis_buy
-    total_PnL_percentage_mis_buy = round(combined_df.loc[(combined_df['product'] == "MIS") & (combined_df['qty'] > 0), 'PnL'].sum()) if (combined_df['product'] == "MIS").any() and (combined_df['qty'] > 0).any() else 0
-    
+    total_PnL_percentage_mis_buy = round(combined_df.loc[(combined_df['product'] == "MIS") & (combined_df['qty'] > 0), 'PnL'].sum()) if (combined_df['product'] == "MIS").any() and (combined_df['qty'] > 0).any() else 0    
     # Calculate total_PnL_percentage_mis_sell
     total_PnL_percentage_mis_sell = round(combined_df.loc[(combined_df['product'] == "MIS") & (combined_df['qty'] < 0), 'PnL'].sum()) if (combined_df['product'] == "MIS").any() and (combined_df['qty'] < 0).any() else 0
-
-
     # Calculate and print the sum of 'dPnL' values and its total 'dPnL%' for rows where 'qty' is greater than 0
     #total_dPnL = combined_df_positive_qty['dPnL'].sum()
     total_dPnL = round(combined_df_positive_qty['dPnL'].sum())
     total_dPnL_percentage = (total_dPnL / combined_df_positive_qty['Invested'].sum()) * 100
-###########################################################################################################################################################################################################
-    
+###########################################################################################################################################################################################################    
     import pandas as pd
     # Assuming you have a list of instrument keys, e.g., ['NIFTY50', 'RELIANCE', ...]
     instrument_keys = ['NSE:NIFTY 50']
