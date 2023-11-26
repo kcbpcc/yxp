@@ -70,6 +70,7 @@ def order_place(index, row):
     except Exception as e:
         print(traceback.format_exc())
         logging.error(f"{str(e)} while placing order")
+        send_telegram_notification(row)
         # Write the row to the CSV file here
         with open(csv_file_path, 'a', newline='') as csvfile:
             csvwriter = csv.writer(csvfile)
