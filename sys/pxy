@@ -78,7 +78,7 @@ case $choice in
         echo "Profit Table disply"
         pxytblprft
         ;;
-    pl)
+    ta)
         echo "Test PXY All"
         pxytst
         ;;
