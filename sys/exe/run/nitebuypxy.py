@@ -10,7 +10,7 @@ import traceback
 import sys
 import os
 import ynfndpxy
-from ynfndpxy import decision,available_cash
+from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
 
 logging = Logger(10)
@@ -36,7 +36,7 @@ except Exception as e:
     sys.exit(1)
 
 # Call the calculate_decision function to get the decision
-#decision = calculate_decision()
+decision, available_cash = calculate_decision()
 
 if decision == "YES":
     try:
@@ -118,8 +118,6 @@ if decision == "YES":
     
             if ltp <= 0:
                 return dct['tradingsymbol']
-    
-            available_cash = broker.get_available_cash()  # Replace with the actual method to get available cash
     
             if available_cash <= 10000:
                 logging.warning("Not enough available cash to place the order.")
