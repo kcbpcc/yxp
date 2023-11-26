@@ -12,6 +12,9 @@ while True:
     import subprocess
     from rich import print
     from luppxy import loop_duration
+    from swchpxy import analyze_stock
+
+    switch = analyze_stock('^NSEI')
     
     ############################################"PXY® PreciseXceleratedYield Pvt Ltd™############################################
     subprocess.run(['python3', 'cpritepxy.py'])
@@ -74,23 +77,23 @@ while True:
         if current_color == 'Bear' and last_closed_color == 'Bear':
             mktpxy = 'Bear'
             console.print("🐻🔴🔴🔴 [bold]Bearish sentiment![/bold] 🍯💰", style=bear_style)
-            subprocess.run(['python3', 'sellpxy.py']) if nse_action in ["SuperBear", "Bear"] else None
+            subprocess.run(['python3', 'sellpxy.py']) if nse_action in ["SuperBear", "Bear"] and switch == "yes" else None
             subprocess.run(['python3', 'cntrlpxy.py'])
         elif current_color == 'Bull' and last_closed_color == 'Bull':
             mktpxy = 'Bull'
             console.print("🐂🟢🟢🟢 [bold]Bullish sentiment![/bold] 💪💰", style=bull_style)
-            subprocess.run(['python3', 'buypxy.py']) if nse_action in ["SuperBull", "Bull"] else None
+            subprocess.run(['python3', 'buypxy.py']) if nse_action in ["SuperBull", "Bull"] and switch == "yes" else None
             subprocess.run(['python3', 'nitebuypxy.py']) if nse_action in ["SuperBull", "Bull"] else None
             subprocess.run(['python3', 'cntrlpxy.py'])
         elif current_color == 'Bear' and last_closed_color == 'Bull':
             mktpxy = 'Sell'
             console.print("🛒🔴🛬⤵️ [bold]Time to sell![/bold] 📉💰", style=sell_style) 
-            subprocess.run(['python3', 'sellpxy.py']) if nse_action in ["SuperBear", "Bear"] else None
+            subprocess.run(['python3', 'sellpxy.py']) if nse_action in ["SuperBear", "Bear"] and switch == "yes" else None
             subprocess.run(['python3', 'cntrlpxy.py'])
         elif current_color == 'Bull' and last_closed_color == 'Bear':
             mktpxy = 'Buy'
             console.print("🚀🟢🛫⤴️ [bold]Time to buy![/bold] 🌠💰", style=buy_style)
-            subprocess.run(['python3', 'buypxy.py']) if nse_action in ["SuperBull", "Bull"] else None
+            subprocess.run(['python3', 'buypxy.py']) if nse_action in ["SuperBull", "Bull"] and switch == "yes" else None
             subprocess.run(['python3', 'nitebuypxy.py']) if nse_action in ["SuperBull", "Bull"] else None
             subprocess.run(['python3', 'cntrlpxy.py'])
            
