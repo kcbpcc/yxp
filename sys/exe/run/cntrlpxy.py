@@ -45,7 +45,7 @@ def order_place(index, row):
             )
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
-                send_telegram_notification(row)                
+                                
                 # Write the row to the CSV file here
                 with open(csv_file_path, 'a', newline='') as csvfile:
                     csvwriter = csv.writer(csvfile)
@@ -54,7 +54,7 @@ def order_place(index, row):
                 
             else:
                 logging.error("Order placement failed")
-                send_telegram_notification(row)                
+                       
                 # Write the row to the CSV file here
                 with open(csv_file_path, 'a', newline='') as csvfile:
                     csvwriter = csv.writer(csvfile)
@@ -62,7 +62,7 @@ def order_place(index, row):
 
         else:
             logging.error("Invalid format for 'index'")
-            send_telegram_notification(row)                
+                   
             # Write the row to the CSV file here
             with open(csv_file_path, 'a', newline='') as csvfile:
                 csvwriter = csv.writer(csvfile)
@@ -70,7 +70,7 @@ def order_place(index, row):
     except Exception as e:
         print(traceback.format_exc())
         logging.error(f"{str(e)} while placing order")
-        send_telegram_notification(row)
+        
         # Write the row to the CSV file here
         with open(csv_file_path, 'a', newline='') as csvfile:
             csvwriter = csv.writer(csvfile)
