@@ -43,7 +43,7 @@ def order_place(index, row):
             )
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
-                await send_telegram_notification(row)
+                send_telegram_notification(row)
                 return True
                 
             else:
