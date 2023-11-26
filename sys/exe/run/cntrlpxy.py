@@ -8,8 +8,7 @@ import os
 import subprocess
 from cnstpxy import dir_path
 from colorama import Fore, Style
-import asyncio
-from telextpxy import send_telegram_notification
+
 import csv
 ###########################################################################################################################################################################################################
 SILVER = "\033[97m"
@@ -95,7 +94,7 @@ def mis_order_sell(index, row):
             )
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
-                send_telegram_notification(row)
+
                 # Write the row to the CSV file here
                 with open(csv_file_path, 'a', newline='') as csvfile:
                     csvwriter = csv.writer(csvfile)
@@ -128,7 +127,7 @@ def mis_order_buy(index, row):
             )
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
-                send_telegram_notification(row)
+
                 # Write the row to the CSV file here
                 with open(csv_file_path, 'a', newline='') as csvfile:
                     csvwriter = csv.writer(csvfile)
@@ -188,8 +187,7 @@ try:
     from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
     from swchpxy import analyze_stock
-    import asyncio
-    from telextpxy import send_telegram_notification
+
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
