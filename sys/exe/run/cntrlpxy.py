@@ -26,7 +26,7 @@ except Exception as e:
     logging.error(f"{str(e)} unable to get holdings")
     sys.exit(1)
 
-file_path = 'filePnL.csv'
+file_path = 'telegramext.csv'
 ###########################################################################################################################################################################################################
 def order_place(index, row):
     try:
