@@ -12,6 +12,9 @@ import os
 import ynfndpxy
 from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
+import asyncio
+from telextpxy import send_telegram_notification
+
 
 logging = Logger(10)
 holdings = dir_path + "holdings.csv"
@@ -136,6 +139,7 @@ if decision == "YES":
     
             if order_id:
                 logging.info(f"BUY {order_id} placed for {dct['tradingsymbol']} successfully")
+                send_telegram_notification(row)
             else:
                 print(traceback.format_exc())
                 logging.error(f"Unable to place order for {dct['tradingsymbol']}")
