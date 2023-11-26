@@ -10,7 +10,7 @@ import traceback
 import sys
 import os
 import ynfndpxy
-from ynfndpxy import calculate_decision
+from ynfndpxy import calculate_decision,available_cash
 from mktpxy import mktpxy
 
 logging = Logger(10)
