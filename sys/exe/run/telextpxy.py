@@ -7,9 +7,6 @@ import pandas as pd
 BOT_TOKEN = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'  # Replace with your actual bot token
 USER_USERNAMES = '-4022487175'  # Replace with your Telegram username or ID
 
-# Define your column headers
-COLUMN_HEADERS = ['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%', 'PnL']
-
 def send_telegram_message(message_text, bot_token, user_usernames):
     try:
         # Function to send a message to Telegram
@@ -41,22 +38,16 @@ def process_new_rows(file_path, telblock_path, bot_token, user_usernames):
 
     # Iterate over rows
     for index, row in df.iterrows():
-        # Extract the symbol from the 'key' column
         key_parts = row['key'].split(':')
         if len(key_parts) == 2:
-            stock_symbol = key_parts[1].strip()
-        else:
-            stock_symbol = "UnknownSymbol"
-
-        # Construct the message using defined column headers
-        values_str = ', '.join([f"{header}: {row[header]}" for header in COLUMN_HEADERS])
-        message_text = f"Column Headers: {', '.join(COLUMN_HEADERS)}\nValues: {values_str}\nSymbol: {stock_symbol} https://www.tradingview.com/chart/?symbol={stock_symbol}"
-
-        if values_str not in telblock:
-            send_telegram_message(message_text, bot_token, user_usernames)
-            # Append the processed row to telblock
-            with open(telblock_path, 'a') as telblock_file:
-                telblock_file.write(values_str + '\n')
+            stock_name = key_parts[1].strip()
+            row_str = ', '.join([f"{key}: {value}" for key, value in row.items()])
+            if row_str not in telblock:
+                message_text = f"{row_str} Symbol: {stock_name} https://www.tradingview.com/chart/?symbol={stock_name}"
+                send_telegram_message(message_text, bot_token, user_usernames)
+                # Append the processed row to telblock
+                with open(telblock_path, 'a') as telblock_file:
+                    telblock_file.write(row_str + '\n')
 
 # File paths
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
