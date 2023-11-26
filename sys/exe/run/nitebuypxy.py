@@ -36,7 +36,7 @@ except Exception as e:
     sys.exit(1)
 
 # Call the calculate_decision function to get the decision
-decision, available_cash = calculate_decision()
+decision, available_cash = calculate_decision
 
 if decision == "YES":
     try:
