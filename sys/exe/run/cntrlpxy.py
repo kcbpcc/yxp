@@ -43,7 +43,11 @@ def order_place(index, row):
             )
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
-                send_telegram_notification(row)
+                send_telegram_notification(row)                
+                # Write the row to the CSV file here
+                with open(csv_file_path, 'a', newline='') as csvfile:
+                    csvwriter = csv.writer(csvfile)
+                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                 return True
                 
             else:
@@ -73,7 +77,10 @@ def mis_order_sell(index, row):
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
                 send_telegram_notification(row)
-
+                # Write the row to the CSV file here
+                with open(csv_file_path, 'a', newline='') as csvfile:
+                    csvwriter = csv.writer(csvfile)
+                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                 return True
                 
             else:
@@ -103,6 +110,10 @@ def mis_order_buy(index, row):
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
                 send_telegram_notification(row)
+                # Write the row to the CSV file here
+                with open(csv_file_path, 'a', newline='') as csvfile:
+                    csvwriter = csv.writer(csvfile)
+                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                 return True
                 
             else:
