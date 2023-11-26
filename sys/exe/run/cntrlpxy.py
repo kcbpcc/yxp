@@ -149,6 +149,8 @@ try:
     from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
     from swchpxy import analyze_stock
+    import asyncio
+    from telegram_notification import send_telegram_notification
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
