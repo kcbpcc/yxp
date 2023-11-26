@@ -36,20 +36,22 @@ def process_new_rows(file_path, telblock_path, bot_token, user_usernames):
         print(f"File not found: {file_path}")
         return
 
-    # Check if 'key' is in the DataFrame columns
-    if 'key' not in df.columns:
-        print("Error: 'key' not found in DataFrame columns.")
+    # Print column names
+    print("Column Names:", df.columns)
+
+    # Check if 'KeyColumn' is in the DataFrame
+    key_column = 'KeyColumn'  # Replace with the actual column name
+    if key_column not in df.columns:
+        print(f"Error: '{key_column}' not found in DataFrame columns.")
         return
 
     # Iterate over rows
     for index, row in df.iterrows():
-        # Assuming 'key' is the column containing key information
-        key_parts = row['key'].split(':')
-
-        # Construct the message using provided headers as keys
-        message_text = f"{' | '.join([f'{header}: {row[header]}' for header in ['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%', 'PnL']])} | https://www.tradingview.com/chart/?symbol={key_parts[0]}"
-
+        # Assuming 'KeyColumn' is the column containing key information
+        key_parts = row[key_column].split(':')
+        
         if key_parts[0] not in telblock:
+            message_text = f"{', '.join([f'{key.strip()}: {value.strip()}' for key, value in zip(key_parts[::2], key_parts[1::2])])} https://www.tradingview.com/chart/?symbol={key_parts[0]}"
             send_telegram_message(message_text, bot_token, user_usernames)
             # Append the processed key to telblock
             with open(telblock_path, 'a') as telblock_file:
@@ -62,8 +64,6 @@ TELBLOCK_PATH = os.path.join(CURRENT_DIR, 'telblock.txt')
 
 # Execute the functionality automatically
 process_new_rows(FILE_PATH, TELBLOCK_PATH, BOT_TOKEN, USER_USERNAMES)
-
-
 
 
 
