@@ -119,7 +119,7 @@ if decision == "YES":
             if ltp <= 0:
                 return dct['tradingsymbol']
     
-            if available_cash <= 10000:
+            if decision == "NO":
                 logging.warning("Not enough available cash to place the order.")
                 return dct['tradingsymbol']
     
