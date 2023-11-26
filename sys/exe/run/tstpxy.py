@@ -1,6 +1,9 @@
 import os
 import subprocess
 
+# Get the current directory
+directory = os.path.dirname(os.path.realpath(__file__))
+
 # Get a list of all Python files in the directory
 python_files = [f for f in os.listdir(directory) if f.endswith(".py")]
 
