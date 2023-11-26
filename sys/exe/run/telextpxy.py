@@ -22,7 +22,7 @@ def send_telegram_message(message_text, bot_token, user_usernames):
         print(f"Error sending message to Telegram: {e}")
 
 def process_new_rows(file_path, telblock_path, bot_token, user_usernames):
-    # Read telblock file to get the list of already processed rows
+    # Read telblock file to get the list of already processed keys
     try:
         with open(telblock_path, 'r') as telblock_file:
             telblock = telblock_file.read().splitlines()
@@ -36,13 +36,20 @@ def process_new_rows(file_path, telblock_path, bot_token, user_usernames):
         print(f"File not found: {file_path}")
         return
 
+    # Check if 'key' is in the DataFrame columns
+    if 'key' not in df.columns:
+        print("Error: 'key' not found in DataFrame columns.")
+        return
+
     # Iterate over rows
     for index, row in df.iterrows():
-        # Assuming 'KeyColumn' is the column containing key information
-        key_parts = row['KeyColumn'].split(':')
-        
+        # Assuming 'key' is the column containing key information
+        key_parts = row['key'].split(':')
+
+        # Construct the message using provided headers as keys
+        message_text = f"{' | '.join([f'{header}: {row[header]}' for header in ['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%', 'PnL']])} | https://www.tradingview.com/chart/?symbol={key_parts[0]}"
+
         if key_parts[0] not in telblock:
-            message_text = f"{', '.join([f'{key.strip()}: {value.strip()}' for key, value in zip(key_parts[::2], key_parts[1::2])])} https://www.tradingview.com/chart/?symbol={key_parts[0]}"
             send_telegram_message(message_text, bot_token, user_usernames)
             # Append the processed key to telblock
             with open(telblock_path, 'a') as telblock_file:
