@@ -151,11 +151,11 @@ if decision == "YES":
     
             if order_id:
                 logging.info(f"BUY {order_id} placed for {tradingsymbol} successfully")
-                
+                send_telegram_notification(row)                
             else:
                 print(traceback.format_exc())
                 logging.error(f"Unable to place order for {tradingsymbol}")
-                send_telegram_notification(row)
+                
                 return tradingsymbol
     
         except Exception as e:
