@@ -38,16 +38,15 @@ def process_new_rows(file_path, telblock_path, bot_token, user_usernames):
 
     # Iterate over rows
     for index, row in df.iterrows():
-        key_parts = row['key'].split(':')
-        if len(key_parts) == 2:
-            stock_name = key_parts[1].strip()
-            row_str = ', '.join([f"{key}: {value}" for key, value in row.items()])
-            if row_str not in telblock:
-                message_text = f"{row_str} Symbol: {stock_name} https://www.tradingview.com/chart/?symbol={stock_name}"
-                send_telegram_message(message_text, bot_token, user_usernames)
-                # Append the processed row to telblock
-                with open(telblock_path, 'a') as telblock_file:
-                    telblock_file.write(row_str + '\n')
+        # Assuming 'KeyColumn' is the column containing key information
+        key_parts = row['KeyColumn'].split(':')
+        
+        if key_parts[0] not in telblock:
+            message_text = f"{', '.join([f'{key.strip()}: {value.strip()}' for key, value in zip(key_parts[::2], key_parts[1::2])])} https://www.tradingview.com/chart/?symbol={key_parts[0]}"
+            send_telegram_message(message_text, bot_token, user_usernames)
+            # Append the processed key to telblock
+            with open(telblock_path, 'a') as telblock_file:
+                telblock_file.write(key_parts[0] + '\n')
 
 # File paths
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
