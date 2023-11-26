@@ -32,13 +32,13 @@ for file in python_files:
 # Print summary
 print("\nSummary:")
 if success_files:
-    print(f"{len(success_files)} files ran successfully: {', '.join(success_files)}")
+    print(f"\033[92m{len(success_files)} files ran successfully: {', '.join(success_files)}\033[0m")
 else:
-    print("No files ran successfully.")
+    print("\033[92mNo files ran successfully.\033[0m")
 
 if failed_files:
-    print(f"{len(failed_files)} files had problems:")
+    print(f"\033[91m{len(failed_files)} files had problems:\033[0m")
     for file, error_message in failed_files.items():
-        print(f"{file}: {error_message}")
+        print(f"\033[91m{file}:\033[0m {error_message}")
 else:
-    print("No files had problems.")
+    print("\033[91mNo files had problems.\033[0m")
