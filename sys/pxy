@@ -20,6 +20,7 @@ echo "     -Control pxy               🚀     ct"
 echo "     -Clean pxy                 🌈     cl"
 echo "     -Show me profit            💰     tp"
 echo "     -Show profit Table         💵     pl"
+echo "     -Test PXY All              🌟     ta"
 echo "     -Or Simply exit            ⛔     ex"
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
@@ -76,6 +77,10 @@ case $choice in
     pl)
         echo "Profit Table disply"
         pxytblprft
+        ;;
+    pl)
+        echo "Test PXY All"
+        pxytst
         ;;
     
     cl)
