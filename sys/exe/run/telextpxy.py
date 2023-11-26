@@ -1,6 +1,11 @@
+import os
 import telegram
 import asyncio
 import pandas as pd
+
+# Constants
+BOT_TOKEN = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'  # Replace with your actual bot token
+USER_USERNAMES = '-4022487175'  # Replace with your Telegram username or ID
 
 def send_telegram_message(message_text, bot_token, user_usernames):
     try:
@@ -40,4 +45,13 @@ def process_new_rows(file_path, telblock_path, bot_token, user_usernames):
             # Append the processed row to telblock
             with open(telblock_path, 'a') as telblock_file:
                 telblock_file.write(row_str + '\n')
+
+# File paths
+CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+FILE_PATH = os.path.join(CURRENT_DIR, 'filePnL.csv')
+TELBLOCK_PATH = os.path.join(CURRENT_DIR, 'telblock.txt')
+
+# Execute the functionality automatically
+process_new_rows(FILE_PATH, TELBLOCK_PATH, BOT_TOKEN, USER_USERNAMES)
+
 
