@@ -21,6 +21,7 @@ echo "     -Clean pxy                 🌈     cl"
 echo "     -Show me profit            💰     tp"
 echo "     -Show profit Table         💵     pl"
 echo "     -Test PXY All              🌟     ta"
+echo "     -python3                   🔥     py"
 echo "     -Or Simply exit            ⛔     ex"
 
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
@@ -86,6 +87,11 @@ case $choice in
     cl)
         echo "Clean PnL file"
         pxycln
+        ;;
+
+   py)
+        echo "Clean PnL file"
+        pxypy
         ;;
 
     *)
