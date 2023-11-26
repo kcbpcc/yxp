@@ -112,27 +112,37 @@ if decision == "YES":
                 if resp and isinstance(resp, dict):
                     ltp = resp[key]['last_price']
                 return ltp
+    
             ltp = get_ltp()
             logging.info(f"ltp for {dct['tradingsymbol']} is {ltp}")
+    
             if ltp <= 0:
                 return dct['tradingsymbol']
+    
+            available_cash = broker.get_available_cash()  # Replace with the actual method to get available cash
+    
+            if available_cash <= 10000:
+                logging.warning("Not enough available cash to place the order.")
+                return dct['tradingsymbol']
+    
             order_id = broker.order_place(
                 tradingsymbol=dct['tradingsymbol'],
                 exchange='NSE',
                 transaction_type='BUY',
-                quantity = int(float(dct['QTY'].replace(',', ''))),
+                quantity=int(float(dct['QTY'].replace(',', ''))),
                 order_type='LIMIT',
                 product='CNC',
                 variety='regular',
                 price=round_to_paise(ltp, +0.1)
             )
+    
             if order_id:
-                logging.info(
-                    f"BUY {order_id} placed for {dct['tradingsymbol']} successfully")
+                logging.info(f"BUY {order_id} placed for {dct['tradingsymbol']} successfully")
             else:
                 print(traceback.format_exc())
-                logging.error(f"unable to place order for {dct['tradingsymbol']}")
+                logging.error(f"Unable to place order for {dct['tradingsymbol']}")
                 return dct['tradingsymbol']
+    
         except Exception as e:
             print(traceback.format_exc())
             logging.error(f"{str(e)} while placing order")
