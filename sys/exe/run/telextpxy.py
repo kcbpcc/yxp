@@ -8,8 +8,8 @@ from telegram import ParseMode
 bot_token = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'
 user_usernames = '-4022487175'
 
-async def send_telegram_notification(row, key):
-    async def create_message_text(row, key):
+async def send_telegram_notification(row):
+    async def create_message_text(row):
         return f"{str(row)} Symbol: {key} [TradingView Chart](https://www.tradingview.com/chart/?symbol={key})"
 
     try:
