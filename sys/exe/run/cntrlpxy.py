@@ -9,7 +9,7 @@ import subprocess
 from cnstpxy import dir_path
 from colorama import Fore, Style
 import asyncio
-from telegram_notification import send_telegram_notification
+from telextpxy import send_telegram_notification
 ###########################################################################################################################################################################################################
 SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
@@ -156,7 +156,7 @@ try:
     from tprftpxy import sum_last_numerical_value_in_each_row
     from swchpxy import analyze_stock
     import asyncio
-    from telegram_notification import send_telegram_notification
+    from telextpxy import send_telegram_notification
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
