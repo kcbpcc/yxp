@@ -72,6 +72,8 @@ def mis_order_sell(index, row):
             )
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
+                send_telegram_notification(row)
+
                 return True
                 
             else:
@@ -100,6 +102,7 @@ def mis_order_buy(index, row):
             )
             if order_id:
                 logging.info(f"Order {order_id} placed for {exchsym[1]} successfully")
+                send_telegram_notification(row)
                 return True
                 
             else:
