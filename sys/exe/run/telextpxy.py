@@ -7,15 +7,6 @@ import pandas as pd
 BOT_TOKEN = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'  # Replace with your actual bot token
 USER_USERNAMES = '-4022487175'  # Replace with your Telegram username or ID
 
-def extract_symbol(row):
-    # Find the symbol in the row based on the prefixes "NSE:" or "BSE:"
-    if 'NSE:' in row:
-        return row.split('NSE:')[1].strip()
-    elif 'BSE:' in row:
-        return row.split('BSE:')[1].strip()
-    else:
-        return None
-
 def send_telegram_message(message_text, bot_token, user_usernames):
     try:
         # Function to send a message to Telegram
@@ -45,13 +36,12 @@ def process_new_rows(file_path, telblock_path, bot_token, user_usernames):
         print(f"File not found: {file_path}")
         return
 
-    # Iterate over new rows
+    # Iterate over rows
     for index, row in df.iterrows():
-        row_str = str(row)
-        symbol = extract_symbol(row_str)
+        row_str = ', '.join([f"{key}: {value}" for key, value in row.items()])
         
-        if symbol and row_str not in telblock:
-            message_text = f"{row_str} Symbol: {symbol} https://www.tradingview.com/chart/?symbol={symbol}"
+        if row_str not in telblock:
+            message_text = f"{row_str} https://www.tradingview.com/chart/?symbol={row['symbol']}"
             send_telegram_message(message_text, bot_token, user_usernames)
             # Append the processed row to telblock
             with open(telblock_path, 'a') as telblock_file:
@@ -64,6 +54,7 @@ TELBLOCK_PATH = os.path.join(CURRENT_DIR, 'telblock.txt')
 
 # Execute the functionality automatically
 process_new_rows(FILE_PATH, TELBLOCK_PATH, BOT_TOKEN, USER_USERNAMES)
+
 
 
 
