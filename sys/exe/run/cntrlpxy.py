@@ -54,11 +54,27 @@ def order_place(index, row):
                 
             else:
                 logging.error("Order placement failed")
+                send_telegram_notification(row)                
+                # Write the row to the CSV file here
+                with open(csv_file_path, 'a', newline='') as csvfile:
+                    csvwriter = csv.writer(csvfile)
+                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
+
         else:
             logging.error("Invalid format for 'index'")
+            send_telegram_notification(row)                
+            # Write the row to the CSV file here
+            with open(csv_file_path, 'a', newline='') as csvfile:
+                csvwriter = csv.writer(csvfile)
+                csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
     except Exception as e:
         print(traceback.format_exc())
         logging.error(f"{str(e)} while placing order")
+        # Write the row to the CSV file here
+        with open(csv_file_path, 'a', newline='') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
+    
     return False
 ###########################################################################################################################################################################################################
 def mis_order_sell(index, row):
