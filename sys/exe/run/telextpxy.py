@@ -13,7 +13,7 @@ def send_message(bot, chat_id, text):
 
 async def send_messages():
     # Read CSV file
-    csv_file_path = 'PnL.csv'
+    csv_file_path = 'filePnL.csv'
     df = pd.read_csv(csv_file_path)
 
     # Check for headers in the CSV file
