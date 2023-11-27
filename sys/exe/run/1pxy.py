@@ -1,5 +1,6 @@
-import telegram
 import warnings
+import telegram
+import asyncio
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
 bot_token = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'
@@ -7,10 +8,10 @@ user_usernames = ('-4022487175',)
 
 def send_message(bot, chat_id, text):
     with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
+        warnings.simplefilter("ignore", category=RuntimeWarning)
         bot.send_message(chat_id=chat_id, text=text)
 
-def send_messages():
+async def send_messages():
     # Initialize the Telegram bot
     bot_instance = telegram.Bot(token=bot_token)
 
@@ -24,4 +25,4 @@ def send_messages():
             print(f"Error sending message to chat_id {chat_id}: {e}")
 
 if __name__ == "__main__":
-    send_messages()
+    asyncio.run(send_messages())
