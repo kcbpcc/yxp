@@ -582,7 +582,7 @@ try:
        
         subprocess.run(['python3', 'mktpxy.py'])
 
-        print(f'{SILVER}{UNDERLINE}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛{RESET}')
+        print(f'{SILVER}{UNDERLINE}🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛{RESET}')
 
 except Exception as e:
     remove_token(dir_path)
