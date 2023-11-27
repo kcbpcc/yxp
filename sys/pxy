@@ -10,7 +10,6 @@ NC='\033[0m' # No Color
 echo -e " ${YELLOW}🏛🏛🏛 PXY® PreciseXceleratedYield Pvt Ltd™ 🏛🏛🏛${NC}"
 
 echo "     -Night Buy                 🍭     nb"
-echo "     -Get on Env                💻     en"
 echo "     -SquireOff-ALL             ❌     ka"
 echo "     -Sell all Buy              🔴     kb"
 echo "     -Buy all Sell              🟢     ks"
@@ -33,11 +32,6 @@ case $choice in
     nb)
         echo "Executing pxybuy - Night Buy"
         pxynbuy
-        ;;
-    en)
-        echo "Executing pxyenv - Get on Environment"
-        pxyenv
-        sudo source ~/env/bin/activate
         ;;
     ka)
         echo "Executing pxykill - SquireOff all Positions"
