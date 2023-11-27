@@ -2,7 +2,6 @@ import os
 import warnings
 import telegram
 import pandas as pd
-import time  # Import the time module for adding delays
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
 bot_token = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'
@@ -31,17 +30,19 @@ def send_messages():
     # Iterate through rows in the DataFrame
     for _, row in df.iterrows():
         # Construct message from the row data
-        message = "\n".join(f"{header}: {value}" for header, value in row.items())
+        message = "\n".join(f"{value}" for value in row)
 
         # Check if the message has been sent before
         if message in telblock:
             continue
 
+        # Print the message content for debugging
+        print("Sending message:")
+        print(message)
+
         # Send the message to the specified user(s)
         for chat_id in user_usernames:
-            print(f"Sending message to chat_id: {chat_id}")
             send_message(bot_instance, chat_id, message)
-            time.sleep(1)  # Add a 1-second delay between messages
 
         # Record the sent message in telblock.txt to avoid double sending
         telblock.add(message)
@@ -51,7 +52,4 @@ def send_messages():
         f.write("\n".join(telblock))
 
 if __name__ == "__main__":
-    print("Start sending messages")
     send_messages()
-    print("Finished sending messages")
-
