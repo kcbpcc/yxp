@@ -1,20 +1,16 @@
+import os
+import telegram
+import asyncio
 import pandas as pd
-import requests
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
 bot_token = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'
 user_usernames = ('-4022487175')
 
-def send_message(chat_id, text):
-    api_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
-    params = {'chat_id': chat_id, 'text': text, 'parse_mode': 'Markdown'}
-    response = requests.post(api_url, params=params)
+def send_message(bot, chat_id, text):
+    bot.send_message(chat_id=chat_id, text=text, parse_mode=telegram.ParseMode.MARKDOWN)
 
-    if response.status_code != 200:
-        print(f"Failed to send message to {chat_id}. Status code: {response.status_code}")
-        print(response.text)
-
-def send_messages():
+async def send_messages():
     # Read CSV file
     csv_file_path = 'filePnL.csv'
     df = pd.read_csv(csv_file_path)
@@ -34,6 +30,9 @@ def send_messages():
     except FileNotFoundError:
         telblock = set()
 
+    # Initialize the Telegram bot
+    bot = telegram.Bot(token=bot_token)
+
     # Iterate through rows in the DataFrame
     for _, row in df.iterrows():
         # Construct message from the row data
@@ -45,7 +44,7 @@ def send_messages():
 
         # Send the message to the specified user(s)
         for chat_id in user_usernames:
-            send_message(chat_id, message)
+            send_message(bot, chat_id, message)
 
         # Record the sent message in telblock.txt to avoid double sending
         telblock.add(message)
@@ -55,9 +54,6 @@ def send_messages():
         f.write("\n".join(telblock))
 
 if __name__ == "__main__":
-    send_messages()
-
-
-
-
-
+    # Create an event loop to run the asynchronous function
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(send_messages())
