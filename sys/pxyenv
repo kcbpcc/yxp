@@ -1,3 +1,0 @@
-#!/bin/bash
-echo "cd ~/pxy/sys/exe/run"
-echo "source ~/env/bin/activate"
