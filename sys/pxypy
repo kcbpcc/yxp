@@ -10,4 +10,4 @@ echo "Enter the name of the Python script to run:"
 read script_name
 
 # Run the Python script with the user-provided input
-python3 "$script_name"
+python3 "$script_name"pxy.py
