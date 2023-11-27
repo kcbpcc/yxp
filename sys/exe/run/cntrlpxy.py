@@ -9,6 +9,8 @@ import subprocess
 from cnstpxy import dir_path
 from colorama import Fore, Style
 import csv
+import telegram
+import asyncio
 ###########################################################################################################################################################################################################
 SILVER = "\033[97m"
 UNDERLINE = "\033[4m"
@@ -186,6 +188,8 @@ try:
     from mktchksmbl import getsmktchk
     from tprftpxy import sum_last_numerical_value_in_each_row
     from swchpxy import analyze_stock
+    import telegram
+    import asyncio
     
     # Replace 'filePnL.csv' with the path to your actual CSV file
     file_path = 'filePnL.csv'
