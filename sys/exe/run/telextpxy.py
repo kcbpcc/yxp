@@ -14,7 +14,7 @@ def send_message(bot, chat_id, text):
 
 def send_messages():
     # Read CSV file
-    csv_file_path = 'PnL.csv'
+    csv_file_path = 'filePnL.csv'
     df = pd.read_csv(csv_file_path)
 
     # Read telblock.txt to keep track of sent messages
