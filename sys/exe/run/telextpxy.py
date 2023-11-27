@@ -1,4 +1,5 @@
 import os
+import warnings
 import telegram
 import pandas as pd
 
@@ -7,23 +8,22 @@ bot_token = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'
 user_usernames = ('-4022487175')
 
 def send_message(bot, chat_id, text):
-    bot.send_message(chat_id=chat_id, text=text, parse_mode='Markdown')
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        bot.send_message(chat_id=chat_id, text=text, parse_mode='Markdown')
 
 def send_messages():
-    # Read CSV file without headers
-    csv_file_path = 'filePnL.csv'
-    df = pd.read_csv(csv_file_path, header=None)
+    # Read CSV file
+    csv_file_path = 'PnL.csv'
+    df = pd.read_csv(csv_file_path)
 
-    # Check for the number of columns in each row
-    if len(df.columns) != 16:
-        print(f"Error: Each row should have exactly 16 comma-separated values.")
-        return
+    # Check for headers in the CSV file
+    required_headers = {'qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%'}
+    missing_headers = required_headers - set(df.columns)
 
-    # Define column names
-    column_names = ['no', 'qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%']
-    
-    # Assign column names to the DataFrame
-    df.columns = column_names
+    # If there are missing headers, handle it gracefully
+    if missing_headers:
+        print(f"Warning: Missing headers in CSV file: {missing_headers}")
 
     # Read telblock.txt to keep track of sent messages
     try:
@@ -31,6 +31,9 @@ def send_messages():
             telblock = set(map(str.strip, f.readlines()))
     except FileNotFoundError:
         telblock = set()
+
+    # Ensure that the DataFrame has the correct columns
+    df.columns = ['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%'][:len(df.columns)]
 
     # Initialize the Telegram bot
     bot_instance = telegram.Bot(token=bot_token)
@@ -57,6 +60,7 @@ def send_messages():
 
 if __name__ == "__main__":
     send_messages()
+
 
 
 
