@@ -1,6 +1,5 @@
 import os
 import telegram
-import asyncio
 import pandas as pd
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
@@ -8,12 +7,11 @@ bot_token = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'
 user_usernames = ('-4022487175')
 
 def send_message(bot, chat_id, text):
-    # Specify 'Markdown' as the parse mode
     bot.send_message(chat_id=chat_id, text=text, parse_mode='Markdown')
 
-async def send_messages():
+def send_messages():
     # Read CSV file
-    csv_file_path = 'filePnL.csv'
+    csv_file_path = 'PnL.csv'
     df = pd.read_csv(csv_file_path)
 
     # Check for headers in the CSV file
@@ -55,6 +53,4 @@ async def send_messages():
         f.write("\n".join(telblock))
 
 if __name__ == "__main__":
-    # Create an event loop to run the asynchronous function
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(send_messages())
+    send_messages()
