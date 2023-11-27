@@ -16,7 +16,6 @@ from mktchksmbl import getsmktchk
 from swchpxy import analyze_stock
 from nftpxy import nse_action
 import asyncio
-from telextpxy import send_telegram_notification
 
 
 logging = Logger(10)
@@ -152,7 +151,7 @@ if decision == "YES":
     
             if order_id:
                 logging.info(f"SELL {order_id} placed for {tradingsymbol} successfully")
-                send_telegram_notification(row)
+                
             else:
                 print(traceback.format_exc())
                 logging.error(f"Unable to place order for {tradingsymbol}")
