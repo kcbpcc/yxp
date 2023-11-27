@@ -75,7 +75,7 @@ case $choice in
         ;;
     ta)
         echo "Test PXY All"
-        pxytst
+        pxychk
         ;;
     
     cl)
