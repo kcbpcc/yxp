@@ -14,7 +14,6 @@ from ynfndpxy import calculate_decision
 from mktpxy import mktpxy
 import asyncio
 
-
 logging = Logger(10)
 holdings = dir_path + "holdings.csv"
 black_file = dir_path + "blacklist.txt"
