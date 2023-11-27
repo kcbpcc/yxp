@@ -5,9 +5,14 @@ source ~/env/bin/activate
 # Change to the script's directory
 cd ~/pxy/sys/exe/run
 
-# Prompt the user for input
-echo "Enter the name of the Python script to run:"
-read script_name
+# Check if the user provided a script name
+if [ -z "$1" ]; then
+  # If no input provided, use the default script (pxy.py)
+  script_name="pxy.py"
+else
+  # Append "pxy.py" to the user-provided script name
+  script_name="$1pxy.py"
+fi
 
-# Run the Python script with the user-provided input
+# Run the Python script
 python3 "$script_name"
