@@ -31,7 +31,7 @@ async def send_messages():
         telblock = set()
 
     # Initialize the Telegram bot
-    bot = telegram.Bot(token=bot_token)
+    bot_instance = telegram.Bot(token=bot_token)
 
     # Iterate through rows in the DataFrame
     for _, row in df.iterrows():
@@ -44,7 +44,7 @@ async def send_messages():
 
         # Send the message to the specified user(s)
         for chat_id in user_usernames:
-            send_message(bot, chat_id, message)
+            send_message(bot_instance, chat_id, message)
 
         # Record the sent message in telblock.txt to avoid double sending
         telblock.add(message)
@@ -57,4 +57,5 @@ if __name__ == "__main__":
     # Create an event loop to run the asynchronous function
     loop = asyncio.get_event_loop()
     loop.run_until_complete(send_messages())
+
 
