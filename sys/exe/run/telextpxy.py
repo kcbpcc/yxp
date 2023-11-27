@@ -10,12 +10,17 @@ def send_message(bot, chat_id, text):
     bot.send_message(chat_id=chat_id, text=text, parse_mode='Markdown')
 
 def send_messages():
-    # Read CSV file without headers
+    # Read CSV file
     csv_file_path = 'filePnL.csv'
-    df = pd.read_csv(csv_file_path, header=None)
+    df = pd.read_csv(csv_file_path)
 
-    # Assign required headers
-    df.columns = ['no','qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%']
+    # Check for headers in the CSV file
+    required_headers = {'no', 'qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%'}
+    missing_headers = required_headers - set(df.columns)
+
+    # If there are missing headers, handle it gracefully
+    if missing_headers:
+        print(f"Warning: Missing headers in CSV file: {missing_headers}")
 
     # Read telblock.txt to keep track of sent messages
     try:
@@ -23,6 +28,9 @@ def send_messages():
             telblock = set(map(str.strip, f.readlines()))
     except FileNotFoundError:
         telblock = set()
+
+    # Ensure that the DataFrame has the correct columns
+    df.columns = ['no', 'qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%'][:len(df.columns)]
 
     # Initialize the Telegram bot
     bot_instance = telegram.Bot(token=bot_token)
@@ -49,4 +57,5 @@ def send_messages():
 
 if __name__ == "__main__":
     send_messages()
+
 
