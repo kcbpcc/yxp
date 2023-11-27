@@ -15,7 +15,7 @@ def send_messages():
     df = pd.read_csv(csv_file_path, header=None)
 
     # Assign required headers
-    df.columns = ['qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%']
+    df.columns = ['no','qty', 'avg', 'close', 'ltp', 'open', 'high', 'low', 'PnL%_H', 'dPnL%', 'product', 'source', 'key', 'pxy', 'yxp', 'PnL%']
 
     # Read telblock.txt to keep track of sent messages
     try:
