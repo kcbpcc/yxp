@@ -49,22 +49,12 @@ def order_place(index, row):
                     csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
                 return True                
             else:
-                logging.error("Order placement failed")
-                with open(csv_file_path, 'a', newline='') as csvfile:
-                    csvwriter = csv.writer(csvfile)
-                    csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file                
+                logging.error("Order placement failed")       
         else:
-            logging.error("Invalid format for 'index'")
-            with open(csv_file_path, 'a', newline='') as csvfile:
-                csvwriter = csv.writer(csvfile)
-                csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
-    
+            logging.error("Invalid format for 'index'")    
     except Exception as e:
         print(traceback.format_exc())
         logging.error(f"{str(e)} while placing order")
-        with open(csv_file_path, 'a', newline='') as csvfile:
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(row.tolist())  # Write the selected row to the CSV file
     return False
 ###########################################################################################################################################################################################################
 def mis_order_sell(index, row):
@@ -428,7 +418,7 @@ try:
                         row['qty'] > 0 and
                         row['source'] == 'holdings' and
                         row['product'] == 'CNC' and
-                        row['PnL%'] < 1.4 and
+                        row['PnL%'] > 1.4 and
                         ((row['PnL%'] < ((row['pxy'])) and row['PnL%_H'] > ((row['pxy']))) or (row['PnL%'] > TIMPXY))
                    
                     ):
