@@ -1,11 +1,14 @@
 import telegram
+import warnings
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
 bot_token = '6409002088:AAH9mu0lfjvHl_IgRAgX7YrjJQa2Ew9qaLo'
 user_usernames = ('-4022487175',)
 
 def send_message(bot, chat_id, text):
-    bot.send_message(chat_id=chat_id, text=text)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        bot.send_message(chat_id=chat_id, text=text)
 
 def send_messages():
     # Initialize the Telegram bot
