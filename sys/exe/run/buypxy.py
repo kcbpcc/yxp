@@ -17,7 +17,6 @@ from swchpxy import analyze_stock
 from nftpxy import nse_action
 import asyncio
 
-
 logging = Logger(10)
 holdings = dir_path + "holdings.txt"
 black_file = dir_path + "blacklist.txt"
