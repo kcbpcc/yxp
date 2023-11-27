@@ -14,7 +14,7 @@ while True:
     from luppxy import loop_duration
     from swchpxy import analyze_stock
 
-    #switch = analyze_stock('^NSEI')
+    switch = analyze_stock('^NSEI')
     
     ############################################"PXY® PreciseXceleratedYield Pvt Ltd™############################################
     subprocess.run(['python3', 'cpritepxy.py'])
